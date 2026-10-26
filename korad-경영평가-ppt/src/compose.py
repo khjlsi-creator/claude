@@ -4,6 +4,7 @@
 서사를 단락별 노드(JSON)로 적으면 노드마다 맞는 블록을 골라 A4 쪽에 쌓는다.
   python3 compose.py 서사.json 출력.pptx        # 서사 한 편을 PPT로
   python3 compose.py --catalog 출력.pptx        # 레이아웃 카탈로그(서사 유형별 쪽 예시)
+  --layouts 를 붙이면 쪽마다 진짜 슬라이드 레이아웃(자리표시자)으로 만들어 PowerPoint에서 칸을 눌러 고친다
 
 노드 종류(t): chapter · eval · topic · sub · ladder · strategy · twin · panel3 · table · result · connector · note · newpage
 블록 선택표는 narratives.md 참고. 문구는 구조 확인용 예시이며 KORAD 실적이 아니다.
@@ -55,7 +56,7 @@ def make(node):
     raise ValueError('알 수 없는 노드 ' + t)
 
 
-def compose(spec, out):
+def compose(spec, out, layouts=False):
     d = RD()
     f = Flow(d, spec.get('start_no', 1), spec.get('first', 'odd'), foot=spec.get('foot', '2025년도 경영실적보고서'), indicator=spec.get('indicator', '노사관계'),
              number=spec.get('number', '4'), cat=spec.get('cat', 'Ⅰ. 경영관리 범주'), name=spec.get('name', '조직 운영 및 관리'), note=spec.get('note'))
@@ -66,16 +67,22 @@ def compose(spec, out):
             f.break_page(); continue
         pending.append(make(node))
     f.add_all(pending)
+    if layouts:
+        from layoutize import layoutize_slide
+        for i, sl in enumerate(list(d.prs.slides), 1):
+            layoutize_slide(d.prs, sl, f'{spec.get("layout_prefix", "P")}{i:02d} 쪽 레이아웃')
     d.save(out)
     return d, f
 
 
 if __name__ == '__main__':
-    if sys.argv[1] == '--catalog':
+    lay = '--layouts' in sys.argv
+    args = [a for a in sys.argv[1:] if a != '--layouts']
+    if args[0] == '--catalog':
         from recipes import catalog_spec
-        d, f = compose(catalog_spec(), sys.argv[2])
+        d, f = compose(catalog_spec(), args[1], layouts=lay)
     else:
-        d, f = compose(json.load(open(sys.argv[1], encoding='utf-8')), sys.argv[2])
-    print('saved', sys.argv[-1], f.pages(), '쪽')
+        d, f = compose(json.load(open(args[0], encoding='utf-8')), args[1], layouts=lay)
+    print('saved', args[-1], f.pages(), '쪽')
     for w in d.warn:
         print('WARN', w)

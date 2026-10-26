@@ -555,6 +555,7 @@ class Flow:
         d.do_snap = False
         self.s = None; self.y = BODY_TOP; self.prev = None
         self.placed = []
+        self.placed_blocks = []
         self._new_page()
 
     def _new_page(self):
@@ -588,6 +589,7 @@ class Flow:
         y = self.y + gap
         blk.draw(self.d, self.s, self.x0, y, W)
         self.placed.append(dict(page=len(self.d.prs.slides), kind=blk.kind, cls=type(blk).__name__, x0=self.x0, y=y, h=blk.height(W), tag=getattr(blk, 'tag', None)))
+        self.placed_blocks.append(blk)
         self.y = y + blk.height(W)
         self.prev = blk.kind
 
