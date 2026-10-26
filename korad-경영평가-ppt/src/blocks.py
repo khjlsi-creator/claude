@@ -527,5 +527,10 @@ class Flow:
         self.y = y + blk.height(W)
         self.prev = blk.kind
 
+    def break_page(self):
+        """새 서사(평가내용)는 새 쪽에서 시작"""
+        if self.prev is not None:
+            self._new_page()
+
     def pages(self):
         return len(self.d.prs.slides)

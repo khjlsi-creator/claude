@@ -1,0 +1,72 @@
+# -*- coding: utf-8 -*-
+"""서사 → 레이아웃 조합기.
+
+서사를 단락별 노드(JSON)로 적으면 노드마다 맞는 블록을 골라 A4 쪽에 쌓는다.
+  python3 compose.py 서사.json 출력.pptx        # 서사 한 편을 PPT로
+  python3 compose.py --catalog 출력.pptx        # 레이아웃 카탈로그(서사 유형별 쪽 예시)
+
+노드 종류(t): chapter · eval · topic · sub · ladder · strategy · twin · table · result · connector · note · newpage
+블록 선택표는 narratives.md 참고. 문구는 구조 확인용 예시이며 KORAD 실적이 아니다.
+"""
+import sys, json
+from blocks import *
+
+PALETTE = {1: ['blue'], 2: ['blue', 'deep'], 3: ['blue', 'teal', 'deep'], 4: ['blue', 'teal', 'teal', 'deep'], 5: ['blue', 'teal', 'teal', 'deep', 'deep']}
+RESULT_LABELS = ('추진성과', '성과', '핵심성과')
+
+
+def auto_rows(rows):
+    """레일 색을 서사 순서(블루 → 틸 → 딥블루)로, 성과 레일은 그린으로 자동 배정하고 색이 바뀌는 곳에 쐐기를 단다."""
+    n = len(rows); pal = PALETTE.get(n, ['blue'] + ['teal'] * (n - 2) + ['deep']) if n > 1 else PALETTE[1]
+    out = []; prev = None
+    for i, r in enumerate(rows):
+        r = dict(r)
+        label = r['label'].replace('\n', '')
+        r.setdefault('tone', 'res' if label in RESULT_LABELS else pal[i])
+        r.setdefault('notch', prev is not None and r['tone'] != prev and r['tone'] != 'res' and not r.get('tag') is False)
+        prev = r['tone']
+        out.append(r)
+    return out
+
+
+def make(node):
+    t = node['t']
+    if t == 'chapter': return ChapterBand(node['title'])
+    if t == 'eval': return EvalBand(node['n'], node['title'])
+    if t == 'topic': return NumBar(node['n'], node['title'])
+    if t == 'sub': return SubHead(node['text'], node.get('chips', []))
+    if t == 'ladder':
+        frame = 'g4' if all(r['label'].replace('\n', '') in RESULT_LABELS for r in node['rows']) else node.get('frame', 'g2')
+        return Ladder(auto_rows(node['rows']), frame=frame, side=node.get('side'))
+    if t == 'strategy': return LabelRows(node['rows'], node.get('label_w', 110))
+    if t == 'twin':
+        mk = lambda side: (side['title'], [(r[0], r[1], r[2]) for r in side['rows']])
+        return TwinPanel(mk(node['left']), mk(node['right']), tuple(node.get('label_w', (135, 148))))
+    if t == 'table': return DataTable(node['header'], node['rows'])
+    if t == 'result': return Result(node.get('items') or node['text'], node.get('label', '핵심성과'))
+    if t == 'connector': return Connector()
+    if t == 'note': return Note(node['text'])
+    raise ValueError('알 수 없는 노드 ' + t)
+
+
+def compose(spec, out):
+    d = RD()
+    f = Flow(d, spec.get('start_no', 1), spec.get('first', 'odd'), foot=spec.get('foot', '2025년도 경영실적보고서'), indicator=spec.get('indicator', '노사관계'),
+             number=spec.get('number', '4'), cat=spec.get('cat', 'Ⅰ. 경영관리 범주'), name=spec.get('name', '조직 운영 및 관리'), note=spec.get('note'))
+    for node in spec['nodes']:
+        if node['t'] == 'newpage':
+            f.break_page(); continue
+        f.add(make(node))
+    d.save(out)
+    return d, f
+
+
+if __name__ == '__main__':
+    if sys.argv[1] == '--catalog':
+        from recipes import catalog_spec
+        d, f = compose(catalog_spec(), sys.argv[2])
+    else:
+        d, f = compose(json.load(open(sys.argv[1], encoding='utf-8')), sys.argv[2])
+    print('saved', sys.argv[-1], f.pages(), '쪽')
+    for w in d.warn:
+        print('WARN', w)
