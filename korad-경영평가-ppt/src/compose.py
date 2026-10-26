@@ -5,7 +5,7 @@
   python3 compose.py 서사.json 출력.pptx        # 서사 한 편을 PPT로
   python3 compose.py --catalog 출력.pptx        # 레이아웃 카탈로그(서사 유형별 쪽 예시)
 
-노드 종류(t): chapter · eval · topic · sub · ladder · strategy · twin · table · result · connector · note · newpage
+노드 종류(t): chapter · eval · topic · sub · ladder · strategy · twin · panel3 · table · result · connector · note · newpage
 블록 선택표는 narratives.md 참고. 문구는 구조 확인용 예시이며 KORAD 실적이 아니다.
 """
 import sys, json
@@ -37,11 +37,17 @@ def make(node):
     if t == 'sub': return SubHead(node['text'], node.get('chips', []))
     if t == 'ladder':
         frame = 'g4' if all(r['label'].replace('\n', '') in RESULT_LABELS for r in node['rows']) else node.get('frame', 'g2')
-        return Ladder(auto_rows(node['rows']), frame=frame, side=node.get('side'))
-    if t == 'strategy': return LabelRows(node['rows'], node.get('label_w', 110))
+        lad = Ladder(auto_rows(node['rows']), frame=frame, side=node.get('side'), photos=node.get('photos'))
+        lad.tag = 'photos' if node.get('photos') else ('side' if node.get('side') else None)
+        return lad
+    if t == 'strategy':
+        lr = LabelRows(node['rows'], node.get('label_w', 110))
+        lr.tag = 'nested' if any(isinstance(it, dict) and 'sub' in it for r in node['rows'] for col in r.get('items', []) if isinstance(col, list) for it in col) else None
+        return lr
     if t == 'twin':
         mk = lambda side: (side['title'], [(r[0], r[1], r[2]) for r in side['rows']])
         return TwinPanel(mk(node['left']), mk(node['right']), tuple(node.get('label_w', (135, 148))))
+    if t == 'panel3': return ThreePanel(node['panels'])
     if t == 'table': return DataTable(node['header'], node['rows'])
     if t == 'result': return Result(node.get('items') or node['text'], node.get('label', '핵심성과'))
     if t == 'connector': return Connector()
@@ -53,10 +59,13 @@ def compose(spec, out):
     d = RD()
     f = Flow(d, spec.get('start_no', 1), spec.get('first', 'odd'), foot=spec.get('foot', '2025년도 경영실적보고서'), indicator=spec.get('indicator', '노사관계'),
              number=spec.get('number', '4'), cat=spec.get('cat', 'Ⅰ. 경영관리 범주'), name=spec.get('name', '조직 운영 및 관리'), note=spec.get('note'))
+    pending = []
     for node in spec['nodes']:
         if node['t'] == 'newpage':
+            f.add_all(pending); pending = []
             f.break_page(); continue
-        f.add(make(node))
+        pending.append(make(node))
+    f.add_all(pending)
     d.save(out)
     return d, f
 

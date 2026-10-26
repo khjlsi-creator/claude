@@ -22,10 +22,19 @@ def nl(text, w_px, hang=3.3):
     return est_lines(text, max((w_px * K - hang - 2.4) * 0.93, 8), SZ_D)
 
 
+SUB_LW = 96
+
+
+def sub_rows_h(sub, w_px):
+    return sum(max(items_h(lines, w_px - SUB_LW - 14), 60) for _, lines in sub)
+
+
 def items_h(items, w_px):
     h = 0.0
     for it in items:
-        if isinstance(it, dict) and 'table' in it:
+        if isinstance(it, dict) and 'sub' in it:
+            h += sub_rows_h(it['sub'], w_px) - 8
+        elif isinstance(it, dict) and 'table' in it:
             h += len(it['table']) * 38 + 6
         else:
             h += nl(it if isinstance(it, str) else it['t'], w_px) * LP + 2
@@ -198,6 +207,18 @@ def draw_band(d, s, xc, xr, y, b):
 def _cols(d, s, y0, y1, e, items, bullet):
     for i, its in enumerate(items):
         a, b_ = e[i], e[i + 1]
+        if its and isinstance(its[0], dict) and 'sub' in its[0]:
+            sub = its[0]['sub']; yy = y0 + 2
+            for k, (lab, lines) in enumerate(sub):
+                rh = max(items_h(lines, b_ - a - 4 - SUB_LW - 14), 60)
+                d.rail(s, a + 4, yy, a + 4 + SUB_LW, yy + rh - 3, lab, 'blue')
+                d.t(s, a + SUB_LW + 8, yy, b_ - 2, yy + rh - 3, [B(t) for t in lines], anchor='m', mg=(1.2, 0.2, 0.6, 0.2), name='소행 본문', tag='소행')
+                if k < len(sub) - 1:
+                    d.hl(s, a + 4, yy + rh - 1, b_ - 4, yy + rh - 1, color=TONE['g2'], lw=0.75)
+                yy += rh
+            if i > 0:
+                d.hl(s, a, y0 + 6, a, y1 - 6, color=TONE['hair'], lw=0.75)
+            continue
         paras = []
         tables = [it for it in its if isinstance(it, dict) and 'table' in it]
         texts = [it for it in its if not (isinstance(it, dict) and 'table' in it)]
@@ -233,11 +254,13 @@ class Ladder(Block):
     splittable = True
     gap = 8
 
-    def __init__(self, rows, frame='g2', side=None, rail=RAIL):
-        self.rows, self.frame, self.side, self.rail = rows, frame, side, rail
+    PHOTO_W = 175
+
+    def __init__(self, rows, frame='g2', side=None, rail=RAIL, photos=None):
+        self.rows, self.frame, self.side, self.rail, self.photos = rows, frame, side, rail, photos
 
     def _wc(self, W):
-        return W - (self.side['w'] + 40 if self.side else 0)
+        return W - (self.side['w'] + 40 if self.side else 0) - (self.PHOTO_W + 8 if self.photos else 0)
 
     def row_h(self, r, W):
         wc = self._wc(W) - self.rail - 14
@@ -257,6 +280,8 @@ class Ladder(Block):
             acc += h; k += 1
         if k == 0 or k == len(self.rows):
             return None
+        if self.photos:
+            return None
         a = Ladder(self.rows[:k], self.frame, None, self.rail); b = Ladder(self.rows[k:], self.frame, self.side, self.rail)
         return a, b
 
@@ -264,8 +289,9 @@ class Ladder(Block):
         H = self.height(W); wl = self._wc(W)
         d.use('사다리 표', x0, y, x0 + wl, y + H, f'{len(self.rows)}단계')
         d.r(s, x0, y, x0 + wl, y + H, fill=C['white'], line=C['green_400'] if self.frame == 'g4' else TONE['line'], lw=0.75, name='표 외곽')
-        yy = y + 3; prev = None
+        yy = y + 3; prev = None; ys = []
         for r in self.rows:
+            ys.append((yy, self.row_h(r, W)))
             rh = self.row_h(r, W)
             tone = r.get('tone', 'blue')
             d.rail(s, x0 + 2, yy, x0 + 2 + self.rail, yy + rh, r['label'], tone, tag=r.get('tag'), notch=r.get('notch', False))
@@ -278,10 +304,16 @@ class Ladder(Block):
                 by += bh + 3
             prev = tone
             yy += rh + 3
+        if self.photos:
+            px0 = x0 + wl + 8
+            for ph in self.photos:
+                i0, i1 = ph['rows']
+                ya, yb = ys[i0][0], ys[i1][0] + ys[i1][1]
+                d.photo(s, px0, ya, x0 + W, yb, ph.get('caption', '사진'))
         if self.side:
             sd = self.side
             ax = x0 + wl + 4
-            d.r(s, ax, y + H / 2 - 22, ax + 28, y + H / 2 + 22, fill=TONE['g4'], shape=MSO_SHAPE.RIGHT_ARROW, name='성과 화살표')
+            d.tri_arrow(s, ax + 14, y + H / 2, 52, 26, down=False, name='성과 화살표')
             px0 = x0 + wl + 36
             d.shp(s, px0, y, x0 + W, y + 44, sd['title'], '008C6B', color=C['white'], sz=SZ_C, name='성과 패널 머리')
             d.r(s, px0, y + 46, x0 + W, y + H, fill=C['tint_mint'], line=C['green_400'], lw=1.5, name='성과 패널')
@@ -458,6 +490,38 @@ class DataTable(Block):
         d.use('실적 구분표', x0, y, x0 + W, y + self.height(W))
 
 
+# ---- 3분할 패널 -------------------------------------------------------
+class ThreePanel(Block):
+    """칸 2~4개 패널: 머리 + 불릿 + 하단 요약 바(수치 한 줄). 예) 복리후생 향상 | 가족친화경영 확대 | 안전일터 조성"""
+    kind = '3분할 패널'
+    gap = 10
+
+    def __init__(self, panels):
+        self.panels = panels
+
+    def _pw(self, W):
+        n = len(self.panels)
+        return (W - 8 * (n - 1)) / n
+
+    def height(self, W):
+        pw = self._pw(W)
+        body = max(items_h(p['items'], pw - 6) for p in self.panels)
+        has_f = any(p.get('footer') for p in self.panels)
+        return 42 + max(body, 90) + (44 if has_f else 4) + 4
+
+    def draw(self, d, s, x0, y, W):
+        pw = self._pw(W); H = self.height(W)
+        d.use('3분할 패널', x0, y, x0 + W, y + H, f'{len(self.panels)}칸')
+        for i, p in enumerate(self.panels):
+            xa = x0 + i * (pw + 8); xb = xa + pw
+            d.r(s, xa, y, xb, y + H, fill=C['white'], line=TONE['g2'], lw=1.0, name='패널 외곽')
+            d.shp(s, xa, y, xb, y + 42, p['title'], TONE['g2'], color=C['navy'], name='패널 머리')
+            fh = 44 if p.get('footer') else 0
+            d.t(s, xa + 4, y + 44, xb - 4, y + H - fh - 4, [B(t) for t in p['items']], anchor='m', mg=(1.4, 0.2, 0.6, 0.2), name='패널 본문', tag=p['title'])
+            if p.get('footer'):
+                d.shp(s, xa + 4, y + H - 44, xb - 4, y + H - 4, p['footer'], TONE['g1'], color=C['navy'], bold=False, name='요약 바')
+
+
 # ---- 성과 띠 ----------------------------------------------------------
 class Result(Block):
     """핵심성과·추진성과 띠. 항목 1개=한 줄 띠, 2개 이상=불릿 여러 줄 띠"""
@@ -526,6 +590,31 @@ class Flow:
         self.placed.append(dict(page=len(self.d.prs.slides), kind=blk.kind, cls=type(blk).__name__, x0=self.x0, y=y, h=blk.height(W), tag=getattr(blk, 'tag', None)))
         self.y = y + blk.height(W)
         self.prev = blk.kind
+
+    HEADS = ('장 제목 띠', '평가내용 띠', '번호 띠', '소제목')
+
+    def add_all(self, blocks):
+        """제목류(장·평가내용·번호 띠·소제목)는 뒤따르는 본문 블록과 같은 쪽에 둔다(홀로 쪽 끝에 남지 않게)."""
+        i, n = 0, len(blocks)
+        while i < n:
+            j = i
+            while j < n and blocks[j].kind in self.HEADS:
+                j += 1
+            if j > i:
+                grp = blocks[i:j + 1] if j < n else blocks[i:j]
+                need = 0.0
+                for k, bl in enumerate(grp):
+                    hh = bl.height(W)
+                    if bl is blocks[j] if j < n else False:
+                        hh = hh if not bl.splittable else min(hh, 200)
+                    need += hh + (bl.gap if (k or self.prev is not None) else 0)
+                if self.prev is not None and self.y + need > BODY_BOT:
+                    self._new_page()
+                for bl in grp:
+                    self.add(bl)
+                i = j + 1
+            else:
+                self.add(blocks[i]); i += 1
 
     def break_page(self):
         """새 서사(평가내용)는 새 쪽에서 시작"""

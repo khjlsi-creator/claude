@@ -300,9 +300,9 @@ class RD(Deck):
                 self.warn.append(f'p{self.pageno} 레일 라벨 폭 {label!r}')
         return sp
 
-    def rail_notch(self, s, x0, y, x1, prev_tone, h=26):
-        """레일 사이 아래 방향 쐐기(앞 칸 색이 다음 칸 위로 내려옴)"""
-        self.poly(s, [(x0, y), (x1, y), ((x0 + x1) / 2, y + h)], RAILS[LEGACY.get(prev_tone, prev_tone)][1], name='레일 쐐기')
+    def rail_notch(self, s, x0, y, x1, prev_tone, h=24):
+        """레일 사이 아래 방향 삼각형: 앞 단계 색이 다음 칸 위로 삼각형으로 내려온다"""
+        self.poly(s, [(x0, y), (x1, y), ((x0 + x1) / 2, y + h)], RAILS[LEGACY.get(prev_tone, prev_tone)][1], name='레일 삼각형')
 
     def rail_sep(self, s, x0, y, x1):
         self.hl(s, x0 + 6, y, x1 - 6, y, color=C['white'], lw=1.5)
@@ -327,28 +327,28 @@ class RD(Deck):
                 self.hl(s, a, y0 + 6, a, y1 - 6, color=TONE['hair'], lw=0.75)
 
     def step_strip(self, s, y0, y1, edges, labels, style='chev'):
-        """단계 띠(쉐브론). 마지막 단계가 가장 진하다. style은 호환용(항상 쉐브론)."""
+        """단계 띠: 직각 칸 + 칸 끝이 삼각형으로 뾰족하게 다음 칸을 가리킨다. 마지막 칸이 가장 진하다."""
         n = len(labels)
         tones = ['g1', 'g2', 'g3', 'g4'] if n == 4 else (['g2', 'g3', 'g4'] if n == 3 else ['g1', 'g2', 'g3', 'g4', 'g4'][:n])
         self.use('단계 띠', edges[0], y0, edges[-1], y1, f'{n}단계')
         for i, lab in enumerate(labels):
-            a, b = edges[i], edges[i + 1]
-            tn = tones[i]
-            col = ink_on(TONE[tn])
-            last = i == n - 1
-            shape = MSO_SHAPE.PENTAGON if i == 0 else MSO_SHAPE.CHEVRON
-            sp = self.r(s, a - (0 if i == 0 else 12), y0, b + (0 if last else 12), y1, fill=TONE[tn], shape=shape, name='단계')
-            sp.adjustments[0] = 0.30
-            self.fill_text(sp, [dict(t=lab, sz=SZ_D, b=True, color=col, align='c')], anchor='m', margins=(2.4, 0, 2.4, 0))
+            sp = self.r(s, edges[i], y0, edges[i + 1], y1, fill=TONE[tones[i]], name='단계')
+            self.fill_text(sp, [dict(t=lab, sz=SZ_D, b=True, color=ink_on(TONE[tones[i]]), align='c')], anchor='m', margins=(2.4, 0, 2.4, 0))
+        cy = (y0 + y1) / 2
+        for i, e in enumerate(edges[1:-1]):
+            self.poly(s, [(e, y0), (e + 20, cy), (e, y1)], TONE[tones[i]], name='단계 삼각형')
+
+    def tri_arrow(self, s, cx, cy, w, h, down=True, fill=None, name='삼각 화살표'):
+        """속이 찬 삼각 화살표(▼ 또는 ▶)"""
+        f = fill or TONE['g4']
+        if down:
+            return self.poly(s, [(cx - w / 2, cy - h / 2), (cx + w / 2, cy - h / 2), (cx, cy + h / 2)], f, name=name)
+        return self.poly(s, [(cx - h / 2, cy - w / 2), (cx - h / 2, cy + w / 2), (cx + h / 2, cy)], f, name=name)
 
     def bracket(self, s, x0, y0, x1, h=36):
-        """연결 화살표: 위 묶음에서 아래 한 칸으로 (가로 막대 + 가운데 아래 화살표)"""
+        """연결 화살표: 위 묶음에서 아래 한 칸으로 가운데 아래 삼각형(▼)"""
         self.use('연결 화살표', x0, y0, x1, y0 + h)
-        cx = (x0 + x1) / 2
-        self.r(s, x0, y0 + 2, x1, y0 + 8, fill=TONE['g2'], name='연결 막대')
-        self.r(s, x0, y0 + 2, x0 + 5, y0 + 16, fill=TONE['g2'], name='연결 끝')
-        self.r(s, x1 - 5, y0 + 2, x1, y0 + 16, fill=TONE['g2'], name='연결 끝')
-        self.r(s, cx - 20, y0 + 5, cx + 20, y0 + h, fill=TONE['g4'], shape=MSO_SHAPE.DOWN_ARROW, name='연결 화살표')
+        self.tri_arrow(s, (x0 + x1) / 2, y0 + h / 2, 64, 26, down=True)
 
     def label_box(self, s, y0, y1, label, label_w=110, x0=98, x1=1248, tone='blue', tag_arrow=False, name='라벨 박스'):
         """라벨 박스: 외곽선 박스 + 왼쪽 라벨 칸. 안쪽 시작 x를 돌려준다."""
