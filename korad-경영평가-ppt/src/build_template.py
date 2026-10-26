@@ -30,8 +30,8 @@ for name, pgs in pages_of:
 prs = d.prs
 for i, sl in enumerate(list(prs.slides), 1):
     layoutize_slide(prs, sl, names[i])
+prs.save(tmpl)          # 샘플 글자가 채워진 쪽을 함께 둔다(복제해서 글만 바꾼다)
 if sample:
+    drop_slides(prs)
     prs.save(sample)
-drop_slides(prs)
-prs.save(tmpl)
 print('레이아웃', len(prs.slide_layouts), '쪽 예시', len(names))
