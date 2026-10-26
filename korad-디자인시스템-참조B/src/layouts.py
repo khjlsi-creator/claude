@@ -8,10 +8,10 @@ def L49():
 <div class="ko-b-pi" style="margin-top:3px"><div class="no">S</div><b>협력사 상생 안전관리 강화</b><span>상주 협력사 위험성평가 우수사업장 인정</span></div>
 <div class="ko-b-pi" style="margin-top:3px"><div class="no">G</div><b>법·윤리경영체계 확립</b><span>권익위 부패방지시책평가 최우수 등급 달성</span></div>'''
     rp2='''<div style="font-size:14px;font-weight:700;color:var(--blue-dark);display:flex;align-items:center;gap:6px;margin-bottom:3px"><img src="%s" alt="" style="width:14px;height:14px">연간 효율개선 효과</div>
-<div class="ko-b-pi" style="padding-left:28px;margin:0 0 2px"><div class="no" style="top:0;width:18px;height:18px;font-size:11px">1</div><span style="font-size:14px;font-weight:500;line-height:18px">방폐물 검사 <b style="display:inline;color:var(--blue-strong)">2,000시간</b> 단축</span></div>
-<div class="ko-b-pi" style="padding-left:28px;margin:0 0 2px"><div class="no" style="top:0;width:18px;height:18px;font-size:11px">2</div><span style="font-size:14px;font-weight:500;line-height:18px">지하수 관측 <b style="display:inline;color:var(--blue-strong)">192시간</b> 단축</span></div>
-<div class="ko-b-pi" style="padding-left:28px;margin:0 0 2px"><div class="no" style="top:0;width:18px;height:18px;font-size:11px">3</div><span style="font-size:14px;font-weight:500;line-height:18px">순찰점검 <b style="display:inline;color:var(--blue-strong)">104시간</b> 단축</span></div>
-<div class="ko-b-pi" style="padding-left:28px;margin:0"><div class="no" style="top:0;width:18px;height:18px;font-size:11px">4</div><span style="font-size:14px;font-weight:500;line-height:18px">안전관리 <b style="display:inline;color:var(--blue-strong)">48시간</b> 단축</span></div>''' % blob('check')
+<div class="ko-b-pi" style="padding-left:28px;margin:0 0 2px"><div class="no" style="top:0;width:18px;height:18px;font-size:11px">1</div><span style="font-size:14px;font-weight:500;line-height:18px">방폐물 검사 <b class="em" style="display:inline">2,000시간</b> 단축</span></div>
+<div class="ko-b-pi" style="padding-left:28px;margin:0 0 2px"><div class="no" style="top:0;width:18px;height:18px;font-size:11px">2</div><span style="font-size:14px;font-weight:500;line-height:18px">지하수 관측 <b class="em" style="display:inline">192시간</b> 단축</span></div>
+<div class="ko-b-pi" style="padding-left:28px;margin:0 0 2px"><div class="no" style="top:0;width:18px;height:18px;font-size:11px">3</div><span style="font-size:14px;font-weight:500;line-height:18px">순찰점검 <b class="em" style="display:inline">104시간</b> 단축</span></div>
+<div class="ko-b-pi" style="padding-left:28px;margin:0"><div class="no" style="top:0;width:18px;height:18px;font-size:11px">4</div><span style="font-size:14px;font-weight:500;line-height:18px">안전관리 <b class="em" style="display:inline">48시간</b> 단축</span></div>''' % blob('check')
     c1=taskcard(130.7,'경영관리','01','ESG 경영 도입을 통한 KORAD 미래가치 제고',
         '<span class="ko-highlight">ESG 확산</span> 등 국가적 ESG 인프라 확충 및 공공기관의 ESG 경영 선도 요구',
         '<ul class="ko-b-ul"><li>경영전략과 연계한 「KORAD ESG 경영 추진 계획」 수립</li><li>ESG 성과창출 기반 강화: 추진체계(ESG 위원회·노사공동 선언)와 제도정비(ISO14001 인증)</li></ul>',
@@ -25,22 +25,22 @@ def L49():
     hd=header('03','주요 추진실적','ESG 경영 및 스마트 전환','5','3-1','ESG 경영 도입과 스마트 전환으로 경영효율화 추진')
     sp=spec('L49','과제 카드 ×2','2021 기관설명회 5~9번 파생 · TaskCard(육각 배지·딥블루 띠·라벨 표) + ResultPanel',items,
       '과제(추진실적) 한 개를 “배경 → 노력 → 성과” 순으로 보여 주는 카드를 위아래로 2개 쌓을 때.',
-      ['카드 높이 188.5 · 사이 6 (3단×2행 행 높이와 같은 값)','표 : 패널 = 544.4 : 333.3, 사이 12.5 (원본 5:3 비율 → 2단 간격 12.5)','패널 윗선 = 표 윗선, 패널 아랫선 = 카드 아랫선','표 본문 14pt·불릿 2단계 12pt · 추진노력 3~4줄','패널 항목 3개(제목 14pt + 설명 12pt 한 줄) 또는 4줄 목록','시스템 규칙대로 Governing Message 필요 · 복합 조합 아님(같은 카드 2회 복제)'])
+      ['카드 높이 188.5 · 사이 6 (3단×2행 행 높이와 같은 값)','표 : 패널 = 544.4 : 333.3, 사이 12.5 (원본 5:3 비율 → 2단 간격 12.5)','패널 윗선 = 표 윗선, 패널 아랫선 = 카드 아랫선','표 본문 14pt·불릿 2단계 12pt · 추진노력 3~4줄','라벨 = trellis 타일(추진배경 블루 → 추진노력 틸), 성과 패널 = 그린 계열(결과)','패널 항목 3개(제목 14pt + 설명 12pt 한 줄) 또는 4줄 목록','시스템 규칙대로 Governing Message 필요 · 복합 조합 아님(같은 카드 2회 복제)'])
     return page('L49','L49 과제 카드 ×2 · 2021 기관설명회 5~9번 파생',hd,c1+c2,guides(items),sp,810)
 
 # ───────── L50 과제 카드 ×1 ─────────
 def L50():
     rp='''<div style="display:flex;flex-direction:column;gap:10px;height:100%">
-<div style="flex:1;background:var(--white);border:0.5px solid var(--blue-bright);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:14px;gap:2px">방사선작업자 개인별<b style="font-size:16px">“목표치 초과자”</b><span class="ko-highlight" style="font-size:36px;font-weight:700;color:var(--blue-strong);line-height:1.15">ZERO</span></div>
-<div style="flex:1;background:var(--white);border:0.5px solid var(--blue-bright);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:14px;gap:2px">전년 대비 피폭 저감<span style="font-size:36px;font-weight:700;color:var(--blue-strong);line-height:1.15">17%</span><small style="font-size:12px">0.35 → 0.29 mSv/인</small></div></div>'''
+<div style="flex:1;background:var(--white);border:0.5px solid var(--green-400);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:14px;gap:2px">방사선작업자 개인별<b style="font-size:16px">“목표치 초과자”</b><span class="ko-highlight" style="font-size:36px;font-weight:700;color:var(--teal-600);line-height:1.15">ZERO</span></div>
+<div style="flex:1;background:var(--white);border:0.5px solid var(--green-400);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:14px;gap:2px">전년 대비 피폭 저감<span style="font-size:36px;font-weight:700;color:var(--teal-600);line-height:1.15">17%</span><small style="font-size:12px">0.35 → 0.29 mSv/인</small></div></div>'''
     bg='<ul class="ko-b-ul"><li>방폐물 관리수량 증가로 인한 작업자 방사선 피폭량 증가추세</li><li>특히 ’20년 피폭량의 80%를 차지하는 <span class="ko-highlight">RI 폐기물 관리업무</span> 대책마련 필요</li></ul>'
-    ef='<ul class="ko-b-ul" style="line-height:1.35"><li>[P] 전년도 성과 및 ’21년 작업계획 분석을 통해 방사선 관리목표 설정</li><li>[D] 방사선 다피폭이 예상되는 RI 폐기물 관리업무에 대한 환경개선 추진<ul><li>RI 폐기물 일부 분리보관, 원격검사설비 도입 등</li></ul></li><li>[C·A] ALARA 위원회 모니터링을 통한 다피폭 작업자 순환배치 등 환류</li></ul>'
+    ef='<ul class="ko-b-ul" style="line-height:1.35"><li>[P] 전년도 성과 및 ’21년 작업계획 분석을 통해 방사선 관리목표 설정</li><li>[D] 다피폭 예상 RI 폐기물 관리업무 환경개선 추진<ul><li>RI 폐기물 일부 분리보관, 원격검사설비 도입 등</li></ul></li><li>[C·A] ALARA 위원회 모니터링, 다피폭 작업자 순환배치</li></ul>'
     c=taskcard(130.7,'안전관리','01','방사선작업자 피폭선량 저감으로 안전한 근무환경 조성',bg,ef,544.4,327.1,591.8,333.3,rp,96,hdr_h=24,cls='big')
     items=[('과제 카드 · 육각 배지+딥블루 띠',34.9,130.7,890.2,48),('표(구분/세부 내용)',34.9,186.7,544.4,327.1),('성과 패널',591.8,186.7,333.3,327.1)]
     hd=header('03','주요 추진실적','안전관리','8','3-3','방사선 피폭 저감으로 안전한 근무환경 조성')
     sp=spec('L50','과제 카드 ×1','L49 카드 모듈 1개를 본문 높이로 확장 · TaskCard + ResultPanel(수치 카드 2칸)',items,
       '과제 하나를 크게 — 추진노력이 5줄 이상이거나 성과 수치(KPI)가 2개 이상일 때.',
-      ['카드 높이 383.1(본문 전체) — 표 높이만 327.1로 늘림','표 행: 머리글 24 · 추진배경 96 · 추진노력 207.1','성과 패널: 흰 수치 카드 2칸(높이 1:1, 사이 10) — 숫자 36pt Bold blue-strong','수치 강조는 빨강이 아니라 blue-strong + 민트 형광 밑줄'])
+      ['카드 높이 383.1(본문 전체) — 표 높이만 327.1로 늘림','표 행: 머리글 24 · 추진배경 96 · 추진노력 207.1','성과 패널(그린 계열): 흰 수치 카드 2칸(높이 1:1, 사이 10) — 숫자 36pt Bold teal-600','수치 강조는 빨강이 아니라 계열색(결과 = teal-600) + 민트 형광 밑줄'])
     return page('L50','L50 과제 카드 ×1 · L49 카드 1개 확장',hd,c,guides(items),sp,780)
 
 # ───────── L51 정의 박스 + 포토 타임라인 + 요약 3칸 ─────────
@@ -86,7 +86,7 @@ def L52():
         o+=vl(x+56,T+132,T+152)+box('dv',x,T+152,112,40,n)
     # 정원 표
     ty=370.7+34
-    tbl=f'''<table class="ko-table l b14" style="left:{L}px;top:{ty}px;width:{W}px"><colgroup><col style="width:110px"><col span="7"></colgroup><thead><tr><th>구 분</th><th>상임이사</th><th>일반직</th><th>연구직</th><th>기능직</th><th>공무직</th><th>별도정원</th><th>합 계</th></tr></thead><tbody><tr><th>정 원</th><td>2</td><td>276</td><td>30</td><td>5</td><td>93</td><td>4</td><td style="font-weight:600;background:var(--tint-blue-100)">410</td></tr><tr><th>비중(%)</th><td>0.5</td><td>67.3</td><td>7.3</td><td>1.2</td><td>22.7</td><td>1.0</td><td style="font-weight:600;background:var(--tint-blue-100)">100.0</td></tr></tbody></table>'''
+    tbl=f'''<table class="ko-table l b14" style="left:{L}px;top:{ty}px;width:{W}px"><colgroup><col style="width:110px"><col span="7"></colgroup><thead><tr><th>구 분</th><th>상임이사</th><th>일반직</th><th>연구직</th><th>기능직</th><th>공무직</th><th>별도정원</th><th>합 계</th></tr></thead><tbody><tr><th>정 원</th><td>2</td><td>276</td><td>30</td><td>5</td><td>93</td><td>4</td><td style="font-weight:600">410</td></tr><tr><th>비중(%)</th><td>0.5</td><td>67.3</td><td>7.3</td><td>1.2</td><td>22.7</td><td>1.0</td><td style="font-weight:600">100.0</td></tr></tbody></table>'''
     body=sec(L,130.7,'조직현황',' (’22.3월 현재)')+o+sec(L,370.7-0,'정원현황',' (’22.3월 현재)')+tbl
     items=[('소제목',L,130.7,W,26),('조직도',L,164.7,W,192),('소제목',L,370.7,W,26),('표(머리글+2행)',L,404.7,W,90)]
     hd=header('01','기관 일반현황','조직 및 정원','3','1-2','7개 본부·단·원 체계로 운영하는 조직과 정원 현황')
@@ -98,8 +98,9 @@ def L52():
 # ───────── L53 정의 박스 + [요약 패널 ▶ 상세 패널] ×2행 ─────────
 def L53():
     LW=291.1; AZ=54; RX=round(L+LW+AZ,1); RW=round(R-RX,1)
-    def panel(x,y,w,h,title,inner,hh=28):
-        return f'<div class="ko-b-rp" style="left:{x}px;top:{y}px;width:{w}px;height:{h}px;background:var(--white)"><h4 class="ko-trellis-blue" style="height:{hh}px">{title}</h4><div class="bd" style="top:{hh}px;padding:6px 12px">{inner}</div></div>'
+    def panel(x,y,w,h,title,inner,hh=28,fam='blue'):
+        cls='ko-b-rp is-teal' if fam=='teal' else 'ko-b-rp'
+        return f'<div class="{cls}" style="left:{x}px;top:{y}px;width:{w}px;height:{h}px;background:var(--white)"><h4 class="ko-trellis-{fam}" style="height:{hh}px">{title}</h4><div class="bd" style="top:{hh}px;padding:6px 12px">{inner}</div></div>'
     def share(l,v,c,ct):
         return f'<div class="ko-b-sh" style="--c:var({c});--c-text:var({ct})"><span class="l">{l}</span><span class="v">{v}%</span><div class="tk"><i style="width:{v}%"></i></div></div>'
     r1y=248.7; r1h=160; r2y=round(r1y+r1h+8,1); r2h=round(513.8-r2y,1)
@@ -112,8 +113,8 @@ def L53():
     body=sec(L,130.7,'방사성폐기물(방폐물)의 정의')+defbox(L,164.7,W,'방사성물질 또는 그에 따라 오염된 물질로서 폐기의 대상이 되는 물질 <small style="font-weight:400;font-size:12px;color:var(--slate-700)">(원자력안전법 제2조)</small>')
     body+=sec(L,214.7,'방사성폐기물의 종류·발생 및 관리현황')
     body+=panel(L,r1y,LW,r1h,'발 생 현 황 <small style="letter-spacing:0;font-weight:500;font-size:12px;margin-left:6px">(’21.12월 기준)</small>',left1)
-    body+=arrow(L+LW,r1y+r1h/2)+panel(RX,r1y,RW,r1h,'관 리 현 황',right1)
-    body+=panel(L,r2y,LW,r2h,'고준위방폐물',left2,26)+arrow(L+LW,r2y+r2h/2)+panel(RX,r2y,RW,r2h,'관리정책 및 기반구축',right2,26)
+    body+=arrow(L+LW,r1y+r1h/2)+panel(RX,r1y,RW,r1h,'관 리 현 황',right1,fam='teal')
+    body+=panel(L,r2y,LW,r2h,'고준위방폐물',left2,26)+arrow(L+LW,r2y+r2h/2)+panel(RX,r2y,RW,r2h,'관리정책 및 기반구축',right2,26,fam='teal')
     items=[('소제목 · 정의 박스',L,130.7,W,70),('소제목',L,214.7,W,26),('요약 패널 1행',L,r1y,LW,r1h),('상세 패널 1행',RX,r1y,RW,r1h),('요약 패널 2행',L,r2y,LW,r2h),('상세 패널 2행',RX,r2y,RW,r2h)]
     hd=header('02','방사성폐기물 개요','정의·종류·발생·관리','4','2-1','방사성폐기물의 정의와 종류, 발생 및 관리 현황')
     sp=spec('L53','정의 박스 + 요약 ▶ 상세 ×2행','2021 기관설명회 3번 파생 · DefinitionBox + ResultPanel(요약) ▶ FlowArrow ▶ ResultPanel(상세)',items,
@@ -131,20 +132,20 @@ def L54():
     nrbox=f'<div class="ko-b-nr" style="left:{L}px;top:{y1}px;width:{LW}px;height:{h1}px">{nr}</div>'
     rc1=resultcard(RX,y1,RW,h1,f'<img src="{blob("badge")}" alt="" style="width:36px;height:36px;margin-bottom:6px"><span class="t">2020년 지적사항</span><span class="big">100<small>%</small></span><span class="cap">조치완료</span>')
     tbl=f'''<table class="ko-table l b14 r23" style="left:{L}px;top:{y2}px;width:{LW}px"><colgroup><col style="width:200px"><col><col style="width:130px"></colgroup><thead><tr><th>구 분</th><th>지표명(가중치)</th><th>2021년 실적</th></tr></thead><tbody>
-<tr><th style="background:var(--tint-blue-100)">방폐물 관리사업(중ㆍ저준위)</th><td class="tl" style="text-align:center">방폐물 안전처분 성과(9점)</td><td class="tr">100점</td></tr>
-<tr><th style="background:var(--tint-blue-100)">방폐물 관리사업(고준위)</th><td class="tl" style="text-align:center">방폐물 관리기술 개발 및 확산 성과(5점)</td><td class="tr">100점</td></tr>
-<tr><th style="background:var(--tint-blue-100)">안전 관리사업(인적안전)</th><td class="tl" style="text-align:center">종사자 피폭선량 저감화 성과(8점)</td><td class="tr">97.552점</td></tr>
-<tr><th style="background:var(--tint-blue-100)">안전 관리사업(인적안전)</th><td class="tl" style="text-align:center">근로자 안전사고 예방지수(7점)</td><td class="tr">95.200점</td></tr>
-<tr><th style="background:var(--tint-blue-100)">안전 관리사업(시설안전)</th><td class="tl" style="text-align:center">처분시설 안전운영 노력(2점)</td><td class="tr">92.004점</td></tr></tbody></table>'''
+<tr><th>방폐물 관리사업(중ㆍ저준위)</th><td class="tl" style="text-align:center">방폐물 안전처분 성과(9점)</td><td class="tr">100점</td></tr>
+<tr><th>방폐물 관리사업(고준위)</th><td class="tl" style="text-align:center">방폐물 관리기술 개발 및 확산 성과(5점)</td><td class="tr">100점</td></tr>
+<tr><th>안전 관리사업(인적안전)</th><td class="tl" style="text-align:center">종사자 피폭선량 저감화 성과(8점)</td><td class="tr">97.552점</td></tr>
+<tr><th>안전 관리사업(인적안전)</th><td class="tl" style="text-align:center">근로자 안전사고 예방지수(7점)</td><td class="tr">95.200점</td></tr>
+<tr><th>안전 관리사업(시설안전)</th><td class="tl" style="text-align:center">처분시설 안전운영 노력(2점)</td><td class="tr">92.004점</td></tr></tbody></table>'''
     bars=f'<div class="ko-bars" style="left:44px;top:58px;width:104px;height:44px"><div class="ko-bargroup" style="gap:12px"><div class="ko-bar base" style="width:26px;height:30px"><b style="font-size:12px">95.58</b></div><div class="ko-bar accent" style="width:26px;height:38px"><b style="font-size:12px">97.77</b></div></div></div><div class="ko-axis" style="left:44px;top:104px;width:104px;font-size:12px;justify-content:space-between;padding:0 4px"><span>’20년</span><span>’21년</span></div>'
-    rc2=resultcard(RX,y2,RW,h2,f'<div style="position:absolute;left:10px;top:6px;font-size:28px;font-weight:700;color:var(--blue-strong);line-height:1.1">2.3<small style="font-size:16px">%</small> <span style="font-size:16px;color:var(--navy-ink);font-weight:500">향상</span></div>{bars}')
+    rc2=resultcard(RX,y2,RW,h2,f'<div style="position:absolute;left:10px;top:6px;font-size:28px;font-weight:700;color:var(--teal-600);line-height:1.1">2.3<small style="font-size:16px">%</small> <span style="font-size:16px;color:var(--navy-ink);font-weight:500">향상</span></div>{bars}')
     body=sec(L,130.7,'2020년 외부 지적사항 조치실적')+nrbox+arrow(L+LW,y1+h1/2)+rc1
     body+=sec(L,s2,'2021년 주요사업 계량지표 실적',' (잠정)')+tbl+arrow(L+LW,y2+h2/2)+rc2
     items=[('소제목',L,130.7,W,26),('번호 행 박스',L,y1,LW,h1),('결과 카드',RX,y1,RW,h1),('소제목',L,s2,W,26),('표(머리글+5행)',L,y2,LW,h2),('성과 카드',RX,y2,RW,h2)]
     hd=header('03','주요 추진실적','경영평가 환류','4','3-2','2020년 외부 지적사항 100% 조치 및 계량지표 실적 향상')
     sp=spec('L54','번호 행 ▶ 결과 카드 + 표 ▶ 성과 카드','2021 기관설명회 4번 파생 · NumberRows·DataTable ▶ FlowArrow ▶ ResultCard',items,
       '“근거(번호 항목·표) ▶ 결과 한 장(카드)”을 위아래 두 묶음으로 보여 줄 때.',
-      ['좌우 = 3 : 1 (628.8 + 화살표 54 + 207.4) — 오른쪽은 4단 열 폭 207.4','위 묶음 163 / 아래 묶음 138.1 (원본 194 : 162), 사이 14','번호 행: 머리 띠 24(tint-blue-200 → 투명) + 흰 번호 원 18 + 본문 14pt 대시','결과 카드: 이중 틀(tint-blue-100 + 흰 카드), 큰 숫자 40pt Bold blue-strong(원본의 빨강 대체)','성과 카드 막대 = 짝막대 패턴형(막대 26, 간격 12), 축 일부 생략 시 각주 표기','표 = DataTable 기본형, 구분 열 tint-blue-100(원본의 노랑·하늘 구분색 폐지)'])
+      ['좌우 = 3 : 1 (628.8 + 화살표 54 + 207.4) — 오른쪽은 4단 열 폭 207.4','위 묶음 163 / 아래 묶음 138.1 (원본 194 : 162), 사이 14','번호 행: 머리 띠 24(fade-blue → 투명) + navy-deep 번호 원 18 + 본문 14pt 대시','결과 카드: 이중 틀(tint-mint-50 + 흰 카드, 결과 = 그린 계열), 큰 숫자 40pt Bold teal-600(원본의 빨강 대체)','성과 카드 막대 = 짝막대 패턴형(막대 26, 간격 12), 축 일부 생략 시 각주 표기','표 = DataTable 기본형 그대로(구분 열 흰색 — 색 강조 열 금지, 원본의 노랑·하늘 구분색 폐지)'])
     return page('L54','L54 번호 행 ▶ 결과 카드 + 표 ▶ 성과 카드 · 2021 기관설명회 4번 파생',hd,body,guides(items),sp,810)
 
 ALL={'L49':L49,'L50':L50,'L51':L51,'L52':L52,'L53':L53,'L54':L54}
