@@ -60,6 +60,10 @@ TONE = dict(
     line=C['blue_bright'],   # 외곽선
     hair=C['tint_200'],      # 칸 나누는 가는 선
 )
+# KORAD RowLabel 타일: trellis 패턴(전경/배경). 블루 → 틸 → 딥블루 순서로 쓰고, 성과는 그린 계열.
+RAILS = dict(blue=(C['blue_panel_light'], C['blue_panel']), teal=('00BEC2', C['teal_panel']), deep=('0A6BE6', C['blue_deep']),
+             res=(C['teal_500'], '008C6B'), navy=(C['navy_band'], C['navy_band']))
+LEGACY = dict(g1='blue', g2='teal', g3='deep', g4='res')
 DARK = (TONE['g4'], TONE['g5'])      # 흰 글자를 쓰는 바탕
 
 
@@ -245,6 +249,7 @@ class RD(Deck):
         """소제목 가./나. + 태그칩"""
         self.use('소제목', x0, y0, x0 + w, y0 + h)
         tw = text_w(text, SZ_SUB, True)
+        self.r(s, x0, y0 + 28, x0 + tw / K + 4, y0 + 36, fill=C['mint_hl'], name='형광 밑줄')
         self.t(s, x0, y0, x0 + w, y0 + h, [dict(t=text, sz=SZ_SUB, b=True, color=C['navy'])], name='소제목', mg=(0, 0, 0, 0), tag=text[:12])
         cx = x0 + tw / K + 22
         for c in chips:
@@ -255,7 +260,7 @@ class RD(Deck):
     def core_band(self, s, y0, text, x0=98, x1=1248, h=55, label='핵심성과'):
         """핵심성과 띠: 라벨(오각 화살) + 굵은 외곽 박스"""
         self.use('핵심성과 띠', x0, y0, x1, y0 + h)
-        self.r(s, x0, y0, x1, y0 + h, fill=C['white'], line=TONE['g5'], lw=2.25, shape=MSO_SHAPE.ROUNDED_RECTANGLE, rad=10, name='핵심성과 박스')
+        self.r(s, x0, y0, x1, y0 + h, fill=C['tint_mint'], line=C['green_400'], lw=1.5, name='핵심성과 박스')
         tag = self.r(s, x0 + 6, y0 + 7, x0 + 126, y0 + h - 7, fill=TONE['g5'], shape=MSO_SHAPE.PENTAGON, name='핵심성과 라벨')
         tag.adjustments[0] = 0.28
         self.fill_text(tag, [dict(t=label, sz=SZ_C, b=True, color=C['white'], align='c')], anchor='m', margins=(0.5, 0, 2.2, 0))
@@ -265,27 +270,31 @@ class RD(Deck):
     def core_band2(self, s, y0, items, x0=132, x1=1281, h=88, label='핵심성과'):
         """핵심성과 띠(불릿 2줄형): 라벨이 박스 높이를 채운다"""
         self.use('핵심성과 띠(2줄형)', x0, y0, x1, y0 + h)
-        self.r(s, x0, y0, x1, y0 + h, fill=C['white'], line=TONE['g5'], lw=2.25, shape=MSO_SHAPE.ROUNDED_RECTANGLE, rad=10, name='핵심성과 박스')
+        self.r(s, x0, y0, x1, y0 + h, fill=C['tint_mint'], line=C['green_400'], lw=1.5, name='핵심성과 박스')
         self.shp(s, x0 + 6, y0 + 6, x0 + 126, y0 + h - 6, label, TONE['g5'], sz=SZ_C, name='핵심성과 라벨')
         self.t(s, x0 + 142, y0 + 4, x1 - 12, y0 + h - 4, [dict(t=t, sz=SZ_C, b=True, color=C['navy'], bullet='•', hang=4.2, after=1.0) for t in items],
                name='핵심성과 문구', tag='핵심성과2')
         return y0 + h
 
     # ---- 사다리 표 -------------------------------------------------
-    def rail(self, s, x0, y0, x1, y1, label, tone='g2', tag=None, notch=False):
-        """왼쪽 레일 한 칸. tag가 있으면 흰 작은 태그가 라벨 위에 붙는다."""
-        fill = TONE[tone]
-        sp = self.r(s, x0, y0, x1, y1, fill=fill, name='레일')
-        col = ink_on(fill)
+    def rail(self, s, x0, y0, x1, y1, label, tone='blue', tag=None, notch=False):
+        """왼쪽 레일 한 칸 = KORAD RowLabel 타일(trellis, 흰 굵은 글자). tag가 있으면 흰 작은 태그가 라벨 위에 붙는다."""
+        tone = LEGACY.get(tone, tone)
+        fore, back = RAILS[tone]
+        sp = self.r(s, x0, y0, x1, y1, fill=back, name='레일')
+        if fore != back:
+            self.trellis(sp, fore, back)
+        col = C['white']
+        paras = [dict(t=ln, sz=SZ_D, b=True, color=col, align='c') for ln in label.split('\n')]
         if tag:
             th = 34
             top = y0 + (30 if notch else 8)
             tw_ = text_w(tag, SZ_D, True) / K + 22
             cx = (x0 + x1) / 2
-            self.shp(s, cx - tw_ / 2, top, cx + tw_ / 2, top + th, tag, C['white'], shape=MSO_SHAPE.ROUNDED_RECTANGLE, rad=6, name='레일 태그', mg=(0.2, 0, 0.2, 0))
-            self.t(s, x0, top + th, x1, y1 - 4, [dict(t=ln, sz=SZ_D, b=True, color=col, align='c') for ln in label.split('\n')], name='레일 라벨', mg=(0.3, 0, 0.3, 0))
+            self.shp(s, cx - tw_ / 2, top, cx + tw_ / 2, top + th, tag, C['white'], color=C['navy'], name='레일 태그', mg=(0.2, 0, 0.2, 0))
+            self.t(s, x0, top + th, x1, y1 - 4, paras, name='레일 라벨', mg=(0.3, 0, 0.3, 0))
         else:
-            self.fill_text(sp, [dict(t=ln, sz=SZ_D, b=True, color=col, align='c') for ln in label.split('\n')], anchor='m', margins=(0.3, 0, 0.3, 0))
+            self.fill_text(sp, paras, anchor='m', margins=(0.3, 0, 0.3, 0))
             w = S(x1 - x0) - 0.6
             if any(text_w(ln, SZ_D, True) > w for ln in label.split('\n')):
                 self.warn.append(f'p{self.pageno} 레일 라벨 폭 {label!r}')
@@ -293,7 +302,7 @@ class RD(Deck):
 
     def rail_notch(self, s, x0, y, x1, prev_tone, h=26):
         """레일 사이 아래 방향 쐐기(앞 칸 색이 다음 칸 위로 내려옴)"""
-        self.poly(s, [(x0, y), (x1, y), ((x0 + x1) / 2, y + h)], TONE[prev_tone], name='레일 쐐기')
+        self.poly(s, [(x0, y), (x1, y), ((x0 + x1) / 2, y + h)], RAILS[LEGACY.get(prev_tone, prev_tone)][1], name='레일 쐐기')
 
     def rail_sep(self, s, x0, y, x1):
         self.hl(s, x0 + 6, y, x1 - 6, y, color=C['white'], lw=1.5)
@@ -318,45 +327,33 @@ class RD(Deck):
                 self.hl(s, a, y0 + 6, a, y1 - 6, color=TONE['hair'], lw=0.75)
 
     def step_strip(self, s, y0, y1, edges, labels, style='chev'):
-        """단계 띠. edges=[x0 ... xn](n개 구간). 마지막 단계가 가장 진하다.
-        style='chev': 오각 화살 머리 / 'arrow': 이음매마다 원형 화살표"""
+        """단계 띠(쉐브론). 마지막 단계가 가장 진하다. style은 호환용(항상 쉐브론)."""
         n = len(labels)
-        tones = ['g1', 'g2', 'g3', 'g4'] if n == 4 else ['g2', 'g3', 'g4']
-        self.use('단계 띠', edges[0], y0, edges[-1], y1, style)
+        tones = ['g1', 'g2', 'g3', 'g4'] if n == 4 else (['g2', 'g3', 'g4'] if n == 3 else ['g1', 'g2', 'g3', 'g4', 'g4'][:n])
+        self.use('단계 띠', edges[0], y0, edges[-1], y1, f'{n}단계')
         for i, lab in enumerate(labels):
             a, b = edges[i], edges[i + 1]
             tn = tones[i]
             col = ink_on(TONE[tn])
-            if style == 'chev':
-                last = i == n - 1
-                shape = MSO_SHAPE.PENTAGON if i == 0 else MSO_SHAPE.CHEVRON
-                sp = self.r(s, a - (0 if i == 0 else 10), y0, b + (0 if last else 10), y1, fill=TONE[tn], shape=shape, name='단계')
-                sp.adjustments[0] = 0.32
-                self.fill_text(sp, [dict(t=lab, sz=SZ_D, b=True, color=col, align='c')], anchor='m', margins=(2.2, 0, 2.2, 0))
-            else:
-                sp = self.r(s, a, y0, b, y1, fill=TONE[tn], name='단계')
-                self.fill_text(sp, [dict(t=lab, sz=SZ_D, b=True, color=col, align='c')], anchor='m', margins=(0.6, 0, 3.0, 0))
-        if style == 'arrow':
-            for e in edges[1:-1]:
-                d_ = 40
-                cy = (y0 + y1) / 2
-                self.shp(s, e - d_ / 2 - 6, cy - d_ / 2, e + d_ / 2 - 6, cy + d_ / 2, '→', C['white'], shape=MSO_SHAPE.OVAL, color=TONE['g4'],
-                         sz=SZ_D, line=TONE['g2'], lw=1.0, name='단계 화살표', mg=(0, 0, 0, 0))
+            last = i == n - 1
+            shape = MSO_SHAPE.PENTAGON if i == 0 else MSO_SHAPE.CHEVRON
+            sp = self.r(s, a - (0 if i == 0 else 12), y0, b + (0 if last else 12), y1, fill=TONE[tn], shape=shape, name='단계')
+            sp.adjustments[0] = 0.30
+            self.fill_text(sp, [dict(t=lab, sz=SZ_D, b=True, color=col, align='c')], anchor='m', margins=(2.4, 0, 2.4, 0))
 
     def bracket(self, s, x0, y0, x1, h=36):
-        """연결 브래킷: 위 묶음 → 아래 한 칸 (가운데 쐐기)"""
-        self.use('연결 브래킷', x0, y0, x1, y0 + h)
+        """연결 화살표: 위 묶음에서 아래 한 칸으로 (가로 막대 + 가운데 아래 화살표)"""
+        self.use('연결 화살표', x0, y0, x1, y0 + h)
         cx = (x0 + x1) / 2
-        o = self.r(s, x0, y0, x1, y0 + h, fill=TONE['g1'], shape=MSO_SHAPE.ROUND_2_SAME_RECTANGLE, name='브래킷')
-        self.r(s, x0 + 8, y0 - 2, x1 - 8, y0 + h - 8, fill=C['white'], shape=MSO_SHAPE.RECTANGLE, name='브래킷 안')
-        self.r(s, cx - 66, y0 + h - 10, cx + 66, y0 + h - 3, fill=TONE['g4'], rad=3, shape=MSO_SHAPE.ROUNDED_RECTANGLE, name='브래킷 막대')
-        tri = self.r(s, cx - 14, y0 + h - 3, cx + 14, y0 + h + 12, fill=TONE['g4'], shape=MSO_SHAPE.ISOSCELES_TRIANGLE, name='브래킷 끝')
-        tri.rotation = 180
+        self.r(s, x0, y0 + 2, x1, y0 + 8, fill=TONE['g2'], name='연결 막대')
+        self.r(s, x0, y0 + 2, x0 + 5, y0 + 16, fill=TONE['g2'], name='연결 끝')
+        self.r(s, x1 - 5, y0 + 2, x1, y0 + 16, fill=TONE['g2'], name='연결 끝')
+        self.r(s, cx - 20, y0 + 5, cx + 20, y0 + h, fill=TONE['g4'], shape=MSO_SHAPE.DOWN_ARROW, name='연결 화살표')
 
-    def label_box(self, s, y0, y1, label, label_w=110, x0=98, x1=1248, tone='g2', tag_arrow=False, name='라벨 박스'):
+    def label_box(self, s, y0, y1, label, label_w=110, x0=98, x1=1248, tone='blue', tag_arrow=False, name='라벨 박스'):
         """라벨 박스: 외곽선 박스 + 왼쪽 라벨 칸. 안쪽 시작 x를 돌려준다."""
         self.use('라벨 박스', x0, y0, x1, y1)
-        self.r(s, x0, y0, x1, y1, fill=C['white'], line=TONE['line'], lw=0.75, shape=MSO_SHAPE.ROUNDED_RECTANGLE, rad=8, name=name)
+        self.r(s, x0, y0, x1, y1, fill=C['white'], line=TONE['line'], lw=0.75, name=name)
         self.rail(s, x0 + 2, y0 + 2, x0 + label_w, y1 - 2, label, tone)
         return x0 + label_w + 6
 
@@ -385,7 +382,7 @@ class RD(Deck):
             ys = list(ys)
             for i, (tag, lab, its) in enumerate(side['rows']):
                 ry0, ry1 = ys[i], ys[i + 1]
-                self.rail(s, x0 + 6, ry0 + 2, x0 + 6 + lab_w, ry1 - 2, lab, 'g1', tag=tag)
+                self.rail(s, x0 + 6, ry0 + 2, x0 + 6 + lab_w, ry1 - 2, lab, 'blue', tag=tag)
                 paras = [B(t) for t in its]
                 self.t(s, x0 + 6 + lab_w + 8, ry0, x1 - 6, ry1, paras, anchor='m', mg=(1.2, 0.3, 0.5, 0.3), name='패널 본문', tag=lab[:6])
                 if i < n - 1:
