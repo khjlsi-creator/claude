@@ -11,11 +11,8 @@ from layoutize import layoutize_slide, drop_slides
 tmpl = sys.argv[1]
 sample = sys.argv[2] if len(sys.argv) > 2 else None
 nodes = []; groups = []          # (이름, 노드 수)
-for L in LAYOUTS:
-    if nodes: nodes.append(dict(t='newpage'))
-    nodes += L['nodes']; groups.append((f"{L['id']} {L['name']}", len(L['nodes'])))
 for pid, letter, name, flow, src in PAGES:
-    nodes.append(dict(t='newpage'))
+    if nodes: nodes.append(dict(t='newpage'))
     nodes += PL_NODES[pid]; groups.append((f'{pid} {name}', len(PL_NODES[pid])))
 d, f = compose(dict(start_no=1, first='odd', note=NOTE, nodes=nodes), '/tmp/_tpl.pptx')
 for pid, letter, *_ in PAGES:
