@@ -35,9 +35,13 @@ def header(num, title, sub, page, gm_no, gm, doc='2021년 경영실적평가 기
   <p class="ko-abs ko-header-sub" style="left:{dv+7.8:.1f}px">{sub}</p>
   <img class="ko-ci" src="{blob('ci')}" alt="한국원자력환경공단" style="left:801.5px;top:12px;width:132.2px">
   <div class="ko-abs ko-page-tab">{page}</div>
-  <div class="ko-abs ko-gm-lead"></div>
-  <div class="ko-abs ko-gm-dot"></div>
-  <p class="ko-abs ko-gm-text">{gm_no} {gm}</p>
+  <svg style="position:absolute;left:0px;top:97.54px;width:39.37px;height:2px;overflow:visible" width="39.37" height="2"><line x1="0" y1="1" x2="39.37" y2="1" stroke="#001a7a" stroke-opacity="1" stroke-width="1.25"/></svg>
+  <div style="position:absolute;left:35px;top:84.91px;width:27.24px;height:27.24px;box-sizing:border-box;background:#001a7a;border-radius:50%;"></div>
+  <svg style="position:absolute;left:42.79px;top:92.28px;width:11.69px;height:10.51px;overflow:visible;" width="11.69" height="10.51" viewBox="0 0 11.69 10.51"><path d="M10.56 10.51L1.13 10.51C0.71 10.51 0.37 10.29 0.14 9.94C-0.05 9.59 -0.05 9.18 0.14 8.8L4.84 0.57C5.03 0.22 5.42 0 5.83 0C6.24 0 6.59 0.22 6.81 0.57L11.55 8.8C11.74 9.15 11.74 9.56 11.55 9.94C11.36 10.29 10.97 10.51 10.56 10.51ZM5.83 0.54C5.61 0.54 5.45 0.64 5.32 0.83L0.62 9.08C0.52 9.28 0.52 9.47 0.62 9.66C0.71 9.85 0.91 9.94 1.13 9.94L10.56 9.94C10.78 9.94 10.94 9.85 11.07 9.66C11.17 9.47 11.17 9.28 11.07 9.08L6.34 0.83C6.24 0.64 6.05 0.54 5.83 0.54L5.83 0.54Z" fill="#ffffff" fill-opacity="1"/></svg>
+  <svg style="position:absolute;left:40.27px;top:90.15px;width:16.71px;height:16.74px;overflow:visible;" width="16.71" height="16.74" viewBox="0 0 16.71 16.74"><path d="M8.35 16.74C8.35 16.74 8.07 16.61 8.07 16.45C8.07 16.3 8.2 16.17 8.35 16.17C12.64 16.17 16.17 12.67 16.17 8.35C16.17 4.03 12.67 0.57 8.35 0.57C4.03 0.57 0.57 4.07 0.57 8.35C0.57 8.51 0.44 8.64 0.29 8.64C0.13 8.64 0 8.51 0 8.35C0 3.75 3.75 0 8.35 0C12.96 0 16.71 3.75 16.71 8.35C16.71 12.96 12.96 16.71 8.35 16.71Z" fill="#ffffff" fill-opacity="1"/></svg>
+  <svg style="position:absolute;left:40.27px;top:98.22px;width:0.57px;height:1.02px;overflow:visible;" width="0.57" height="1.02" viewBox="0 0 0.57 1.02"><path d="M0.29 1.02C0.29 1.02 0 0.89 0 0.76C0 0.6 0 0.44 0 0.29C0 0.13 0.13 0 0.29 0C0.44 0 0.57 0.13 0.57 0.29C0.57 0.44 0.57 0.57 0.57 0.73C0.57 0.89 0.48 1.02 0.32 1.02C0.32 1.02 0.32 1.02 0.32 1.02Z" fill="#ffffff" fill-opacity="1"/></svg>
+  <svg style="position:absolute;left:47.6px;top:94.63px;width:2.01px;height:5.24px;overflow:visible;" width="2.01" height="5.24" viewBox="0 0 2.01 5.24"><path d="M1.46 5.24L0.57 5.24C0.57 5.24 0.32 5.11 0.29 4.99L0 0.32C0 0.32 0 0.16 0.06 0.1C0.13 0.03 0.19 0 0.25 0L1.75 0C1.75 0 1.91 0.03 1.94 0.1C1.97 0.16 2.03 0.22 2 0.32L1.72 4.99C1.72 4.99 1.59 5.24 1.43 5.24ZM0.86 4.7L1.21 4.7L1.46 0.6L0.57 0.6L0.83 4.7Z" fill="#ffffff" fill-opacity="1"/></svg>
+  <div style="position:absolute;left:62.54px;top:82.78px;width:860px;height:31.5px;box-sizing:border-box;padding:3.6px 7.2px 3.6px 7.2px;display:flex;flex-direction:column;justify-content:flex-start;white-space:nowrap;"><p style="margin:0;font-size:20px;font-weight:500;text-align:left;line-height:1.2;color:#000359;">{gm_no} {gm}</p></div>
   <div class="ko-abs ko-gm-rule"></div>
 '''
 
