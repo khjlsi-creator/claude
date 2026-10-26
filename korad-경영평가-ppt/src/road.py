@@ -15,6 +15,7 @@ from pptx.oxml.ns import qn
 from lxml import etree
 from kp import *          # C, mm, rgb, Deck, est_lines, _sp_xml, _ph_sp, _pic_xml, _add, NS, build_system ...
 import kp
+import edges as _edges
 from kp import _add, _sp_xml, _ph_sp, _pic_xml
 
 # 지면 밀도 글자 크기: 참조 지면이 약 9.5pt 밀도라 표·박스 안 글은 10pt(KORAD footnote 규격), 핵심성과는 12pt
@@ -98,6 +99,7 @@ class RD(Deck):
         self.lay = build_road_system(self.prs)
         self.reg = []          # 모듈 사용 기록: dict(page, module, x0,y0,x1,y1)
         self.warn = []
+        self.miss = []
         self.pageno = 0
 
     # ---------------------------------------------------------- 쪽
@@ -128,7 +130,22 @@ class RD(Deck):
         self.prs.save(path)
 
     # ---------------------------------------------------------- px → 도형
+    SNAP_TOL = 9.0
+
+    def snap(self, v, axis):
+        """참조 경계선(검출값)에 가장 가까운 좌표로 맞춘다. 9px 안에 없으면 그대로."""
+        if not getattr(self, 'do_snap', True) or not 1 <= self.pageno <= 5:
+            return v
+        ys, xs = _edges.edges_of(self.pageno)
+        arr = ys if axis == 'y' else xs
+        best = min(arr, key=lambda e: abs(e - v)) if arr else None
+        if best is not None and abs(best - v) <= self.SNAP_TOL:
+            return best
+        self.miss.append((self.pageno, axis, v, round(best - v, 1) if best is not None else None))
+        return v
+
     def r(self, s, x0, y0, x1, y1, fill=None, line=None, lw=0.75, shape=MSO_SHAPE.RECTANGLE, rad=None, name=None):
+        x0, x1, y0, y1 = self.snap(x0, 'x'), self.snap(x1, 'x'), self.snap(y0, 'y'), self.snap(y1, 'y')
         w, h = x1 - x0, y1 - y0
         adj = None
         # KORAD 기본은 직각: 둥근 모서리·원은 모두 사각형으로

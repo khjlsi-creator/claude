@@ -7,7 +7,7 @@
 import sys
 from road import *
 
-OUT = sys.argv[1] if len(sys.argv) > 1 else 'KORAD_경영평가_지면_재현.pptx'
+OUT = sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith('--') else 'KORAD_경영평가_지면_재현.pptx'
 d = RD()
 NOTE = '구조 확인용 예시 문구: 참조 지면의 구성을 요약한 것이며 KORAD 실적이 아닙니다.'
 
@@ -285,5 +285,8 @@ d.save(OUT)
 print('saved', OUT, len(d.prs.slides._sldIdLst))
 for w in d.warn:
     print('WARN', w)
+if '--miss' in sys.argv:
+    for m in d.miss:
+        if m[3] is not None and abs(m[3]) <= 14: print('MISS', m)
 import json
 json.dump(d.reg, open('road_registry.json', 'w'), ensure_ascii=False, indent=1)
