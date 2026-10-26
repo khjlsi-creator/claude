@@ -43,7 +43,7 @@ def build(tmp):
         sls = []
         for pl, blk in items:
             for name, x, y, ww, hh in blk.slots(1150):
-                sls.append(dict(name=name, x=round((x * K2) + 6), y=round((pl['y'] - y0 + y) * K2 + 6), w=round(ww * K2), h=round(hh * K2), block=pl['cls']))
+                sls.append(dict(name=name, x=round((x * K2) + 6), y=round((pl['y'] - y0 + y) * K2 + 6), w=round(ww * K2), h=round(hh * K2), block=pl['cls'], mm=[round(x * 210 / 1380, 1), round((pl['y'] - y0 + y) * 210 / 1380, 1), round(ww * 210 / 1380, 1), round(hh * 210 / 1380, 1)]))
         out['rl'][L['id']] = dict(id=L['id'], name=L['name'], when=L['when'], src=L['src'], html=html, w=w, h=h, slots=sls,
                                   blocks=[dict(cls=p['cls'], h=round(p['h'])) for p, _ in items])
         rl[L['id']] = [(sl, p) for p, _ in items]
@@ -52,13 +52,14 @@ def build(tmp):
         assert cls is None or p['cls'] == cls, (rid, idx, p['cls'])
         return region(sl, p['y'], p['h'], p['x0'])
     B = out['blocks']
-    B['chapter-band'] = blk('RL01', 0); B['eval-band-2line'] = blk('RL02', 0); B['num-bar'] = blk('RL02', 1); B['sub-head'] = blk('RL03', 0)
-    B['ladder-env'] = blk('RL04', 1, 'Ladder') if rl['RL04'][0][1]['cls'] != 'Ladder' else blk('RL04', 0)
-    B['ladder-side'] = blk('RL05', 0, 'Ladder'); B['ladder-steps'] = blk('RL06', 0, 'Ladder'); B['ladder-banner-photo'] = blk('RL08', 0, 'Ladder')
-    B['ladder-result'] = blk('RL09', 0, 'Ladder'); B['ladder-photos'] = blk('RL12', 0, 'Ladder'); B['ladder-cause'] = blk('RL13', 0, 'Ladder')
-    B['label-rows-strategy'] = blk('RL14', 0, 'LabelRows'); B['label-rows-check'] = blk('RL16', 0, 'LabelRows'); B['label-rows-vision'] = blk('RL17', 0, 'LabelRows')
-    B['label-rows-nested'] = blk('RL18', 0, 'LabelRows'); B['twin-panel'] = blk('RL19', 0, 'TwinPanel'); B['three-panel'] = blk('RL20', 0, 'ThreePanel')
-    B['data-table'] = blk('RL21', 0, 'DataTable'); B['result-1'] = blk('RL22', 0, 'Result'); B['result-2'] = blk('RL23', 0, 'Result'); B['result-prog'] = blk('RL24', 0, 'Result')
+    B['chapter-band'] = blk('L01', 0); B['eval-band-2line'] = blk('L02', 0); B['num-bar'] = blk('L03', 0); B['sub-head'] = blk('L04', 0)
+    B['ladder-env'] = blk('L05', 0, 'Ladder'); B['ladder-side'] = blk('L06', 0, 'Ladder'); B['ladder-steps'] = blk('L07', 0, 'Ladder')
+    B['ladder-banner-photo'] = blk('L09', 0, 'Ladder'); B['ladder-result'] = blk('L14', 0, 'Ladder'); B['ladder-photos'] = blk('L11', 0, 'Ladder')
+    B['ladder-cause'] = blk('L12', 0, 'Ladder')
+    B['label-rows-strategy'] = blk('L15', 0, 'LabelRows'); B['label-rows-check'] = blk('L16', 0, 'LabelRows'); B['label-rows-vision'] = blk('L17', 0, 'LabelRows')
+    B['label-rows-nested'] = blk('L18', 0, 'LabelRows'); B['twin-panel'] = blk('L19', 0, 'TwinPanel'); B['three-panel'] = blk('L20', 0, 'ThreePanel')
+    B['data-table'] = blk('L21', 0, 'DataTable'); B['result-1'] = blk('L22', 0, 'Result'); B['result-2'] = blk('L22', 1, 'Result'); B['result-prog'] = blk('L22', 2, 'Result')
+    B['connector'] = blk('L23', 0, 'Connector'); B['note'] = blk('L16', 1, 'Note')
     # 사다리 + 연결 + 점검
     # PL
     for pid, letter, name, flow, src in PAGES:
@@ -71,8 +72,6 @@ def build(tmp):
         out['pl'][pid] = dict(id=pid, name=name, flow=flow, src=src, fill=round(out_fill * 100), pages=[full(s) for s in pr.slides],
                               blocks=[dict(page=p['page'], cls=p['cls']) for p in f2.placed])
         for sl, p in zip([pr.slides[q['page'] - 1] for q in f2.placed], f2.placed):
-            if pid == 'PL01' and p['cls'] == 'Connector': B['connector'] = region(sl, p['y'], p['h'], p['x0'])
-            if pid == 'PL02' and p['cls'] == 'Note': B['note'] = region(sl, p['y'], p['h'], p['x0'])
             if pid == 'PL05' and p['cls'] == 'EvalBand': B['eval-band-1line'] = region(sl, p['y'], p['h'], p['x0'])
     # 쪽 마스터: 머리·하단
     sl = prs.slides[0]
