@@ -4,7 +4,7 @@ import json, os, subprocess, glob, sys
 from PIL import Image
 import slots
 from compose import compose, make
-from layouts import LAYOUTS, PAGES, K
+from layouts import LAYOUTS, PAGES, K, PL_NODES
 from recipes import NOTE
 
 OUT = sys.argv[1]
@@ -44,7 +44,7 @@ for i, L in enumerate(LAYOUTS):
 # --- PL: 레시피별 쪽 조합
 pl_spec = {}
 for pid, letter, name, flow, src in PAGES:
-    nd = K[letter]
+    nd = PL_NODES[pid]
     d2, f2 = compose(dict(start_no=1, first='odd', note=NOTE, nodes=nd), f'{OUT}/{pid.lower()}.pptx')
     subprocess.run(f'cd {OUT} && soffice --headless --convert-to pdf {pid.lower()}.pptx >/dev/null 2>&1 && rm -f {pid.lower()}-*.png && pdftoppm -r {SC} -png {pid.lower()}.pdf {pid.lower()}', shell=True)
     pgs = sorted(glob.glob(f'{OUT}/{pid.lower()}-*.png'))

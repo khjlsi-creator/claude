@@ -4,8 +4,9 @@ import json, sys
 from pptx import Presentation
 import slots
 from compose import compose
-from layouts import LAYOUTS, PAGES, K
-from recipes import NOTE, catalog_spec
+from layouts import LAYOUTS, PAGES, K, PL_NODES
+from recipes import NOTE
+from layouts import catalog_spec
 from pptx2html import slide_html, CSS
 
 K2 = 960 / 1380.0
@@ -61,15 +62,18 @@ def build(tmp):
     # 사다리 + 연결 + 점검
     # PL
     for pid, letter, name, flow, src in PAGES:
-        d2, f2 = compose(dict(start_no=93, first='odd', note=NOTE, nodes=K[letter]), f'{tmp}/{pid.lower()}.pptx')
+        d2, f2 = compose(dict(start_no=93, first='odd', note=NOTE, nodes=PL_NODES[pid]), f'{tmp}/{pid.lower()}.pptx')
         pr = Presentation(f'{tmp}/{pid.lower()}.pptx')
-        assert len(pr.slides) == 1, f'{pid}는 한 쪽이어야 합니다({len(pr.slides)}쪽): 서사를 대목별로 쪼개세요'
-        out['pl'][pid] = dict(id=pid, name=name, flow=flow, src=src, pages=[full(s) for s in pr.slides],
+        assert len(pr.slides) == 1, f'{pid}는 한 쪽이어야 합니다({len(pr.slides)}쪽): 대목을 줄이세요'
+        fill = max(p['y'] + p['h'] for p in f2.placed) - 188
+        assert fill / (1895 - 188) > 0.85, f'{pid}는 한 쪽을 85% 이상 채워야 합니다({fill / 17.07:.0f}%)'
+        out_fill = fill / (1895 - 188)
+        out['pl'][pid] = dict(id=pid, name=name, flow=flow, src=src, fill=round(out_fill * 100), pages=[full(s) for s in pr.slides],
                               blocks=[dict(page=p['page'], cls=p['cls']) for p in f2.placed])
         for sl, p in zip([pr.slides[q['page'] - 1] for q in f2.placed], f2.placed):
-            if letter == 'A' and p['cls'] == 'Connector': B['connector'] = region(sl, p['y'], p['h'], p['x0'])
-            if letter == 'E' and p['cls'] == 'Note': B['note'] = region(sl, p['y'], p['h'], p['x0'])
-            if letter == 'H' and p['cls'] == 'EvalBand': B['eval-band-1line'] = region(sl, p['y'], p['h'], p['x0'])
+            if pid == 'PL01' and p['cls'] == 'Connector': B['connector'] = region(sl, p['y'], p['h'], p['x0'])
+            if pid == 'PL02' and p['cls'] == 'Note': B['note'] = region(sl, p['y'], p['h'], p['x0'])
+            if pid == 'PL05' and p['cls'] == 'EvalBand': B['eval-band-1line'] = region(sl, p['y'], p['h'], p['x0'])
     # 쪽 마스터: 머리·하단
     sl = prs.slides[0]
     odd = slide_html(sl, 0, 200, 0); even_prs = Presentation(tmp + '/pl02.pptx') if False else None

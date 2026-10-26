@@ -79,7 +79,7 @@ if __name__ == '__main__':
     lay = '--layouts' in sys.argv
     args = [a for a in sys.argv[1:] if a != '--layouts']
     if args[0] == '--catalog':
-        from recipes import catalog_spec
+        from layouts import catalog_spec
         d, f = compose(catalog_spec(), args[1], layouts=lay)
     else:
         d, f = compose(json.load(open(args[0], encoding='utf-8')), args[1], layouts=lay)

@@ -4,7 +4,7 @@
   python3 build_template.py 템플릿.pptx [적용예시.pptx]"""
 import sys
 from compose import compose
-from layouts import LAYOUTS, PAGES, K
+from layouts import LAYOUTS, PAGES, K, PL_NODES
 from recipes import NOTE
 from layoutize import layoutize_slide, drop_slides
 
@@ -16,11 +16,12 @@ for L in LAYOUTS:
     nodes += L['nodes']; groups.append((f"{L['id']} {L['name']}", len(L['nodes'])))
 for pid, letter, name, flow, src in PAGES:
     nodes.append(dict(t='newpage'))
-    nodes += K[letter]; groups.append((f'{pid} {name}', len(K[letter])))
+    nodes += PL_NODES[pid]; groups.append((f'{pid} {name}', len(PL_NODES[pid])))
 d, f = compose(dict(start_no=1, first='odd', note=NOTE, nodes=nodes), '/tmp/_tpl.pptx')
 for pid, letter, *_ in PAGES:
-    dd, ff = compose(dict(start_no=1, first='odd', nodes=K[letter]), '/tmp/_chk.pptx')
+    dd, ff = compose(dict(start_no=1, first='odd', nodes=PL_NODES[pid]), '/tmp/_chk.pptx')
     assert ff.pages() == 1, f'{pid}는 한 쪽을 넘습니다({ff.pages()}쪽)'
+    print(pid, '채움', round((max(p['y'] + p['h'] for p in ff.placed) - 188) / 17.07), '%')
 # 그룹별 쪽 범위
 pages_of = []; bi = 0
 for name, n in groups:

@@ -12,7 +12,7 @@ from road import *
 W = 1150            # 본문 폭(px)
 RAIL = 106          # 레일 폭
 HEAD = 42           # 머리칸 높이
-LP = 4.54 / K       # 10pt 한 줄 높이(px)
+LP = 4.30 / K       # 10pt 한 줄 높이(px)
 BODY_TOP, BODY_BOT = 188, 1895
 X0 = dict(odd=98, even=132)
 
@@ -37,8 +37,8 @@ def items_h(items, w_px):
         elif isinstance(it, dict) and 'table' in it:
             h += len(it['table']) * 38 + 6
         else:
-            h += nl(it if isinstance(it, str) else it['t'], w_px) * LP + 2
-    return h + 8
+            h += nl(it if isinstance(it, str) else it['t'], w_px) * LP + 1
+    return h + 4
 
 
 def edges_of(xa, xb, n, ratios=None):
@@ -264,7 +264,7 @@ class Ladder(Block):
 
     def row_h(self, r, W):
         wc = self._wc(W) - self.rail - 14
-        hb = sum(band_h(b, wc) for b in r['bands']) + 3 * (len(r['bands']) - 1) + 8
+        hb = sum(band_h(b, wc) for b in r['bands']) + 3 * (len(r['bands']) - 1) + 5
         lab = lines_of(r['label']) * LP + 18 + (44 if r.get('tag') else 0) + (24 if r.get('notch') else 0)
         return max(hb, lab, r.get('min', 0))
 
@@ -341,7 +341,7 @@ class LabelRows(Block):
             return max(53, max(nl(t, e[1] - 6) for t in r['items']) * LP + 22)
         if k == 'cols':
             n = len(r['items']); e = edges_of(0, wc, n, r.get('w'))
-            return max(max(items_h(it, e[i + 1] - e[i] - 4) for i, it in enumerate(r['items'])) + 14, r.get('min', 70))
+            return max(max(items_h(it, e[i + 1] - e[i] - 4) for i, it in enumerate(r['items'])) + 8, r.get('min', 60))
         if k == 'heads':
             n = len(r['items']); e = edges_of(0, wc, n, r.get('w'))
             return HEAD + 6 + max(max(items_h(it, e[i + 1] - e[i] - 4) for i, it in enumerate(r['items'])), 56) + 8
@@ -410,8 +410,8 @@ class TwinPanel(Block):
             h = 0
             for (t, rows), lw in ((self.left, self.lw[0]), (self.right, self.lw[1])):
                 tag, lab, its = rows[i]
-                h = max(h, items_h(its, pw - lw - 30) + 8, lines_of(lab) * LP + 20 + (40 if tag else 0))
-            out.append(max(h, 72))
+                h = max(h, items_h(its, pw - lw - 30) + 4, lines_of(lab) * LP + 16 + (40 if tag else 0))
+            out.append(max(h, 64))
         return out
 
     def height(self, W):
