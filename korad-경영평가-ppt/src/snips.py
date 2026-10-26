@@ -63,12 +63,13 @@ def build(tmp):
     for pid, letter, name, flow, src in PAGES:
         d2, f2 = compose(dict(start_no=93, first='odd', note=NOTE, nodes=K[letter]), f'{tmp}/{pid.lower()}.pptx')
         pr = Presentation(f'{tmp}/{pid.lower()}.pptx')
+        assert len(pr.slides) == 1, f'{pid}는 한 쪽이어야 합니다({len(pr.slides)}쪽): 서사를 대목별로 쪼개세요'
         out['pl'][pid] = dict(id=pid, name=name, flow=flow, src=src, pages=[full(s) for s in pr.slides],
                               blocks=[dict(page=p['page'], cls=p['cls']) for p in f2.placed])
         for sl, p in zip([pr.slides[q['page'] - 1] for q in f2.placed], f2.placed):
-            if pid == 'PL01' and p['cls'] == 'Connector': B['connector'] = region(sl, p['y'], p['h'], p['x0'])
-            if pid == 'PL05' and p['cls'] == 'Note': B['note'] = region(sl, p['y'], p['h'], p['x0'])
-            if pid == 'PL08' and p['cls'] == 'EvalBand': B['eval-band-1line'] = region(sl, p['y'], p['h'], p['x0'])
+            if letter == 'A' and p['cls'] == 'Connector': B['connector'] = region(sl, p['y'], p['h'], p['x0'])
+            if letter == 'E' and p['cls'] == 'Note': B['note'] = region(sl, p['y'], p['h'], p['x0'])
+            if letter == 'H' and p['cls'] == 'EvalBand': B['eval-band-1line'] = region(sl, p['y'], p['h'], p['x0'])
     # 쪽 마스터: 머리·하단
     sl = prs.slides[0]
     odd = slide_html(sl, 0, 200, 0); even_prs = Presentation(tmp + '/pl02.pptx') if False else None
