@@ -1,0 +1,78 @@
+
+/* ───────── 참조 B 모듈 — 2021 기관설명회 장표의 디자이너 규칙을 16:9 KORAD 그리드로 재설계 (ko-b-*) ───────── */
+/* SectionTitle: 소제목 26pt 높이 + 마커 22 + 20pt Medium. 아래 박스까지 8, 박스 다음 소제목까지 14 */
+.ko-b-sec { position: absolute; height: 26px; display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 500; line-height: 1.2; color: var(--navy-ink); white-space: nowrap; }
+.ko-b-sec i { flex: none; width: 22px; height: 22px; background: var(--blue-strong) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M6 6l9 9M16 8v8H8' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/22px no-repeat; }
+.ko-b-sec small { font-size: 16px; font-weight: 400; color: var(--slate-700); }
+/* DefinitionBox: 한 줄 정의·목적 박스 */
+.ko-b-def { position: absolute; height: 36px; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: var(--white); border: 1px solid var(--blue-bright); box-shadow: inset 0 0 0 3px var(--tint-sky-50); font-size: 16px; font-weight: 500; line-height: 1.2; color: var(--navy-ink); white-space: nowrap; }
+.ko-b-def img { width: 16px; height: 16px; flex: none; }
+/* TaskCard: 육각 번호 배지 + 딥블루 제목 띠 + 라벨 표 + 성과 패널 */
+.ko-b-hex { position: absolute; width: 56px; height: 48px; background: var(--tint-blue-200); clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); }
+.ko-b-hex > div { position: absolute; inset: 3px; clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--white); text-shadow: var(--shadow-title-text); line-height: 1.05; }
+.ko-b-hex b { font-size: 20px; font-weight: 700; }
+.ko-b-band { position: absolute; height: 32px; display: flex; align-items: center; padding-left: 46px; gap: 0; font-size: 20px; font-weight: 600; line-height: 1.2; color: var(--white); text-shadow: var(--shadow-title-text); white-space: nowrap; overflow: hidden; }
+.ko-b-band .cat { font-size: 14px; font-weight: 500; color: var(--tint-blue-200); }
+.ko-b-band .dv { width: 1.5px; height: 18px; margin: 0 10px; background: var(--white); flex: none; }
+.ko-b-tt.big { font-size: 16px; }
+.ko-b-tt.big td ul ul { font-size: 14px; }
+.ko-b-tt { position: absolute; border-collapse: collapse; table-layout: fixed; font-size: 14px; color: var(--navy-ink); }
+.ko-b-tt thead th { height: 22px; font-weight: 500; text-align: center; border-top: 1.25px solid var(--blue-strong); border-bottom: 0.5px solid var(--line-soft); padding: 0; }
+.ko-b-tt tbody th { font-weight: 500; text-align: center; padding: 0 4px; border-bottom: 1px solid var(--white); }
+.ko-b-tt tbody th.bg { background: var(--tint-blue-100); }
+.ko-b-tt tbody th.ef { background: var(--tint-blue-200); }
+.ko-b-tt tbody td { padding: 4px 10px; line-height: 1.25; vertical-align: middle; border-bottom: 0.5px solid var(--line-soft); }
+.ko-b-ul { list-style: none; margin: 0; padding: 0; }
+.ko-b-ul > li { position: relative; padding-left: 12px; margin: 0 0 2px; }
+.ko-b-ul > li::before { content: "•"; position: absolute; left: 0; }
+.ko-b-ul ul { list-style: none; margin: 1px 0 0; padding: 0 0 0 4px; font-size: 12px; }
+.ko-b-ul ul li { position: relative; padding-left: 10px; }
+.ko-b-ul ul li::before { content: "–"; position: absolute; left: 0; }
+/* ResultPanel: 성과 패널 */
+.ko-b-rp { position: absolute; border: 1px solid var(--blue-bright); background: var(--tint-panel-50); }
+.ko-b-rp > h4 { position: absolute; left: 0; right: 0; top: 0; height: 28px; margin: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; letter-spacing: 0.15em; color: var(--white); text-shadow: var(--shadow-title-text); }
+.ko-b-rp > div.bd { position: absolute; left: 0; right: 0; top: 28px; bottom: 0; padding: 5px 12px; }
+.ko-b-pi { position: relative; padding-left: 28px; margin-bottom: 1px; line-height: 1.15; }
+.ko-b-pi .no { position: absolute; left: 0; top: 1px; width: 20px; height: 20px; border-radius: 50%; background: var(--blue-strong); color: var(--white); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.ko-b-pi b { display: block; font-size: 14px; font-weight: 700; color: var(--blue-dark); }
+.ko-b-pi span { display: block; font-size: 12px; color: var(--navy-ink); }
+/* FlowArrow: 모듈 사이 블록 화살표(구간 54) */
+.ko-b-arrow { position: absolute; width: 40px; height: 60px; background: linear-gradient(90deg, var(--tint-blue-100), var(--blue-cyan)); clip-path: polygon(0 25%, 50% 25%, 50% 0, 100% 50%, 50% 100%, 50% 75%, 0 75%); }
+/* ResultCard: 이중 틀 성과 카드 */
+.ko-b-rc { position: absolute; padding: 6px; background: var(--tint-blue-100); border-radius: var(--radius-card); }
+.ko-b-rc > div { width: 100%; height: 100%; background: var(--white); border-radius: var(--radius-tint); box-shadow: var(--shadow-card); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; }
+.ko-b-rc .t { font-size: 16px; font-weight: 500; }
+.ko-b-rc .big { font-size: 40px; font-weight: 700; line-height: 1.1; color: var(--blue-strong); }
+.ko-b-rc .big small { font-size: 20px; }
+.ko-b-rc .cap { font-size: 20px; font-weight: 700; }
+/* NumberRows: 번호 행 박스 */
+.ko-b-nr { position: absolute; border: 1px solid var(--blue-bright); background: var(--white); box-shadow: var(--shadow-card); }
+.ko-b-nr .hd { position: absolute; left: 0; right: 0; height: 24px; display: flex; align-items: center; padding-left: 8px; gap: 8px; background: linear-gradient(90deg, var(--tint-blue-200) 0, var(--tint-blue-200) 40%, rgba(189, 224, 255, 0)); font-size: 16px; font-weight: 700; }
+.ko-b-nr .hd i { width: 18px; height: 18px; border-radius: 50%; background: var(--white); color: var(--blue-strong); font-style: normal; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.ko-b-nr .tx { position: absolute; left: 34px; right: 14px; font-size: 14px; line-height: 1.25; }
+.ko-b-nr .tx::before { content: "– "; }
+/* PhotoTimeline */
+.ko-b-ph { position: absolute; width: 112px; }
+.ko-b-ph .h { height: 40px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 14px; font-weight: 500; line-height: 1.15; color: var(--white); text-shadow: var(--shadow-title-text); }
+.ko-b-ph .p { position: relative; border: 0.5px solid var(--blue-bright); background: var(--tint-sky-50); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 12px; color: var(--slate-700); }
+.ko-b-ph .p img { width: 28px; height: 28px; }
+.ko-b-chev { position: absolute; width: 10px; height: 16px; background: var(--blue-bright); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+/* OrgChart */
+.ko-b-ob { position: absolute; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 14px; font-weight: 500; line-height: 1.15; color: var(--navy-ink); }
+.ko-b-ob.top { font-size: 16px; font-weight: 700; color: var(--white); text-shadow: var(--shadow-title-text); }
+.ko-b-ob.stf { background: var(--tint-blue-200); }
+.ko-b-ob.dv { background: var(--white); border: 1px solid var(--blue-bright); }
+.ko-b-ln { position: absolute; background: var(--blue-bright); }
+/* 요약 패널(점유율 막대) — KpiBreakdown 행 서식 축소형 */
+.ko-b-sh { position: relative; height: 24px; }
+.ko-b-sh .l { position: absolute; left: 0; top: 0; font-size: 14px; line-height: 1.1; }
+.ko-b-sh .v { position: absolute; right: 0; top: 0; font-size: 14px; font-weight: 700; line-height: 1.1; color: var(--c-text, var(--blue-strong)); }
+.ko-b-sh .tk { position: absolute; left: 0; right: 0; top: 16px; height: 6px; border-radius: 3px; background: var(--white); overflow: hidden; }
+.ko-b-sh .tk i { display: block; height: 100%; background: var(--c); }
+/* 12pt 이상 표 변형 */
+.ko-table.l.b14 { font-size: 14px; }
+.ko-table.l.b14 thead th { font-size: 14px; height: 30px; }
+.ko-table.l.b14 td, .ko-table.l.b14 tbody th { height: 30px; }
+.ko-table.l.b14 td.tl { text-align: left; padding-left: 10px; }
+.ko-table.l.b14 td.tr { text-align: right; padding-right: 14px; }
+.ko-table.l.b14.r23 thead th, .ko-table.l.b14.r23 td, .ko-table.l.b14.r23 tbody th { height: 23px; padding-top: 0; padding-bottom: 0; }
