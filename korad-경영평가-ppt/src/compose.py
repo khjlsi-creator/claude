@@ -61,6 +61,8 @@ def make(node):
     if t == 'taskmap': return TaskMap(node['heads'], node['rows'])
     if t == 'bracketcols': return BracketCols(node['heads'], node['cols'], node.get('label'))
     if t == 'resultcharts': return ResultCharts(node['label'], node['banner'], node['cards'])
+    if t == 'cardgrid': return CardGrid(node['groups'])
+    if t == 'crosspanel': return CrossPanel(node['top'], node['upper'], node['lower'], node['bottom'])
     if t == 'pairlinks': return PairLinks(node['left'], node['right'])
     if t == 'arrowsteps': return ArrowSteps(node['labels'], node['cols'], node.get('foot'))
     if t == 'ladder':

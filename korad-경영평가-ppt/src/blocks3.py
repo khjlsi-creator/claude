@@ -485,3 +485,88 @@ class ResultCharts(Block):
                     d.r(s, bx, y + h - 34 - hh, bx + bw, y + h - 34, fill=TONE['g3'] if k < len(bars) - 1 else TONE['g4'], name='막대')
                     d.t(s, bx - 16, y + h - 34 - hh - 32, bx + bw + 16, y + h - 34 - hh - 2, [dict(t=lab, sz=9, b=True, color=C['navy'], align='c')], name='값', tag='값', mg=(0, 0, 0, 0))
                     d.t(s, bx - 16, y + h - 32, bx + bw + 16, y + h - 8, [dict(t=yr, sz=9, color=C['slate_700'], align='c')], name='연도', tag='연도', mg=(0, 0, 0, 0))
+
+
+# ------------------------------------------------------------ L35 그룹 소제목 + 카드 격자
+class CardGrid(Block):
+    """그룹마다 [아이콘 + 분류 칩 + 굵은 제목] 소제목 줄 아래 카드 격자(2열). 카드 = 칩 + 제목 머리 / 불릿 / 오른쪽 작은 막대 도표 또는 요약 칸."""
+    kind = '그룹 카드 격자'
+    gap = 14
+    ROW = 164
+
+    def __init__(self, groups):
+        self.groups = groups
+
+    def _gh(self, g):
+        rows = (len(g['cards']) + 1) // 2
+        return 48 + rows * self.ROW + 10
+
+    def height(self, W):
+        return sum(self._gh(g) + 12 for g in self.groups) - 12
+
+    def draw(self, d, s, x0, y, W):
+        d.use('그룹 카드 격자', x0, y, x0 + W, y + self.height(W))
+        yy = y
+        for g in self.groups:
+            gh = self._gh(g)
+            _icon(d, s, x0, yy + 4, 32, 32)
+            cw_ = _chip(d, s, x0 + 40, yy + 4, g['chip'], h=32)
+            d.t(s, x0 + 48 + cw_, yy, x0 + W - 4, yy + 40, [dict(t=g['title'], sz=SZ_SUB, b=True, color=C['navy'])], name='그룹 제목', tag=g['chip'][:6], mg=(0, 0, 0, 0))
+            d.r(s, x0, yy + 44, x0 + W, yy + gh, fill=C['white'], line=TONE['line'], lw=1.25, name='그룹 틀')
+            n = len(g['cards']); half = (W - 12) / 2
+            for i, c in enumerate(g['cards']):
+                cx = x0 + 6 + (i % 2) * half; cy = yy + 48 + (i // 2) * self.ROW
+                bar = d.r(s, cx, cy, cx + half - 4, cy + 38, fill=TONE['g1'], name='카드 머리')
+                d.grad(bar, TONE['g1'], C['white'], 0)
+                kw = _chip(d, s, cx + 8, cy + 4, c['chip'], h=30)
+                d.t(s, cx + 14 + kw, cy, cx + half - 8, cy + 38, [dict(t=c['title'], sz=SZ_C, b=True, color=C['navy'])], name='카드 제목', tag=c['chip'][:6])
+                tw = (half - 8) * (0.62 if c.get('bars') or c.get('side') else 1.0)
+                d.t(s, cx, cy + 40, cx + tw, cy + self.ROW - 6, [B(t) if not t.startswith('*') else dict(t=t, sz=9, color=C['slate_700']) for t in c['lines']], anchor='m', mg=(1.2, 0.2, 0.6, 0.2), name='카드 본문', tag=f'{g["chip"][:3]}{i}')
+                if c.get('bars'):
+                    bars = c['bars']; mx = max(v for _, v, _ in bars); bx0 = cx + tw + 14; stp = (half - 8 - tw - 20) / len(bars)
+                    d.t(s, cx + tw, cy + 40, cx + half - 8, cy + 70, [dict(t=c.get('cap', ''), sz=9, b=True, color=C['navy'], align='c')], name='도표 제목', tag='도표', mg=(0, 0, 0, 0))
+                    for k, (yr, v, lab) in enumerate(bars):
+                        bx = bx0 + k * stp; hh = max(12, 24 * v / mx); base = cy + self.ROW - 34
+                        d.r(s, bx, base - hh, bx + 26, base, fill=TONE['g3'] if k < len(bars) - 1 else TONE['g4'], name='막대')
+                        d.t(s, bx - 26, base - hh - 32, bx + 52, base - hh - 2, [dict(t=lab, sz=9, b=True, color=C['navy'], align='c')], name='값', tag='값', mg=(0, 0, 0, 0))
+                        d.t(s, bx - 26, base + 2, bx + 52, base + 30, [dict(t=yr, sz=9, color=C['slate_700'], align='c')], name='연도', tag='연도', mg=(0, 0, 0, 0))
+                elif c.get('side'):
+                    d.shp(s, cx + tw + 8, cy + 46, cx + half - 12, cy + self.ROW - 12, c['side'], TONE['g1'], color=C['navy'], line=TONE['g2'], lw=0.75, name='요약 칸', mg=(0.4, 0, 0.4, 0))
+                if i % 2 == 0 and i + 1 < n:
+                    d.hl(s, cx + half - 2, cy + 6, cx + half - 2, cy + self.ROW - 8, color=TONE['g2'], lw=0.75)
+            yy += gh + 12
+
+
+# ------------------------------------------------------------ L42 십자 패널
+class CrossPanel(Block):
+    """위 머리 두 칸(칩 + 제목) → 위쪽 불릿 두 칸 → 가운데 아이콘 → 아래쪽 불릿 두 칸 → 아래 머리 두 칸. 네 방향 지원을 한 판에 모은다."""
+    kind = '십자 패널'
+    gap = 12
+
+    def __init__(self, top, upper, lower, bottom, side_label=None):
+        self.top, self.upper, self.lower, self.bottom = top, upper, lower, bottom
+
+    def height(self, W):
+        return 54 + 150 + 30 + 150 + 54
+
+    def draw(self, d, s, x0, y, W):
+        h = self.height(W)
+        d.use('십자 패널', x0, y, x0 + W, y + h)
+        half = (W - 40) / 2; xr = x0 + W - half
+        for k, (chip, text) in enumerate(self.top):
+            xa = x0 if k == 0 else xr
+            d.r(s, xa, y, xa + half, y + 48, fill=TONE['g5'], name='위 머리')
+            cw = _chip(d, s, xa + 12, y + 8, chip, h=32)
+            d.t(s, xa + 18 + cw, y, xa + half - 10, y + 48, [dict(t=text, sz=SZ_C, b=True, color=C['white'])], name='위 머리 글', tag=chip[:6])
+        for blk_, yy0 in ((self.upper, y + 54), (self.lower, y + 54 + 150 + 30)):
+            for k, lines in enumerate(blk_):
+                xa = x0 if k == 0 else xr
+                d.t(s, xa, yy0, xa + half, yy0 + 150, [B(t) if not t.startswith('*') else dict(t=t, sz=9, color=C['slate_700']) for t in lines], anchor='m', mg=(1.2, 0.2, 0.6, 0.2), name='본문', tag=f'본문{k}')
+        d.r(s, x0, y + 54 + 150 + 12, x0 + W, y + 54 + 150 + 20, fill=TONE['g2'], name='가운데 띠')
+        _icon(d, s, x0 + W / 2 - 34, y + 54 + 150 - 8, 68, 56, '아이콘')
+        for k, (chip, text) in enumerate(self.bottom):
+            xa = x0 if k == 0 else xr
+            yb = y + h - 48
+            d.r(s, xa, yb, xa + half, yb + 48, fill=TONE['g5'], name='아래 머리')
+            cw = _chip(d, s, xa + 12, yb + 8, chip, h=32)
+            d.t(s, xa + 18 + cw, yb, xa + half - 10, yb + 48, [dict(t=text, sz=SZ_C, b=True, color=C['white'])], name='아래 머리 글', tag=chip[:6])
