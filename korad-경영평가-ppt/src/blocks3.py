@@ -496,7 +496,7 @@ class CardGrid(Block):
     """그룹마다 [아이콘 + 분류 칩 + 굵은 제목] 소제목 줄 아래 카드 격자(2열). 카드 = 칩 + 제목 머리 / 불릿 / 오른쪽 작은 막대 도표 또는 요약 칸."""
     kind = '그룹 카드 격자'
     gap = 14
-    ROW = 164
+    ROW = 200
 
     def __init__(self, groups):
         self.groups = groups
