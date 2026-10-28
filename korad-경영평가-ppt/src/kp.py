@@ -65,7 +65,15 @@ def rgb(h):
 
 
 # ---------------------------------------------------------------- 글자 폭 추정
-_F = ImageFont.truetype(os.environ.get('PRETENDARD_TTF', os.path.expanduser('~/.fonts/Pretendard-Regular.ttf')), 1000)
+_FONT_CANDIDATES = [os.environ.get('PRETENDARD_TTF', ''), os.path.expanduser('~/.fonts/Pretendard-Regular.ttf'),
+                    '/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc']   # Pretendard가 없으면 폭 추정에만 대체 글꼴 사용
+_F = None
+for _p in _FONT_CANDIDATES:
+    if _p and os.path.exists(_p):
+        _F = ImageFont.truetype(_p, 1000)
+        break
+if _F is None:
+    raise OSError('Pretendard-Regular.ttf를 찾을 수 없음: PRETENDARD_TTF 환경변수로 경로 지정')
 _CW = {}
 
 

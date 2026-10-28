@@ -1,6 +1,6 @@
 # KORAD 경영평가 노사관계 PPT 시스템 (A4 세로)
 
-- `KORAD_경영평가_노사관계_A4세로.pptx` — 최종 PPT (24쪽, 마스터·레이아웃 3종 + 지면 R0~R7 + BP 모듈 A~H)
+- `KORAD_경영평가_노사관계_A4세로.pptx` — 최종 PPT (30쪽, 마스터·레이아웃 3종 + 지면 R0~R7 + BP 모듈 A~H + 평가내용 지면 R10~R14)
 - `KORAD_경영평가_노사관계_A4세로_미리보기.pdf` — LibreOffice 렌더링 미리보기
 - `B등급이상_44개기관_서사유형_분류.csv` — 종합 A·B 44개 기관의 서사 유형 분류(분석자 판단)
 - `src/` — 생성 코드(python-pptx). `python3 src/build.py 출력.pptx`
@@ -22,3 +22,8 @@
 - 새 쪽 추가: 스펙 JSON 작성 → `python3 src/layout_registry.py check <스펙>`(비교만) → `add <스펙>`(새것만 누적) → `render`
 - 판정: 블록 지문(종류·본문유형·라벨열·열수·행수)이 같으면 REUSE, 쪽 구성(프레임+블록 순서)이 같으면 SKIP, 아니면 NEW
 - 좌표는 렌더 이미지에서 읽은 값(±5px ≈ ±1mm). 원본 PDF 벡터에서 뽑은 값이 아님
+
+### 본 PPT 반영 (R10~R14, 26~30쪽)
+레지스트리의 쪽 레이아웃 PG-01~05를 KORAD 본문 영역(x 15~195, y 40~262, 12·14·15pt)으로 환산해 `src/layout_slides.py`가 슬라이드로 만든다(`build.py` 끝에서 호출).
+새 쪽을 `add`한 뒤 `python3 src/build.py`를 다시 돌리면 R15 이후로 자동 추가된다. 슬라이드는 위치·구조 가이드(영역 이름만 적힌 틀)이며 실제 문구는 채우지 않았다.
+Pretendard가 없는 환경에서는 글자 폭 추정만 대체 글꼴로 한다(`PRETENDARD_TTF`로 지정 가능).

@@ -531,6 +531,10 @@ d.tint_box(s, CX0, y, CW, 56, [Q('예외와 확인 사항'), L('표지·간지�
                               N('KORAD 고정양식 PDF는 실측함(사방 12mm). 보고서 원본 104~112쪽 이미지는 10MB 초과로 미확보: 여백을 12mm로 바꿀지 확인 필요')])
 fit(s, y + 56, BODY_B_FREE, '표준')
 
+# =========================================================== 26~30. R10~R14 평가내용 지면 (타 기관 보고서 좌표 분석 → 레지스트리)
+import layout_slides
+layout_slides.add_layout_slides(d, 'Ⅰ. 경영관리 | 평가내용별 추진실적 | 지면 레이아웃')
+
 d.save(OUT)
 print('saved', OUT, len(d.prs.slides._sldIdLst))
 for w in WARN:
