@@ -12,6 +12,7 @@
 import sys, json
 from blocks import *
 from blocks2 import *
+from blocks3 import *
 
 PALETTE = {1: ['blue'], 2: ['blue', 'deep'], 3: ['blue', 'teal', 'deep'], 4: ['blue', 'teal', 'teal', 'deep'], 5: ['blue', 'teal', 'teal', 'deep', 'deep']}
 RESULT_LABELS = ('추진성과', '성과', '핵심성과')
@@ -47,6 +48,18 @@ def make(node):
     if t == 'numgroups': return NumberedGroups(node['caption'], node['groups'])
     if t == 'orgpanel': return OrgPanel(node['left'], node['right'])
     if t == 'awards': return AwardRow(node['label'], node['cards'])
+    if t == 'quadpanel': return QuadPanel(node['label'], node['rows'])
+    if t == 'tiermatrix': return TierMatrix(node['top'], node['rows'], node['foot'])
+    if t == 'funnel': return FunnelBand(node['text'], node.get('chip'))
+    if t == 'chipbanner': return ChipBanner(node['chip'], node['text'])
+    if t == 'stakegrid': return StakeGrid(node['label'], node['banner'], node['steps'], node['cards'])
+    if t == 'survey': return SurveyPanel(node['label'], node['intro'], node['heads'], node['subs'], node['strip'], node['grid'], node['notes'])
+    if t == 'rolling': return RollingCols(node['heads'], node['cols'])
+    if t == 'influence': return InfluencePanel(node['quad'], node['caption'], node['left_title'], node['rows'], node['right_title'], node['spread'])
+    if t == 'timeline': return Timeline(node['who'], node['top'], node['bottom'])
+    if t == 'datecols': return DateCols(node['cols'])
+    if t == 'taskmap': return TaskMap(node['heads'], node['rows'])
+    if t == 'pairlinks': return PairLinks(node['left'], node['right'])
     if t == 'arrowsteps': return ArrowSteps(node['labels'], node['cols'], node.get('foot'))
     if t == 'ladder':
         frame = 'g4' if all(r['label'].replace('\n', '') in RESULT_LABELS for r in node['rows']) else node.get('frame', 'g2')
