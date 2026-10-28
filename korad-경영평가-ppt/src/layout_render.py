@@ -86,6 +86,10 @@ def _rect(s, x, y, w, h, fill, line='0061DE', text='', size=7, color='000359', b
     p = tf.paragraphs[0]; p.alignment = align
     r = p.add_run(); r.text = text
     r.font.size = Pt(size); r.font.bold = bold; r.font.name = 'Pretendard'
+    rpr = r._r.get_or_add_rPr()          # 한글(ea)·기타(cs)도 KORAD 시스템 글꼴로 고정
+    for tag in ('ea', 'cs'):
+        el = rpr.makeelement('{http://schemas.openxmlformats.org/drawingml/2006/main}' + tag, {'typeface': 'Pretendard'})
+        rpr.append(el)
     r.font.color.rgb = RGBColor.from_string(color)
     return sh
 
