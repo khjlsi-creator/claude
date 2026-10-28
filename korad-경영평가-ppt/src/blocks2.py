@@ -430,8 +430,11 @@ class NumChipBar(Block):
 
     def draw(self, d, s, x0, y, W):
         d.sec_bar(s, x0, y, self.n, self.title, h=56, w=W)
-        cw = text_w(self.chip, SZ_D, True) / K + 28
-        d.shp(s, x0 + W - cw - 12, y + 12, x0 + W - 12, y + 44, self.chip, TONE['g4'], name='번호 띠 칩', mg=(0.3, 0, 0.3, 0))
+        xr = x0 + W - 12
+        for c in reversed([self.chip] if isinstance(self.chip, str) else list(self.chip)):
+            cw = text_w(c, SZ_D, True) / K + 28
+            d.shp(s, xr - cw, y + 12, xr, y + 44, c, TONE['g4'], name='번호 띠 칩', mg=(0.3, 0, 0.3, 0))
+            xr -= cw + 8
 
 
 class BoxSubHead(Block):

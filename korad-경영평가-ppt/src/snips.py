@@ -4,7 +4,7 @@ import json, sys
 from pptx import Presentation
 import slots
 from compose import compose
-from layouts import LAYOUTS, PAGES, K, PL_NODES
+from layouts import LAYOUTS, PARTS, PAGES, K, PL_NODES
 from recipes import NOTE
 from layouts import catalog_spec
 from pptx2html import slide_html, CSS
@@ -47,28 +47,33 @@ def generic_slots(slide, pl):
 
 def build(tmp):
     out = {'blocks': {}, 'rl': {}, 'pl': {}, 'recipe': [], 'css': CSS}
-    # RL
-    nodes = []
-    for i, L in enumerate(LAYOUTS):
-        if i: nodes.append(dict(t='newpage'))
-        nodes += L['nodes']
-    d, f = compose(dict(start_no=93, first='odd', note=NOTE, nodes=nodes), tmp + '/rl.pptx')
+    def run(LS, tmp_name, record):
+        nodes = []
+        for i, L in enumerate(LS):
+            if i: nodes.append(dict(t='newpage'))
+            nodes += L['nodes']
+        d, f = compose(dict(start_no=93, first='odd', note=NOTE, nodes=nodes), tmp + '/' + tmp_name)
+        prs = Presentation(tmp + '/' + tmp_name)
+        by_page = {}
+        for pl, blk in zip(f.placed, f.placed_blocks):
+            by_page.setdefault(pl['page'], []).append((pl, blk))
+        rl = {}
+        for i, L in enumerate(LS):
+            items = by_page[i + 1]; sl = prs.slides[i]
+            y0 = items[0][0]['y']; ymax = max(p['y'] + p['h'] for p, _ in items); x0 = items[0][0]['x0']
+            if record:
+                html, w, h = region(sl, y0, ymax - y0, x0)
+                sls = []
+                for pl, blk in items:
+                    for name, x, y, ww, hh in (blk.slots(1150) if hasattr(blk, 'slots') else generic_slots(sl, pl)):
+                        sls.append(dict(name=name, x=round((x * K2) + 6), y=round((pl['y'] - y0 + y) * K2 + 6), w=round(ww * K2), h=round(hh * K2), block=pl['cls'], mm=[round(x * 210 / 1380, 1), round((pl['y'] - 48 + y) * 210 / 1380, 1), round(ww * 210 / 1380, 1), round(hh * 210 / 1380, 1)]))
+                out['rl'][L['id']] = dict(id=L['id'], name=L['name'], when=L['when'], src=L['src'], html=html, w=w, h=h, slots=sls,
+                                          blocks=[dict(cls=p['cls'], h=round(p['h'])) for p, _ in items])
+            rl[L['id']] = [(sl, p) for p, _ in items]
+        return rl
+    run(LAYOUTS, 'rl.pptx', True)
+    rl = run(PARTS, 'parts.pptx', False)
     prs = Presentation(tmp + '/rl.pptx')
-    by_page = {}
-    for pl, blk in zip(f.placed, f.placed_blocks):
-        by_page.setdefault(pl['page'], []).append((pl, blk))
-    rl = {}
-    for i, L in enumerate(LAYOUTS):
-        items = by_page[i + 1]; sl = prs.slides[i]
-        y0 = items[0][0]['y']; ymax = max(p['y'] + p['h'] for p, _ in items); x0 = items[0][0]['x0']
-        html, w, h = region(sl, y0, ymax - y0, x0)
-        sls = []
-        for pl, blk in items:
-            for name, x, y, ww, hh in (blk.slots(1150) if hasattr(blk, 'slots') else generic_slots(sl, pl)):
-                sls.append(dict(name=name, x=round((x * K2) + 6), y=round((pl['y'] - y0 + y) * K2 + 6), w=round(ww * K2), h=round(hh * K2), block=pl['cls'], mm=[round(x * 210 / 1380, 1), round((pl['y'] - y0 + y) * 210 / 1380, 1), round(ww * 210 / 1380, 1), round(hh * 210 / 1380, 1)]))
-        out['rl'][L['id']] = dict(id=L['id'], name=L['name'], when=L['when'], src=L['src'], html=html, w=w, h=h, slots=sls,
-                                  blocks=[dict(cls=p['cls'], h=round(p['h'])) for p, _ in items])
-        rl[L['id']] = [(sl, p) for p, _ in items]
     def blk(rid, idx, cls=None):
         sl, p = rl[rid][idx]
         assert cls is None or p['cls'] == cls, (rid, idx, p['cls'])

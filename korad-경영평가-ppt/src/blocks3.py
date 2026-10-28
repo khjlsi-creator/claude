@@ -413,3 +413,75 @@ class PairLinks(Block):
                 d.hl(s, px + pw * 0.45, ry + self.ROW / 2, px + pw * 0.55, ry + self.ROW / 2, color=TONE['g4'], lw=1.25)
                 d.r(s, px + pw * 0.45 - 4, ry + self.ROW / 2 - 4, px + pw * 0.45 + 4, ry + self.ROW / 2 + 4, fill=TONE['g4'], name='연결 점')
                 d.shp(s, px + pw * 0.55, ry + 4, px + pw, ry + self.ROW - 4, b, C['white'], color=C['navy'], line=TONE['g4'], lw=1.25, name='상자', mg=(0.4, 0, 0.4, 0))
+
+
+# ------------------------------------------------------------ L30·L33 괄호 머리 3열
+class BracketCols(Block):
+    """칸 제목 아래에 삼각 화살표(▼)가 달린 머리 N칸 + 칸마다 불릿(사진 칸 선택). 환경분석·구성/제도화처럼 위에서 아래로 내려가는 서술."""
+    kind = '괄호 머리 칸'
+    gap = 10
+    BODY = 150
+
+    def __init__(self, heads, cols, label=None):
+        self.heads, self.cols, self.label = heads, cols, label
+
+    def height(self, W):
+        return 54 + self.BODY + 6
+
+    def draw(self, d, s, x0, y, W):
+        h = self.height(W)
+        d.use('괄호 머리 칸', x0, y, x0 + W, y + h)
+        d.r(s, x0, y, x0 + W, y + h, fill=C['white'], line=TONE['line'], lw=0.75, name='틀')
+        ax = x0
+        if self.label:
+            d.rail(s, x0 + 2, y + 2, x0 + 108, y + h - 2, self.label, 'blue'); ax = x0 + 116
+        n = len(self.heads); cw = (x0 + W - 6 - ax) / n
+        for i, (hd, c) in enumerate(zip(self.heads, self.cols)):
+            a = ax + i * cw
+            bar = d.r(s, a + 4, y + 6, a + cw - 4, y + 40, fill=TONE['g1'], name='칸 제목 띠')
+            d.t(s, a + 4, y + 6, a + cw - 4, y + 40, [dict(t=hd, sz=SZ_C, b=True, color=C['navy'], align='c')], name='칸 제목', tag=f'제목{i}')
+            d.tri_arrow(s, a + cw / 2, y + 47, 22, 10, down=True)
+            tx0 = a + 6
+            if c.get('photo'):
+                d.photo(s, a + cw * 0.52, y + 56, a + cw - 6, y + 54 + self.BODY - 8, c['photo'])
+                tx1 = a + cw * 0.50
+            else:
+                tx1 = a + cw - 6
+            d.t(s, tx0, y + 54, tx1, y + 54 + self.BODY - 4, [B(t) if not t.startswith('*') else dict(t=t, sz=9, color=C['slate_700']) for t in c['lines']], anchor='m', mg=(1.2, 0.2, 0.6, 0.2), name='칸 본문', tag=f'본문{i}')
+            if i: d.hl(s, a, y + 52, a, y + h - 8, color=TONE['g2'], lw=0.75)
+
+
+# ------------------------------------------------------------ L31·L32 종합성과 · 추진성과 막대 카드
+class ResultCharts(Block):
+    """회색 라벨 + 위 요약 띠 + 카드 N장(왼쪽 문구 상자 | 오른쪽 연도별 막대). 종합성과·추진성과를 수치로 못 박는다."""
+    kind = '성과 막대 카드'
+    gap = 12
+
+    def __init__(self, label, banner, cards):
+        self.label, self.banner, self.cards = label, banner, cards
+
+    def height(self, W):
+        return 52 + 128 + 12
+
+    def draw(self, d, s, x0, y, W):
+        h = self.height(W)
+        d.use('성과 막대 카드', x0, y, x0 + W, y + h)
+        d.r(s, x0, y, x0 + W, y + h, fill=C['white'], line=TONE['g3'], lw=1.0, name='틀')
+        d.shp(s, x0 + 2, y + 2, x0 + 108, y + h - 2, self.label, TONE['g2'], color=C['navy'], name='성과 라벨', sz=SZ_C, mg=(0.4, 0, 0.4, 0))
+        ax = x0 + 116; aw = W - 122
+        d.shp(s, ax, y + 6, ax + aw, y + 44, self.banner, TONE['g1'], color=C['navy'], name='성과 띠', mg=(0.6, 0, 0.6, 0))
+        n = len(self.cards); cw = (aw - 8 * (n - 1)) / n
+        for i, c in enumerate(self.cards):
+            cx = ax + i * (cw + 8)
+            d.r(s, cx, y + 50, cx + cw, y + h - 6, fill=C['white'], line=TONE['g3'], lw=0.75, name='카드')
+            tw = cw * 0.46 if c.get('bars') else cw
+            d.t(s, cx + 4, y + 52, cx + tw, y + h - 8, [dict(t=t_, sz=SZ_D, b=True, color=C['navy'], align='c') for t_ in c['lines']], name='카드 문구', tag=f'문구{i}', mg=(0.3, 0, 0.3, 0))
+            bars = c.get('bars')
+            if bars:
+                mx = max(v for _, v, _ in bars); bx0 = cx + tw + 10; bw = 30
+                step = (cw - tw - 20) / len(bars)
+                for k, (yr, v, lab) in enumerate(bars):
+                    bx = bx0 + k * step; hh = max(14, 40 * v / mx)
+                    d.r(s, bx, y + h - 34 - hh, bx + bw, y + h - 34, fill=TONE['g3'] if k < len(bars) - 1 else TONE['g4'], name='막대')
+                    d.t(s, bx - 16, y + h - 34 - hh - 32, bx + bw + 16, y + h - 34 - hh - 2, [dict(t=lab, sz=9, b=True, color=C['navy'], align='c')], name='값', tag='값', mg=(0, 0, 0, 0))
+                    d.t(s, bx - 16, y + h - 32, bx + bw + 16, y + h - 8, [dict(t=yr, sz=9, color=C['slate_700'], align='c')], name='연도', tag='연도', mg=(0, 0, 0, 0))
