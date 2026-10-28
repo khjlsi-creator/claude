@@ -11,6 +11,7 @@
 """
 import sys, json
 from blocks import *
+from blocks2 import *
 
 PALETTE = {1: ['blue'], 2: ['blue', 'deep'], 3: ['blue', 'teal', 'deep'], 4: ['blue', 'teal', 'teal', 'deep'], 5: ['blue', 'teal', 'teal', 'deep', 'deep']}
 RESULT_LABELS = ('추진성과', '성과', '핵심성과')
@@ -34,8 +35,19 @@ def make(node):
     t = node['t']
     if t == 'chapter': return ChapterBand(node['title'])
     if t == 'eval': return EvalBand(node['n'], node['title'])
-    if t == 'topic': return NumBar(node['n'], node['title'])
-    if t == 'sub': return SubHead(node['text'], node.get('chips', []))
+    if t == 'topic': return NumChipBar(node['n'], node['title'], node['chip']) if node.get('chip') else NumBar(node['n'], node['title'])
+    if t == 'sub': return BoxSubHead(node['num'], node['box'], node['text'], node.get('chips', [])) if node.get('box') else SubHead(node['text'], node.get('chips', []))
+    if t == 'headline': return Headline(node['label'], node['title'], node.get('sub'), node.get('tag'))
+    if t == 'banner': return GreyBanner(node['lines'])
+    if t == 'chipcells': return ChipCells(node['label'], node['cells'], node['mid_title'], node['mid_tiles'], node['right'])
+    if t == 'roadmap': return RoadmapTable(node['head'], node['rows'])
+    if t == 'indicators': return IndicatorMatrix(node['rows'])
+    if t == 'iconrows': return IconRows(node['rows'])
+    if t == 'bestpractice': return BestPractice(node['title'], node['lines'])
+    if t == 'numgroups': return NumberedGroups(node['caption'], node['groups'])
+    if t == 'orgpanel': return OrgPanel(node['left'], node['right'])
+    if t == 'awards': return AwardRow(node['label'], node['cards'])
+    if t == 'arrowsteps': return ArrowSteps(node['labels'], node['cols'], node.get('foot'))
     if t == 'ladder':
         frame = 'g4' if all(r['label'].replace('\n', '') in RESULT_LABELS for r in node['rows']) else node.get('frame', 'g2')
         lad = Ladder(auto_rows(node['rows']), frame=frame, side=node.get('side'), photos=node.get('photos'))
@@ -50,6 +62,7 @@ def make(node):
         return TwinPanel(mk(node['left']), mk(node['right']), tuple(node.get('label_w', (135, 148))))
     if t == 'panel3': return ThreePanel(node['panels'])
     if t == 'table': return DataTable(node['header'], node['rows'])
+    if t == 'result' and node.get('grey'): return GreyResult(node.get('items') or node['text'], node.get('label', '주요성과'))
     if t == 'result': return Result(node.get('items') or node['text'], node.get('label', '핵심성과'))
     if t == 'connector': return Connector()
     if t == 'note': return Note(node['text'])
