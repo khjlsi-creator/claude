@@ -570,3 +570,66 @@ class CrossPanel(Block):
             d.r(s, xa, yb, xa + half, yb + 48, fill=TONE['g5'], name='아래 머리')
             cw = _chip(d, s, xa + 12, yb + 8, chip, h=32)
             d.t(s, xa + 18 + cw, yb, xa + half - 10, yb + 48, [dict(t=text, sz=SZ_C, b=True, color=C['white'])], name='아래 머리 글', tag=chip[:6])
+
+
+# ------------------------------------------------------------ L47 탭 카드(그룹 소제목 + 2열 카드)
+class TabCards(Block):
+    """그룹 소제목([아이콘 + 칩 + 한 문장]) 아래 2열 카드. 카드 = 모서리 탭(단계명) + 가운데 제목 / 불릿 / 아래 요약 띠."""
+    kind = '탭 카드 격자'
+    gap = 14
+    ROW = 196
+
+    def __init__(self, chip, title, cards):
+        self.chip, self.title, self.cards = chip, title, cards
+
+    def height(self, W):
+        return 48 + ((len(self.cards) + 1) // 2) * self.ROW + 4
+
+    def draw(self, d, s, x0, y, W):
+        d.use('탭 카드 격자', x0, y, x0 + W, y + self.height(W))
+        _icon(d, s, x0, y + 4, 32, 32)
+        cw_ = _chip(d, s, x0 + 40, y + 4, self.chip, h=32)
+        d.t(s, x0 + 48 + cw_, y, x0 + W - 4, y + 40, [dict(t=self.title, sz=SZ_SUB, b=True, color=C['navy'])], name='그룹 제목', tag=self.chip[:6], mg=(0, 0, 0, 0))
+        half = (W - 8) / 2
+        for i, c in enumerate(self.cards):
+            cx = x0 + (i % 2) * (half + 8); cy = y + 46 + (i // 2) * self.ROW
+            d.r(s, cx, cy, cx + half, cy + self.ROW - 6, fill=C['white'], line=TONE['g3'], lw=1.0, name='카드 틀')
+            d.shp(s, cx, cy, cx + 76, cy + 38, c['tab'], TONE['g5'], name='탭', mg=(0.2, 0, 0.2, 0))
+            d.t(s, cx + 82, cy, cx + half - 6, cy + 38, [dict(t=c['title'], sz=SZ_C, b=True, color=C['navy'], align='c')], name='카드 제목', tag=c['tab'])
+            d.t(s, cx + 4, cy + 42, cx + half - 4, cy + self.ROW - 58, [B(t) for t in c['lines']], anchor='m', mg=(1.2, 0.2, 0.6, 0.2), name='카드 본문', tag=f'본문{i}')
+            d.shp(s, cx, cy + self.ROW - 52, cx + half, cy + self.ROW - 6, c['foot'], TONE['g2'], color=C['navy'], name='카드 요약', mg=(0.6, 0, 0.6, 0))
+
+
+# ------------------------------------------------------------ L49 니즈 → 실적 → 성과 행렬
+class NeedsMatrix(Block):
+    """머리(3칸 단계 띠) 아래 행마다 [레일 라벨 | 니즈 문구 | 추진실적(불릿 + 칩 줄) | 성과(머리 + 문구)]."""
+    kind = '니즈·실적·성과 행렬'
+    gap = 12
+    ROW = 134
+
+    def __init__(self, heads, rows):
+        self.heads, self.rows = heads, rows
+
+    def height(self, W):
+        return 48 + len(self.rows) * self.ROW
+
+    def draw(self, d, s, x0, y, W):
+        d.use('니즈·실적·성과 행렬', x0, y, x0 + W, y + self.height(W))
+        ax = x0 + 116; aw = W - 122
+        w1, w2 = aw * 0.28, aw * 0.43
+        ed = [ax, ax + w1, ax + w1 + w2, ax + aw]
+        d.step_strip(s, y, y + 44, ed, self.heads)
+        for i, r in enumerate(self.rows):
+            ry = y + 48 + i * self.ROW
+            d.r(s, x0, ry, x0 + W, ry + self.ROW - 4, fill=C['white'], line=TONE['g2'], lw=0.75, name='행 틀')
+            d.rail(s, x0 + 2, ry + 2, x0 + 108, ry + self.ROW - 6, r['label'], 'blue')
+            d.t(s, ed[0], ry, ed[1] - 4, ry + self.ROW - 4, [dict(t=t_, sz=SZ_D, color=C['navy'], align='c') for t_ in r['need']], name='니즈', tag=f'니즈{i}')
+            d.t(s, ed[1], ry + 2, ed[2] - 4, ry + 40, [B(r['act'][0])], name='실적 머리', tag=f'실적{i}', mg=(1.2, 0.2, 0.6, 0.2))
+            for k, (chip, text) in enumerate(r['act'][1:]):
+                ky = ry + 44 + k * 42
+                kw = _chip(d, s, ed[1] + 8, ky + 4, chip, h=30)
+                d.t(s, ed[1] + 14 + kw, ky, ed[2] - 4, ky + 38, [dict(t=text, sz=SZ_D, b=True, color=C['navy'])], name='칩 줄 글', tag=f'{chip}{i}')
+            d.shp(s, ed[2] + 4, ry + 6, ed[3] - 4, ry + 48, r['res'][0], TONE['g1'], color=C['navy'], name='성과 머리', mg=(0.4, 0, 0.4, 0))
+            d.t(s, ed[2] + 4, ry + 50, ed[3] - 4, ry + self.ROW - 8, [dict(t=t_, sz=SZ_D, color=C['navy'], align='c') for t_ in r['res'][1]], name='성과 글', tag=f'성과{i}')
+            d.hl(s, ed[1] - 2, ry + 6, ed[1] - 2, ry + self.ROW - 10, color=TONE['g2'], lw=0.75)
+            d.hl(s, ed[2] - 2, ry + 6, ed[2] - 2, ry + self.ROW - 10, color=TONE['g2'], lw=0.75)
