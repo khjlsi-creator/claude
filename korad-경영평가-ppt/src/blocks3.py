@@ -474,14 +474,18 @@ class ResultCharts(Block):
         for i, c in enumerate(self.cards):
             cx = ax + i * (cw + 8)
             d.r(s, cx, y + 50, cx + cw, y + h - 6, fill=C['white'], line=TONE['g3'], lw=0.75, name='카드')
-            tw = cw * 0.46 if c.get('bars') else cw
-            d.t(s, cx + 4, y + 52, cx + tw, y + h - 8, [dict(t=t_, sz=SZ_D, b=True, color=C['navy'], align='c') for t_ in c['lines']], name='카드 문구', tag=f'문구{i}', mg=(0.3, 0, 0.3, 0))
+            tw = cw * 0.46 if c.get('bars') and not c.get('compact') else cw
+            if c.get('compact'):
+                d.t(s, cx + 4, y + 52, cx + cw - 4, y + 80, [dict(t=t_, sz=SZ_D, b=True, color=C['navy'], align='c') for t_ in c['lines']], name='카드 문구', tag=f'문구{i}', mg=(0.3, 0, 0.3, 0))
+            else:
+                d.t(s, cx + 4, y + 52, cx + tw, y + h - 8, [dict(t=t_, sz=SZ_D, b=True, color=C['navy'], align='c') for t_ in c['lines']], name='카드 문구', tag=f'문구{i}', mg=(0.3, 0, 0.3, 0))
             bars = c.get('bars')
             if bars:
-                mx = max(v for _, v, _ in bars); bx0 = cx + tw + 10; bw = 30
-                step = (cw - tw - 20) / len(bars)
+                mx = max(v for _, v, _ in bars); bw = 30
+                bx0 = cx + 14 if c.get('compact') else cx + tw + 10
+                step = (cw - 28) / len(bars) if c.get('compact') else (cw - tw - 20) / len(bars)
                 for k, (yr, v, lab) in enumerate(bars):
-                    bx = bx0 + k * step; hh = max(14, 40 * v / mx)
+                    bx = bx0 + k * step; hh = max(14, (30 if c.get('compact') else 40) * v / mx)
                     d.r(s, bx, y + h - 34 - hh, bx + bw, y + h - 34, fill=TONE['g3'] if k < len(bars) - 1 else TONE['g4'], name='막대')
                     d.t(s, bx - 16, y + h - 34 - hh - 32, bx + bw + 16, y + h - 34 - hh - 2, [dict(t=lab, sz=9, b=True, color=C['navy'], align='c')], name='값', tag='값', mg=(0, 0, 0, 0))
                     d.t(s, bx - 16, y + h - 32, bx + bw + 16, y + h - 8, [dict(t=yr, sz=9, color=C['slate_700'], align='c')], name='연도', tag='연도', mg=(0, 0, 0, 0))
