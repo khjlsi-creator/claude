@@ -23,6 +23,28 @@ def full(slide):
     return slide_html(slide), 960, round(PAGE_H)
 
 
+SKIP = {'점', '값', '연도', '단위', '막대', '번호', '행 틀', '카드', '카드 머리', '박스 외곽', '그룹 틀', '분야 박스', '패널 외곽', '본문 틀', '단계 삼각형', '형광 밑줄'}
+
+
+def generic_slots(slide, pl):
+    """slots가 없는 신규 블록: 블록 영역 안에서 글이 들어가는 도형을 좌표 칸으로 돌려준다(블록 왼쪽 위 기준 격자 px)."""
+    k = 1380 / 210 / 36000
+    x0, y0, w, h = pl['x0'], pl['y'], 1150, pl['h']
+    out = [('블록 전체', 0, 0, w, h)]
+    seen = {}
+    for sh in slide.shapes:
+        if not sh.has_text_frame or not sh.text_frame.text.strip() or sh.name in SKIP:
+            continue
+        px, py = sh.left * k, sh.top * k + 48
+        if not (x0 - 2 <= px <= x0 + w and y0 - 2 <= py <= y0 + h):
+            continue
+        n = seen.get(sh.name, 0) + 1; seen[sh.name] = n
+        if n > 4:
+            continue
+        out.append((f'{sh.name} {n}' if n > 1 or sum(1 for q in slide.shapes if q.name == sh.name) > 1 else sh.name, px - x0, py - y0, sh.width * k, sh.height * k))
+    return out
+
+
 def build(tmp):
     out = {'blocks': {}, 'rl': {}, 'pl': {}, 'recipe': [], 'css': CSS}
     # RL
@@ -42,7 +64,7 @@ def build(tmp):
         html, w, h = region(sl, y0, ymax - y0, x0)
         sls = []
         for pl, blk in items:
-            for name, x, y, ww, hh in blk.slots(1150):
+            for name, x, y, ww, hh in (blk.slots(1150) if hasattr(blk, 'slots') else generic_slots(sl, pl)):
                 sls.append(dict(name=name, x=round((x * K2) + 6), y=round((pl['y'] - y0 + y) * K2 + 6), w=round(ww * K2), h=round(hh * K2), block=pl['cls'], mm=[round(x * 210 / 1380, 1), round((pl['y'] - y0 + y) * 210 / 1380, 1), round(ww * 210 / 1380, 1), round(hh * 210 / 1380, 1)]))
         out['rl'][L['id']] = dict(id=L['id'], name=L['name'], when=L['when'], src=L['src'], html=html, w=w, h=h, slots=sls,
                                   blocks=[dict(cls=p['cls'], h=round(p['h'])) for p, _ in items])
