@@ -1,0 +1,32 @@
+{
+  "source": {"doc": "한국수자원공사 2025 경영실적보고서", "pdf_page": 17, "print_page": 7, "section": "Ⅳ-평가내용1-2"},
+  "image_px": [1240, 1897], "page_origin_y": 105,
+  "chrome": {"side_tab": {"text": "경영관리", "bbox": [1180, 693, 1240, 870]}, "footer": {"side": "right", "text": "전략기획 | 7", "bbox": [985, 1770, 1125, 1795]}},
+  "blocks": [
+    {"id": "b01", "kind": "section_bar", "bbox": [118, 240, 1110, 283], "num": [118, 240, 180, 283], "chip": [905, 250, 978, 275], "chip_text": "✔개선"},
+    {"id": "b02", "kind": "labeled_block", "body": "banner_year3_cols", "label": "그간의 혁신연계", "label_w": 117, "cols": 3, "rows": 1,
+     "bbox": [118, 298, 1122, 522],
+     "regions": [
+       {"name": "top_banner", "bbox": [243, 313, 1115, 343]},
+       {"name": "year_chevron3", "bbox": [243, 352, 1115, 395]},
+       {"name": "cols3_body", "bbox": [243, 400, 1115, 510]}]},
+    {"id": "b03", "kind": "tf_module", "body": "ribbon+flow3+future", "label": "AI First 전략기획단", "label_w": 125, "cols": 3, "rows": 2,
+     "bbox": [118, 530, 1122, 925],
+     "regions": [
+       {"name": "ribbon_title", "bbox": [118, 530, 1122, 560]},
+       {"name": "flow_block", "bbox": [118, 563, 1122, 750], "note": "라벨(로고) + 3단 chevron 헤더 + 강조 서브헤드 + 3개 결과칸"},
+       {"name": "future_block", "bbox": [118, 755, 1122, 925], "note": "2030 미래상: 배너 + 3단계 타임라인 + 사진 2장"}]},
+    {"id": "b04", "kind": "tf_module", "body": "ribbon+flow3+future", "label": "물에너지 Re:boot TF", "label_w": 125, "cols": 3, "rows": 2,
+     "bbox": [118, 938, 1122, 1335],
+     "regions": [
+       {"name": "ribbon_title", "bbox": [118, 938, 1122, 965]},
+       {"name": "flow_block", "bbox": [118, 968, 1122, 1160]},
+       {"name": "future_block", "bbox": [118, 1163, 1122, 1335], "note": "배너 + 도식 + 원그래프 + 우측 박스"}]},
+    {"id": "b05", "kind": "tf_module", "body": "ribbon+flow3+future", "label": "산업용수 활성화 TF", "label_w": 125, "cols": 3, "rows": 2,
+     "bbox": [118, 1345, 1122, 1722],
+     "regions": [
+       {"name": "ribbon_title", "bbox": [118, 1345, 1122, 1372]},
+       {"name": "flow_block", "bbox": [118, 1375, 1122, 1568]},
+       {"name": "future_block", "bbox": [118, 1572, 1122, 1722], "note": "배너 + 좌측 라인차트 + 우측 3행 목표"}]}
+  ]
+}

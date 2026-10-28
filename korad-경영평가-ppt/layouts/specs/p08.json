@@ -1,0 +1,25 @@
+{
+  "source": {"doc": "한국수자원공사 2025 경영실적보고서", "pdf_page": 18, "print_page": 8, "section": "Ⅳ-평가내용1-3"},
+  "image_px": [1240, 1897], "page_origin_y": 105,
+  "chrome": {"side_tab": null, "footer": {"side": "left", "text": "8 | 2025년도 경영실적보고서", "bbox": [118, 1770, 390, 1795]}},
+  "blocks": [
+    {"id": "b01", "kind": "section_bar", "bbox": [118, 240, 1110, 283], "num": [118, 240, 180, 283], "chip": [1015, 250, 1085, 275], "chip_text": "✔개선"},
+    {"id": "b02", "kind": "labeled_block", "body": "roadmap_kpi3_split_rows5", "label": "선제적 제안·반영", "label_w": 117, "cols": 2, "rows": 5,
+     "bbox": [118, 298, 1122, 1385],
+     "regions": [
+       {"name": "process_title_bar", "bbox": [243, 315, 1115, 345]},
+       {"name": "roadmap_timeline", "bbox": [243, 358, 1115, 565], "note": "좌 로고박스(243~465) + 우 2레인 타임라인(475~1112)"},
+       {"name": "policy_bar", "bbox": [243, 575, 1115, 610]},
+       {"name": "support_pair_bar", "bbox": [243, 628, 1115, 655]},
+       {"name": "month_cols3", "bbox": [243, 663, 1115, 775]},
+       {"name": "wide_message_bar", "bbox": [243, 790, 1115, 840]},
+       {"name": "split_header", "bbox": [333, 845, 1115, 880], "note": "사업·기능 직접반영 | 확장반영"},
+       {"name": "category_rows5", "bbox": [243, 885, 1115, 1385], "note": "아이콘라벨(243~330) + 좌 리스트(333~638) + 우 리스트(640~1112)"}]},
+    {"id": "b03", "kind": "labeled_block", "body": "bar_split2_pillrows4", "label": "정책 정합성 확보", "label_w": 117, "cols": 2, "rows": 4,
+     "bbox": [118, 1390, 1122, 1722],
+     "regions": [
+       {"name": "direction_bar", "bbox": [243, 1405, 1115, 1435]},
+       {"name": "split_header", "bbox": [243, 1448, 1115, 1485], "note": "사업 | 기능"},
+       {"name": "pill_rows4", "bbox": [243, 1495, 1115, 1715], "note": "좌 화살표 pill → 우 목표 박스"}]}
+  ]
+}

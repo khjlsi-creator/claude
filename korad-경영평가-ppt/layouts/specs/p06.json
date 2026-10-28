@@ -1,0 +1,41 @@
+{
+  "source": {"doc": "한국수자원공사 2025 경영실적보고서", "pdf_page": 16, "print_page": 6, "section": "Ⅳ-평가내용1-1-나·다"},
+  "image_px": [1240, 1897], "page_origin_y": 105,
+  "chrome": {"side_tab": null, "footer": {"side": "left", "text": "6 | 2025년도 경영실적보고서", "bbox": [118, 1770, 390, 1795]}},
+  "blocks": [
+    {"id": "b01", "kind": "subhead", "bbox": [118, 240, 910, 275], "marker": "나."},
+    {"id": "b02", "kind": "labeled_block", "body": "banner_chevron4_card2x2", "label": "이해관계자 재분류", "label_w": 117, "cols": 2, "rows": 2,
+     "bbox": [118, 285, 1122, 625],
+     "regions": [
+       {"name": "top_banner", "bbox": [243, 292, 1115, 335]},
+       {"name": "chevron_process_4step", "bbox": [243, 343, 1115, 390]},
+       {"name": "card_tl", "bbox": [243, 397, 680, 508]}, {"name": "card_tr", "bbox": [682, 397, 1115, 508]},
+       {"name": "card_bl", "bbox": [243, 510, 680, 620]}, {"name": "card_br", "bbox": [682, 510, 1115, 620]}]},
+    {"id": "b03", "kind": "arrow_caption", "bbox": [122, 630, 1118, 662]},
+    {"id": "b04", "kind": "labeled_block", "body": "bullets_col3_band_table", "label": "가치전략 진단", "label_w": 117, "cols": 3, "rows": 2,
+     "bbox": [118, 685, 1122, 1068],
+     "regions": [
+       {"name": "lead_bullets", "bbox": [243, 695, 1115, 750]},
+       {"name": "col3_header", "bbox": [243, 762, 1115, 795]},
+       {"name": "col3_body", "bbox": [243, 800, 1115, 870]},
+       {"name": "message_band", "bbox": [243, 875, 1115, 915]},
+       {"name": "table_row_value", "bbox": [243, 918, 1115, 980]},
+       {"name": "table_row_strategy", "bbox": [243, 985, 1115, 1050]},
+       {"name": "check_column", "bbox": [865, 918, 1115, 1050]}]},
+    {"id": "b05", "kind": "rolling_block", "body": "ribbon_chevron3_cards", "label": null, "label_w": 0, "cols": 3, "rows": 2,
+     "bbox": [118, 1075, 1122, 1352],
+     "regions": [
+       {"name": "ribbon_title", "bbox": [122, 1080, 1118, 1110]},
+       {"name": "chevron3_header", "bbox": [118, 1115, 1122, 1148]},
+       {"name": "cards", "bbox": [122, 1155, 1118, 1255]},
+       {"name": "desc_strip", "bbox": [122, 1250, 1118, 1277]},
+       {"name": "bullets", "bbox": [122, 1285, 1118, 1340]}]},
+    {"id": "b06", "kind": "subhead", "bbox": [118, 1378, 1098, 1412], "marker": "다."},
+    {"id": "b07", "kind": "matrix_plus_channels", "body": "quadrant_left_col3_right", "label": null, "label_w": 0, "cols": 3, "rows": 4,
+     "bbox": [118, 1422, 1122, 1725],
+     "regions": [
+       {"name": "quadrant_matrix", "bbox": [120, 1422, 455, 1725]},
+       {"name": "channel_by_type", "bbox": [462, 1430, 780, 1725]},
+       {"name": "spread_channels_with_thumbs", "bbox": [780, 1430, 1120, 1725]}]}
+  ]
+}

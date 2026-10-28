@@ -1,0 +1,38 @@
+{
+  "source": {"doc": "한국수자원공사 2025 경영실적보고서", "pdf_page": 19, "print_page": 9, "section": "Ⅳ-평가내용1-4"},
+  "image_px": [1240, 1897], "page_origin_y": 105,
+  "chrome": {"side_tab": {"text": "경영관리", "bbox": [1180, 693, 1240, 870]}, "footer": {"side": "right", "text": "전략기획 | 9", "bbox": [985, 1770, 1125, 1795]}},
+  "blocks": [
+    {"id": "b01", "kind": "section_bar", "bbox": [118, 240, 1110, 283], "num": [118, 240, 180, 283], "chip": [938, 250, 1010, 275], "chip_text": "✔개선"},
+    {"id": "b02", "kind": "labeled_block", "body": "single_line", "label": "조정방향", "label_w": 117, "cols": 1, "rows": 1, "bbox": [118, 298, 1122, 350]},
+    {"id": "b03", "kind": "labeled_block", "body": "duo_header_bullets_caption", "label": "진단 TOOL", "label_w": 117, "cols": 2, "rows": 2,
+     "bbox": [118, 365, 1122, 543],
+     "regions": [
+       {"name": "duo_header_plus", "bbox": [243, 372, 1115, 410]},
+       {"name": "bullets2", "bbox": [243, 420, 1115, 490]},
+       {"name": "caption2", "bbox": [243, 492, 1115, 535]}]},
+    {"id": "b04", "kind": "labeled_block", "body": "banner_split_stack_vs_steps", "label": "사업별 진단", "label_w": 117, "cols": 2, "rows": 2,
+     "bbox": [118, 548, 1122, 843],
+     "regions": [
+       {"name": "top_banner", "bbox": [243, 555, 1115, 585]},
+       {"name": "split_header", "bbox": [243, 595, 1115, 630]},
+       {"name": "left_stack_expand_new", "bbox": [243, 640, 675, 840]},
+       {"name": "right_two_step_eval", "bbox": [680, 640, 1115, 840]}]},
+    {"id": "b05", "kind": "labeled_block", "body": "col3_plus_types", "label": "사업유형 분류", "label_w": 117, "cols": 3, "rows": 1,
+     "bbox": [118, 850, 1122, 975],
+     "regions": [{"name": "cols3_header", "bbox": [243, 858, 1115, 895]}, {"name": "cols3_body", "bbox": [243, 900, 1115, 968]}]},
+    {"id": "b06", "kind": "divider_chevron", "bbox": [118, 985, 1122, 1003]},
+    {"id": "b07", "kind": "labeled_block", "body": "dual_scatter_before_after", "label": "사업 포트폴리오 재구성", "label_w": 117, "cols": 2, "rows": 1,
+     "bbox": [118, 1018, 1122, 1305],
+     "regions": [
+       {"name": "scatter_before", "bbox": [243, 1030, 680, 1270]}, {"name": "arrow", "bbox": [668, 1130, 705, 1180]},
+       {"name": "scatter_after", "bbox": [703, 1030, 1118, 1270]}, {"name": "footnote_legend", "bbox": [243, 1272, 1115, 1298]}]},
+    {"id": "b08", "kind": "ribbon_title", "bbox": [118, 1318, 1122, 1345]},
+    {"id": "b09", "kind": "labeled_block", "body": "chart_table_pair", "label": "중장기 재무전략", "label_w": 117, "cols": 2, "rows": 1,
+     "bbox": [118, 1348, 1122, 1520],
+     "regions": [{"name": "stacked_bar_chart", "bbox": [243, 1355, 590, 1515]}, {"name": "table_4rows_x3", "bbox": [595, 1355, 1115, 1515], "note": "구분/단기/중기/장기 × AI·재생e·첨단용수·안전"}]},
+    {"id": "b10", "kind": "labeled_block", "body": "chart_table_pair", "label": "중장기 인력운용", "label_w": 117, "cols": 2, "rows": 1,
+     "bbox": [118, 1523, 1122, 1722],
+     "regions": [{"name": "stacked_bar_chart", "bbox": [243, 1530, 590, 1715]}, {"name": "table_4rows_x3", "bbox": [595, 1530, 1115, 1715]}]}
+  ]
+}

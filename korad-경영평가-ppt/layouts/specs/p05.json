@@ -1,0 +1,31 @@
+{
+  "source": {"doc": "한국수자원공사 2025 경영실적보고서", "pdf_page": 15, "print_page": 5, "section": "Ⅳ-평가내용1-1-가"},
+  "image_px": [1240, 1897], "page_origin_y": 105,
+  "chrome": {
+    "side_tab": {"text": "경영관리", "bbox": [1180, 693, 1240, 870]},
+    "footer": {"side": "right", "text": "전략기획 | 5", "bbox": [985, 1770, 1125, 1795]}
+  },
+  "blocks": [
+    {"id": "b01", "kind": "chapter_title", "bbox": [118, 245, 940, 285], "text": "Ⅳ. 2025년 세부평가내용별 추진실적 및 성과"},
+    {"id": "b02", "kind": "eval_item_box", "bbox": [118, 315, 1122, 402], "chip": [118, 315, 257, 402], "text_area": [275, 330, 1100, 392]},
+    {"id": "b03", "kind": "bp_banner", "bbox": [118, 425, 1122, 572], "badge": [118, 425, 232, 572], "title_row": [236, 432, 1115, 478], "bullets": [[250, 487, 1115, 520], [250, 528, 1115, 562]]},
+    {"id": "b04", "kind": "section_bar", "bbox": [118, 596, 1110, 637], "num": [118, 596, 180, 637], "chip": [1005, 606, 1078, 630], "chip_text": "✔B.P"},
+    {"id": "b05", "kind": "subhead", "bbox": [118, 655, 1000, 695], "marker": "가."},
+    {"id": "b06", "kind": "labeled_block", "body": "card_grid_2x2_hub", "label": "환경진단", "label_w": 117, "cols": 2, "rows": 2,
+     "bbox": [118, 705, 1122, 1130],
+     "regions": [
+       {"name": "card_tl", "bbox": [243, 712, 680, 935]}, {"name": "card_tr", "bbox": [682, 712, 1118, 935]},
+       {"name": "card_bl", "bbox": [243, 940, 680, 1125]}, {"name": "card_br", "bbox": [682, 940, 1118, 1125]},
+       {"name": "hub_circle_images", "bbox": [555, 755, 805, 1030]}]},
+    {"id": "b07", "kind": "insight_bar", "bbox": [118, 1135, 1122, 1182], "chip": [160, 1145, 230, 1172]},
+    {"id": "b08", "kind": "labeled_block", "body": "logic_3col_3row", "label": "기존해석/변화필요성/설립목적재정의", "label_w": 117, "cols": 3, "rows": 3,
+     "bbox": [118, 1187, 1122, 1725],
+     "regions": [
+       {"name": "label_chevron_stack", "bbox": [118, 1187, 235, 1725]},
+       {"name": "top_pair_strip", "bbox": [243, 1195, 1115, 1237]},
+       {"name": "row1_cells", "bbox": [243, 1248, 1115, 1400]},
+       {"name": "row2_cells", "bbox": [243, 1425, 1115, 1530]},
+       {"name": "row3_cells", "bbox": [243, 1545, 1115, 1665]},
+       {"name": "bottom_conclusion_bar", "bbox": [243, 1675, 1115, 1715]}]}
+  ]
+}

@@ -1,0 +1,1714 @@
+{
+ "blocks": {
+  "BL-001": {
+   "kind": "chapter_title",
+   "body": null,
+   "label_w": 0,
+   "cols": null,
+   "rows": null,
+   "w_mm": 139.2,
+   "h_mm": 6.8,
+   "regions": [],
+   "fp": "chapter_title|-|L0|c-|r-",
+   "first_seen": "p05",
+   "used_in": [
+    "p05"
+   ],
+   "label_example": null
+  },
+  "BL-002": {
+   "kind": "eval_item_box",
+   "body": null,
+   "label_w": 0,
+   "cols": null,
+   "rows": null,
+   "w_mm": 170.0,
+   "h_mm": 14.7,
+   "regions": [],
+   "fp": "eval_item_box|-|L0|c-|r-",
+   "first_seen": "p05",
+   "used_in": [
+    "p05"
+   ],
+   "label_example": null
+  },
+  "BL-003": {
+   "kind": "bp_banner",
+   "body": null,
+   "label_w": 0,
+   "cols": null,
+   "rows": null,
+   "w_mm": 170.0,
+   "h_mm": 24.9,
+   "regions": [],
+   "fp": "bp_banner|-|L0|c-|r-",
+   "first_seen": "p05",
+   "used_in": [
+    "p05"
+   ],
+   "label_example": null
+  },
+  "BL-004": {
+   "kind": "section_bar",
+   "body": null,
+   "label_w": 0,
+   "cols": null,
+   "rows": null,
+   "w_mm": 168.0,
+   "h_mm": 6.9,
+   "regions": [],
+   "fp": "section_bar|num+chip",
+   "first_seen": "p05",
+   "used_in": [
+    "p05",
+    "p07",
+    "p08",
+    "p09"
+   ],
+   "label_example": null
+  },
+  "BL-005": {
+   "kind": "subhead",
+   "body": null,
+   "label_w": 0,
+   "cols": null,
+   "rows": null,
+   "w_mm": 149.4,
+   "h_mm": 6.8,
+   "regions": [],
+   "fp": "subhead|-|L0|c-|r-",
+   "first_seen": "p05",
+   "used_in": [
+    "p05",
+    "p06"
+   ],
+   "label_example": null
+  },
+  "BL-006": {
+   "kind": "labeled_block",
+   "body": "card_grid_2x2_hub",
+   "label_w": 117,
+   "cols": 2,
+   "rows": 2,
+   "w_mm": 170.0,
+   "h_mm": 72.0,
+   "regions": [
+    {
+     "name": "card_tl",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      1.2,
+      74.0,
+      37.8
+     ]
+    },
+    {
+     "name": "card_tr",
+     "note": "",
+     "rel_mm": [
+      95.5,
+      1.2,
+      73.8,
+      37.8
+     ]
+    },
+    {
+     "name": "card_bl",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      39.8,
+      74.0,
+      31.3
+     ]
+    },
+    {
+     "name": "card_br",
+     "note": "",
+     "rel_mm": [
+      95.5,
+      39.8,
+      73.8,
+      31.3
+     ]
+    },
+    {
+     "name": "hub_circle_images",
+     "note": "",
+     "rel_mm": [
+      74.0,
+      8.5,
+      42.3,
+      46.6
+     ]
+    }
+   ],
+   "fp": "labeled_block|card_grid_2x2_hub|L120|c2|r2",
+   "first_seen": "p05",
+   "used_in": [
+    "p05"
+   ],
+   "label_example": "환경진단"
+  },
+  "BL-007": {
+   "kind": "insight_bar",
+   "body": null,
+   "label_w": 0,
+   "cols": null,
+   "rows": null,
+   "w_mm": 170.0,
+   "h_mm": 8.0,
+   "regions": [],
+   "fp": "insight_bar|-|L0|c-|r-",
+   "first_seen": "p05",
+   "used_in": [
+    "p05"
+   ],
+   "label_example": null
+  },
+  "BL-008": {
+   "kind": "labeled_block",
+   "body": "logic_3col_3row",
+   "label_w": 117,
+   "cols": 3,
+   "rows": 3,
+   "w_mm": 170.0,
+   "h_mm": 91.1,
+   "regions": [
+    {
+     "name": "label_chevron_stack",
+     "note": "",
+     "rel_mm": [
+      0.0,
+      0.0,
+      19.8,
+      91.1
+     ]
+    },
+    {
+     "name": "top_pair_strip",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      1.4,
+      147.7,
+      7.1
+     ]
+    },
+    {
+     "name": "row1_cells",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      10.3,
+      147.7,
+      25.7
+     ]
+    },
+    {
+     "name": "row2_cells",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      40.3,
+      147.7,
+      17.8
+     ]
+    },
+    {
+     "name": "row3_cells",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      60.6,
+      147.7,
+      20.3
+     ]
+    },
+    {
+     "name": "bottom_conclusion_bar",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      82.6,
+      147.7,
+      6.8
+     ]
+    }
+   ],
+   "fp": "labeled_block|logic_3col_3row|L120|c3|r3",
+   "first_seen": "p05",
+   "used_in": [
+    "p05"
+   ],
+   "label_example": "기존해석/변화필요성/설립목적재정의"
+  },
+  "BL-009": {
+   "kind": "labeled_block",
+   "body": "banner_chevron4_card2x2",
+   "label_w": 117,
+   "cols": 2,
+   "rows": 2,
+   "w_mm": 170.0,
+   "h_mm": 57.6,
+   "regions": [
+    {
+     "name": "top_banner",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      1.2,
+      147.7,
+      7.3
+     ]
+    },
+    {
+     "name": "chevron_process_4step",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      9.8,
+      147.7,
+      8.0
+     ]
+    },
+    {
+     "name": "card_tl",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      19.0,
+      74.0,
+      18.8
+     ]
+    },
+    {
+     "name": "card_tr",
+     "note": "",
+     "rel_mm": [
+      95.5,
+      19.0,
+      73.3,
+      18.8
+     ]
+    },
+    {
+     "name": "card_bl",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      38.1,
+      74.0,
+      18.6
+     ]
+    },
+    {
+     "name": "card_br",
+     "note": "",
+     "rel_mm": [
+      95.5,
+      38.1,
+      73.3,
+      18.6
+     ]
+    }
+   ],
+   "fp": "labeled_block|banner_chevron4_card2x2|L120|c2|r2",
+   "first_seen": "p06",
+   "used_in": [
+    "p06"
+   ],
+   "label_example": "이해관계자 재분류"
+  },
+  "BL-010": {
+   "kind": "arrow_caption",
+   "body": null,
+   "label_w": 0,
+   "cols": null,
+   "rows": null,
+   "w_mm": 168.7,
+   "h_mm": 5.4,
+   "regions": [],
+   "fp": "arrow_caption|-|L0|c-|r-",
+   "first_seen": "p06",
+   "used_in": [
+    "p06"
+   ],
+   "label_example": null
+  },
+  "BL-011": {
+   "kind": "labeled_block",
+   "body": "bullets_col3_band_table",
+   "label_w": 117,
+   "cols": 3,
+   "rows": 2,
+   "w_mm": 170.0,
+   "h_mm": 64.9,
+   "regions": [
+    {
+     "name": "lead_bullets",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      1.7,
+      147.7,
+      9.3
+     ]
+    },
+    {
+     "name": "col3_header",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      13.0,
+      147.7,
+      5.6
+     ]
+    },
+    {
+     "name": "col3_body",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      19.5,
+      147.7,
+      11.9
+     ]
+    },
+    {
+     "name": "message_band",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      32.2,
+      147.7,
+      6.8
+     ]
+    },
+    {
+     "name": "table_row_value",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      39.5,
+      147.7,
+      10.5
+     ]
+    },
+    {
+     "name": "table_row_strategy",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      50.8,
+      147.7,
+      11.0
+     ]
+    },
+    {
+     "name": "check_column",
+     "note": "",
+     "rel_mm": [
+      126.5,
+      39.5,
+      42.3,
+      22.4
+     ]
+    }
+   ],
+   "fp": "labeled_block|bullets_col3_band_table|L120|c3|r2",
+   "first_seen": "p06",
+   "used_in": [
+    "p06"
+   ],
+   "label_example": "가치전략 진단"
+  },
+  "BL-012": {
+   "kind": "rolling_block",
+   "body": "ribbon_chevron3_cards",
+   "label_w": 0,
+   "cols": 3,
+   "rows": 2,
+   "w_mm": 170.0,
+   "h_mm": 46.9,
+   "regions": [
+    {
+     "name": "ribbon_title",
+     "note": "",
+     "rel_mm": [
+      0.7,
+      0.8,
+      168.7,
+      5.1
+     ]
+    },
+    {
+     "name": "chevron3_header",
+     "note": "",
+     "rel_mm": [
+      0.0,
+      6.8,
+      170.0,
+      5.6
+     ]
+    },
+    {
+     "name": "cards",
+     "note": "",
+     "rel_mm": [
+      0.7,
+      13.5,
+      168.7,
+      16.9
+     ]
+    },
+    {
+     "name": "desc_strip",
+     "note": "",
+     "rel_mm": [
+      0.7,
+      29.6,
+      168.7,
+      4.6
+     ]
+    },
+    {
+     "name": "bullets",
+     "note": "",
+     "rel_mm": [
+      0.7,
+      35.6,
+      168.7,
+      9.3
+     ]
+    }
+   ],
+   "fp": "rolling_block|ribbon_chevron3_cards|L0|c3|r2",
+   "first_seen": "p06",
+   "used_in": [
+    "p06"
+   ],
+   "label_example": null
+  },
+  "BL-013": {
+   "kind": "matrix_plus_channels",
+   "body": "quadrant_left_col3_right",
+   "label_w": 0,
+   "cols": 3,
+   "rows": 4,
+   "w_mm": 170.0,
+   "h_mm": 51.3,
+   "regions": [
+    {
+     "name": "quadrant_matrix",
+     "note": "",
+     "rel_mm": [
+      0.3,
+      0.0,
+      56.7,
+      51.3
+     ]
+    },
+    {
+     "name": "channel_by_type",
+     "note": "",
+     "rel_mm": [
+      58.3,
+      1.4,
+      53.9,
+      50.0
+     ]
+    },
+    {
+     "name": "spread_channels_with_thumbs",
+     "note": "",
+     "rel_mm": [
+      112.1,
+      1.4,
+      57.6,
+      50.0
+     ]
+    }
+   ],
+   "fp": "matrix_plus_channels|quadrant_left_col3_right|L0|c3|r4",
+   "first_seen": "p06",
+   "used_in": [
+    "p06"
+   ],
+   "label_example": null
+  },
+  "BL-014": {
+   "kind": "labeled_block",
+   "body": "banner_year3_cols",
+   "label_w": 117,
+   "cols": 3,
+   "rows": 1,
+   "w_mm": 170.0,
+   "h_mm": 37.9,
+   "regions": [
+    {
+     "name": "top_banner",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      2.5,
+      147.7,
+      5.1
+     ]
+    },
+    {
+     "name": "year_chevron3",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      9.1,
+      147.7,
+      7.3
+     ]
+    },
+    {
+     "name": "cols3_body",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      17.3,
+      147.7,
+      18.6
+     ]
+    }
+   ],
+   "fp": "labeled_block|banner_year3_cols|L120|c3|r1",
+   "first_seen": "p07",
+   "used_in": [
+    "p07"
+   ],
+   "label_example": "그간의 혁신연계"
+  },
+  "BL-015": {
+   "kind": "tf_module",
+   "body": "ribbon+flow3+future",
+   "label_w": 125,
+   "cols": 3,
+   "rows": 2,
+   "w_mm": 170.0,
+   "h_mm": 66.9,
+   "regions": [
+    {
+     "name": "ribbon_title",
+     "note": "",
+     "rel_mm": [
+      0.0,
+      0.0,
+      170.0,
+      5.1
+     ]
+    },
+    {
+     "name": "flow_block",
+     "note": "라벨(로고) + 3단 chevron 헤더 + 강조 서브헤드 + 3개 결과칸",
+     "rel_mm": [
+      0.0,
+      5.6,
+      170.0,
+      31.7
+     ]
+    },
+    {
+     "name": "future_block",
+     "note": "2030 미래상: 배너 + 3단계 타임라인 + 사진 2장",
+     "rel_mm": [
+      0.0,
+      38.1,
+      170.0,
+      28.8
+     ]
+    }
+   ],
+   "fp": "tf_module|ribbon+flow3+future|L120|c3|r2",
+   "first_seen": "p07",
+   "used_in": [
+    "p07"
+   ],
+   "label_example": "AI First 전략기획단"
+  },
+  "BL-016": {
+   "kind": "labeled_block",
+   "body": "roadmap_kpi3_split_rows5",
+   "label_w": 117,
+   "cols": 2,
+   "rows": 5,
+   "w_mm": 170.0,
+   "h_mm": 184.1,
+   "regions": [
+    {
+     "name": "process_title_bar",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      2.9,
+      147.7,
+      5.1
+     ]
+    },
+    {
+     "name": "roadmap_timeline",
+     "note": "좌 로고박스(243~465) + 우 2레인 타임라인(475~1112)",
+     "rel_mm": [
+      21.2,
+      10.2,
+      147.7,
+      35.1
+     ]
+    },
+    {
+     "name": "policy_bar",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      46.9,
+      147.7,
+      5.9
+     ]
+    },
+    {
+     "name": "support_pair_bar",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      55.9,
+      147.7,
+      4.6
+     ]
+    },
+    {
+     "name": "month_cols3",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      61.8,
+      147.7,
+      19.0
+     ]
+    },
+    {
+     "name": "wide_message_bar",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      83.3,
+      147.7,
+      8.5
+     ]
+    },
+    {
+     "name": "split_header",
+     "note": "사업·기능 직접반영 | 확장반영",
+     "rel_mm": [
+      36.4,
+      92.6,
+      132.4,
+      5.9
+     ]
+    },
+    {
+     "name": "category_rows5",
+     "note": "아이콘라벨(243~330) + 좌 리스트(333~638) + 우 리스트(640~1112)",
+     "rel_mm": [
+      21.2,
+      99.4,
+      147.7,
+      84.7
+     ]
+    }
+   ],
+   "fp": "labeled_block|roadmap_kpi3_split_rows5|L120|c2|r5",
+   "first_seen": "p08",
+   "used_in": [
+    "p08"
+   ],
+   "label_example": "선제적 제안·반영"
+  },
+  "BL-017": {
+   "kind": "labeled_block",
+   "body": "bar_split2_pillrows4",
+   "label_w": 117,
+   "cols": 2,
+   "rows": 4,
+   "w_mm": 170.0,
+   "h_mm": 56.2,
+   "regions": [
+    {
+     "name": "direction_bar",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      2.5,
+      147.7,
+      5.1
+     ]
+    },
+    {
+     "name": "split_header",
+     "note": "사업 | 기능",
+     "rel_mm": [
+      21.2,
+      9.8,
+      147.7,
+      6.3
+     ]
+    },
+    {
+     "name": "pill_rows4",
+     "note": "좌 화살표 pill → 우 목표 박스",
+     "rel_mm": [
+      21.2,
+      17.8,
+      147.7,
+      37.3
+     ]
+    }
+   ],
+   "fp": "labeled_block|bar_split2_pillrows4|L120|c2|r4",
+   "first_seen": "p08",
+   "used_in": [
+    "p08"
+   ],
+   "label_example": "정책 정합성 확보"
+  },
+  "BL-018": {
+   "kind": "labeled_block",
+   "body": "single_line",
+   "label_w": 117,
+   "cols": 1,
+   "rows": 1,
+   "w_mm": 170.0,
+   "h_mm": 8.8,
+   "regions": [],
+   "fp": "labeled_block|single_line|L120|c1|r1",
+   "first_seen": "p09",
+   "used_in": [
+    "p09"
+   ],
+   "label_example": "조정방향"
+  },
+  "BL-019": {
+   "kind": "labeled_block",
+   "body": "duo_header_bullets_caption",
+   "label_w": 117,
+   "cols": 2,
+   "rows": 2,
+   "w_mm": 170.0,
+   "h_mm": 30.1,
+   "regions": [
+    {
+     "name": "duo_header_plus",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      1.2,
+      147.7,
+      6.4
+     ]
+    },
+    {
+     "name": "bullets2",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      9.3,
+      147.7,
+      11.9
+     ]
+    },
+    {
+     "name": "caption2",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      21.5,
+      147.7,
+      7.3
+     ]
+    }
+   ],
+   "fp": "labeled_block|duo_header_bullets_caption|L120|c2|r2",
+   "first_seen": "p09",
+   "used_in": [
+    "p09"
+   ],
+   "label_example": "진단 TOOL"
+  },
+  "BL-020": {
+   "kind": "labeled_block",
+   "body": "banner_split_stack_vs_steps",
+   "label_w": 117,
+   "cols": 2,
+   "rows": 2,
+   "w_mm": 170.0,
+   "h_mm": 50.0,
+   "regions": [
+    {
+     "name": "top_banner",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      1.2,
+      147.7,
+      5.1
+     ]
+    },
+    {
+     "name": "split_header",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      8.0,
+      147.7,
+      5.9
+     ]
+    },
+    {
+     "name": "left_stack_expand_new",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      15.6,
+      73.2,
+      33.9
+     ]
+    },
+    {
+     "name": "right_two_step_eval",
+     "note": "",
+     "rel_mm": [
+      95.2,
+      15.6,
+      73.7,
+      33.9
+     ]
+    }
+   ],
+   "fp": "labeled_block|banner_split_stack_vs_steps|L120|c2|r2",
+   "first_seen": "p09",
+   "used_in": [
+    "p09"
+   ],
+   "label_example": "사업별 진단"
+  },
+  "BL-021": {
+   "kind": "labeled_block",
+   "body": "col3_plus_types",
+   "label_w": 117,
+   "cols": 3,
+   "rows": 1,
+   "w_mm": 170.0,
+   "h_mm": 21.2,
+   "regions": [
+    {
+     "name": "cols3_header",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      1.4,
+      147.7,
+      6.3
+     ]
+    },
+    {
+     "name": "cols3_body",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      8.5,
+      147.7,
+      11.5
+     ]
+    }
+   ],
+   "fp": "labeled_block|col3_plus_types|L120|c3|r1",
+   "first_seen": "p09",
+   "used_in": [
+    "p09"
+   ],
+   "label_example": "사업유형 분류"
+  },
+  "BL-022": {
+   "kind": "divider_chevron",
+   "body": null,
+   "label_w": 0,
+   "cols": null,
+   "rows": null,
+   "w_mm": 170.0,
+   "h_mm": 3.0,
+   "regions": [],
+   "fp": "divider_chevron|-|L0|c-|r-",
+   "first_seen": "p09",
+   "used_in": [
+    "p09"
+   ],
+   "label_example": null
+  },
+  "BL-023": {
+   "kind": "labeled_block",
+   "body": "dual_scatter_before_after",
+   "label_w": 117,
+   "cols": 2,
+   "rows": 1,
+   "w_mm": 170.0,
+   "h_mm": 48.6,
+   "regions": [
+    {
+     "name": "scatter_before",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      2.0,
+      74.0,
+      40.6
+     ]
+    },
+    {
+     "name": "arrow",
+     "note": "",
+     "rel_mm": [
+      93.1,
+      19.0,
+      6.3,
+      8.5
+     ]
+    },
+    {
+     "name": "scatter_after",
+     "note": "",
+     "rel_mm": [
+      99.1,
+      2.0,
+      70.3,
+      40.6
+     ]
+    },
+    {
+     "name": "footnote_legend",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      43.0,
+      147.7,
+      4.4
+     ]
+    }
+   ],
+   "fp": "labeled_block|dual_scatter_before_after|L120|c2|r1",
+   "first_seen": "p09",
+   "used_in": [
+    "p09"
+   ],
+   "label_example": "사업 포트폴리오 재구성"
+  },
+  "BL-024": {
+   "kind": "ribbon_title",
+   "body": null,
+   "label_w": 0,
+   "cols": null,
+   "rows": null,
+   "w_mm": 170.0,
+   "h_mm": 4.6,
+   "regions": [],
+   "fp": "ribbon_title|-|L0|c-|r-",
+   "first_seen": "p09",
+   "used_in": [
+    "p09"
+   ],
+   "label_example": null
+  },
+  "BL-025": {
+   "kind": "labeled_block",
+   "body": "chart_table_pair",
+   "label_w": 117,
+   "cols": 2,
+   "rows": 1,
+   "w_mm": 170.0,
+   "h_mm": 29.1,
+   "regions": [
+    {
+     "name": "stacked_bar_chart",
+     "note": "",
+     "rel_mm": [
+      21.2,
+      1.2,
+      58.8,
+      27.1
+     ]
+    },
+    {
+     "name": "table_4rows_x3",
+     "note": "구분/단기/중기/장기 × AI·재생e·첨단용수·안전",
+     "rel_mm": [
+      80.8,
+      1.2,
+      88.1,
+      27.1
+     ]
+    }
+   ],
+   "fp": "labeled_block|chart_table_pair|L120|c2|r1",
+   "first_seen": "p09",
+   "used_in": [
+    "p09"
+   ],
+   "label_example": "중장기 재무전략"
+  }
+ },
+ "pages": {
+  "PG-01": {
+   "composition": [
+    "PF-1",
+    "BL-001",
+    "BL-002",
+    "BL-003",
+    "BL-004",
+    "BL-005",
+    "BL-006",
+    "BL-007",
+    "BL-008"
+   ],
+   "instances": [
+    "p05"
+   ],
+   "source": {
+    "doc": "한국수자원공사 2025 경영실적보고서",
+    "pdf_page": 15,
+    "print_page": 5,
+    "section": "Ⅳ-평가내용1-1-가"
+   },
+   "title": "Ⅳ-평가내용1-1-가",
+   "blocks": [
+    {
+     "spec_id": "b01",
+     "layout": "BL-001",
+     "label": null,
+     "y_mm": [
+      23.7,
+      30.5
+     ],
+     "x_mm": [
+      20.0,
+      159.2
+     ]
+    },
+    {
+     "spec_id": "b02",
+     "layout": "BL-002",
+     "label": null,
+     "y_mm": [
+      35.6,
+      50.3
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b03",
+     "layout": "BL-003",
+     "label": null,
+     "y_mm": [
+      54.2,
+      79.1
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b04",
+     "layout": "BL-004",
+     "label": null,
+     "y_mm": [
+      83.2,
+      90.1
+     ],
+     "x_mm": [
+      20.0,
+      188.0
+     ]
+    },
+    {
+     "spec_id": "b05",
+     "layout": "BL-005",
+     "label": null,
+     "y_mm": [
+      93.1,
+      99.9
+     ],
+     "x_mm": [
+      20.0,
+      169.4
+     ]
+    },
+    {
+     "spec_id": "b06",
+     "layout": "BL-006",
+     "label": "환경진단",
+     "y_mm": [
+      101.6,
+      173.6
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b07",
+     "layout": "BL-007",
+     "label": null,
+     "y_mm": [
+      174.4,
+      182.4
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b08",
+     "layout": "BL-008",
+     "label": "기존해석/변화필요성/설립목적재정의",
+     "y_mm": [
+      183.2,
+      274.4
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    }
+   ]
+  },
+  "PG-02": {
+   "composition": [
+    "PF-2",
+    "BL-005",
+    "BL-009",
+    "BL-010",
+    "BL-011",
+    "BL-012",
+    "BL-005",
+    "BL-013"
+   ],
+   "instances": [
+    "p06"
+   ],
+   "source": {
+    "doc": "한국수자원공사 2025 경영실적보고서",
+    "pdf_page": 16,
+    "print_page": 6,
+    "section": "Ⅳ-평가내용1-1-나·다"
+   },
+   "title": "Ⅳ-평가내용1-1-나·다",
+   "blocks": [
+    {
+     "spec_id": "b01",
+     "layout": "BL-005",
+     "label": null,
+     "y_mm": [
+      22.9,
+      28.8
+     ],
+     "x_mm": [
+      20.0,
+      154.1
+     ]
+    },
+    {
+     "spec_id": "b02",
+     "layout": "BL-009",
+     "label": "이해관계자 재분류",
+     "y_mm": [
+      30.5,
+      88.1
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b03",
+     "layout": "BL-010",
+     "label": null,
+     "y_mm": [
+      88.9,
+      94.3
+     ],
+     "x_mm": [
+      20.7,
+      189.3
+     ]
+    },
+    {
+     "spec_id": "b04",
+     "layout": "BL-011",
+     "label": "가치전략 진단",
+     "y_mm": [
+      98.2,
+      163.1
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b05",
+     "layout": "BL-012",
+     "label": null,
+     "y_mm": [
+      164.3,
+      211.2
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b06",
+     "layout": "BL-005",
+     "label": null,
+     "y_mm": [
+      215.6,
+      221.3
+     ],
+     "x_mm": [
+      20.0,
+      186.0
+     ]
+    },
+    {
+     "spec_id": "b07",
+     "layout": "BL-013",
+     "label": null,
+     "y_mm": [
+      223.0,
+      274.4
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    }
+   ]
+  },
+  "PG-03": {
+   "composition": [
+    "PF-1",
+    "BL-004",
+    "BL-014",
+    "BL-015",
+    "BL-015",
+    "BL-015"
+   ],
+   "instances": [
+    "p07"
+   ],
+   "source": {
+    "doc": "한국수자원공사 2025 경영실적보고서",
+    "pdf_page": 17,
+    "print_page": 7,
+    "section": "Ⅳ-평가내용1-2"
+   },
+   "title": "Ⅳ-평가내용1-2",
+   "blocks": [
+    {
+     "spec_id": "b01",
+     "layout": "BL-004",
+     "label": null,
+     "y_mm": [
+      22.9,
+      30.1
+     ],
+     "x_mm": [
+      20.0,
+      188.0
+     ]
+    },
+    {
+     "spec_id": "b02",
+     "layout": "BL-014",
+     "label": "그간의 혁신연계",
+     "y_mm": [
+      32.7,
+      70.6
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b03",
+     "layout": "BL-015",
+     "label": "AI First 전략기획단",
+     "y_mm": [
+      72.0,
+      138.9
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b04",
+     "layout": "BL-015",
+     "label": "물에너지 Re:boot TF",
+     "y_mm": [
+      141.1,
+      208.3
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b05",
+     "layout": "BL-015",
+     "label": "산업용수 활성화 TF",
+     "y_mm": [
+      210.0,
+      273.8
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    }
+   ]
+  },
+  "PG-04": {
+   "composition": [
+    "PF-2",
+    "BL-004",
+    "BL-016",
+    "BL-017"
+   ],
+   "instances": [
+    "p08"
+   ],
+   "source": {
+    "doc": "한국수자원공사 2025 경영실적보고서",
+    "pdf_page": 18,
+    "print_page": 8,
+    "section": "Ⅳ-평가내용1-3"
+   },
+   "title": "Ⅳ-평가내용1-3",
+   "blocks": [
+    {
+     "spec_id": "b01",
+     "layout": "BL-004",
+     "label": null,
+     "y_mm": [
+      22.9,
+      30.1
+     ],
+     "x_mm": [
+      20.0,
+      188.0
+     ]
+    },
+    {
+     "spec_id": "b02",
+     "layout": "BL-016",
+     "label": "선제적 제안·반영",
+     "y_mm": [
+      32.7,
+      216.8
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b03",
+     "layout": "BL-017",
+     "label": "정책 정합성 확보",
+     "y_mm": [
+      217.6,
+      273.8
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    }
+   ]
+  },
+  "PG-05": {
+   "composition": [
+    "PF-1",
+    "BL-004",
+    "BL-018",
+    "BL-019",
+    "BL-020",
+    "BL-021",
+    "BL-022",
+    "BL-023",
+    "BL-024",
+    "BL-025",
+    "BL-025"
+   ],
+   "instances": [
+    "p09"
+   ],
+   "source": {
+    "doc": "한국수자원공사 2025 경영실적보고서",
+    "pdf_page": 19,
+    "print_page": 9,
+    "section": "Ⅳ-평가내용1-4"
+   },
+   "title": "Ⅳ-평가내용1-4",
+   "blocks": [
+    {
+     "spec_id": "b01",
+     "layout": "BL-004",
+     "label": null,
+     "y_mm": [
+      22.9,
+      30.1
+     ],
+     "x_mm": [
+      20.0,
+      188.0
+     ]
+    },
+    {
+     "spec_id": "b02",
+     "layout": "BL-018",
+     "label": "조정방향",
+     "y_mm": [
+      32.7,
+      41.5
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b03",
+     "layout": "BL-019",
+     "label": "진단 TOOL",
+     "y_mm": [
+      44.0,
+      74.2
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b04",
+     "layout": "BL-020",
+     "label": "사업별 진단",
+     "y_mm": [
+      75.0,
+      125.0
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b05",
+     "layout": "BL-021",
+     "label": "사업유형 분류",
+     "y_mm": [
+      126.2,
+      147.3
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b06",
+     "layout": "BL-022",
+     "label": null,
+     "y_mm": [
+      149.0,
+      152.1
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b07",
+     "layout": "BL-023",
+     "label": "사업 포트폴리오 재구성",
+     "y_mm": [
+      154.6,
+      203.2
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b08",
+     "layout": "BL-024",
+     "label": null,
+     "y_mm": [
+      205.4,
+      210.0
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b09",
+     "layout": "BL-025",
+     "label": "중장기 재무전략",
+     "y_mm": [
+      210.5,
+      239.6
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    },
+    {
+     "spec_id": "b10",
+     "layout": "BL-025",
+     "label": "중장기 인력운용",
+     "y_mm": [
+      240.1,
+      273.8
+     ],
+     "x_mm": [
+      20.0,
+      190.0
+     ]
+    }
+   ]
+  }
+ },
+ "frames": {
+  "PF-1": {
+   "fp": "frame|tab|footer-right",
+   "side_tab": {
+    "text": "경영관리",
+    "bbox": [
+     1180,
+     693,
+     1240,
+     870
+    ]
+   },
+   "footer": {
+    "side": "right",
+    "text": "전략기획 | 5",
+    "bbox": [
+     985,
+     1770,
+     1125,
+     1795
+    ]
+   },
+   "first_seen": "p05"
+  },
+  "PF-2": {
+   "fp": "frame|notab|footer-left",
+   "side_tab": null,
+   "footer": {
+    "side": "left",
+    "text": "6 | 2025년도 경영실적보고서",
+    "bbox": [
+     118,
+     1770,
+     390,
+     1795
+    ]
+   },
+   "first_seen": "p06"
+  }
+ },
+ "log": [
+  {
+   "page": "p05",
+   "frame": "PF-1",
+   "page_layout": "PG-01",
+   "new_blocks": [
+    "BL-001",
+    "BL-002",
+    "BL-003",
+    "BL-004",
+    "BL-005",
+    "BL-006",
+    "BL-007",
+    "BL-008"
+   ]
+  },
+  {
+   "page": "p06",
+   "frame": "PF-2",
+   "page_layout": "PG-02",
+   "new_blocks": [
+    "BL-009",
+    "BL-010",
+    "BL-011",
+    "BL-012",
+    "BL-013"
+   ]
+  },
+  {
+   "page": "p07",
+   "frame": "PF-1",
+   "page_layout": "PG-03",
+   "new_blocks": [
+    "BL-014",
+    "BL-015"
+   ]
+  },
+  {
+   "page": "p08",
+   "frame": "PF-2",
+   "page_layout": "PG-04",
+   "new_blocks": [
+    "BL-016",
+    "BL-017"
+   ]
+  },
+  {
+   "page": "p09",
+   "frame": "PF-1",
+   "page_layout": "PG-05",
+   "new_blocks": [
+    "BL-018",
+    "BL-019",
+    "BL-020",
+    "BL-021",
+    "BL-022",
+    "BL-023",
+    "BL-024",
+    "BL-025"
+   ]
+  }
+ ]
+}
