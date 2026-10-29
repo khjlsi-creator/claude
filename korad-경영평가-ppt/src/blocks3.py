@@ -637,3 +637,72 @@ class NeedsMatrix(Block):
             d.t(s, ed[2] + 4, ry + 50, ed[3] - 4, ry + self.ROW - 8, [dict(t=t_, sz=SZ_D, color=C['navy'], align='c') for t_ in r['res'][1]], name='성과 글', tag=f'성과{i}')
             d.hl(s, ed[1] - 2, ry + 6, ed[1] - 2, ry + self.ROW - 10, color=TONE['g2'], lw=0.75)
             d.hl(s, ed[2] - 2, ry + 6, ed[2] - 2, ry + self.ROW - 10, color=TONE['g2'], lw=0.75)
+
+
+# ------------------------------------------------------------ 다열 표(K-water 115~120쪽)
+class GridTable(Block):
+    """열 수·열 비율을 자유롭게 정하는 편집 가능한 표. 병합 열(merge_cols)은 빈 칸이면 위 칸과 합친다.
+    col_w는 본문 폭에 대한 비율, align은 열별 'c'/'l'."""
+    kind = '다열 표'
+    splittable = True
+    gap = 14
+
+    def __init__(self, header, rows, col_w, merge_cols=(0,), align=None, bold_cols=None, unit=None):
+        self.header, self.rows, self.col_w = header, rows, col_w
+        self.merge_cols = tuple(merge_cols)
+        self.align = align or ['c'] + ['l'] * (len(col_w) - 1)
+        self.bold_cols = tuple(merge_cols) if bold_cols is None else tuple(bold_cols)
+        self.unit = unit
+
+    def _cw(self, W):
+        t = float(sum(self.col_w))
+        return [W * w / t for w in self.col_w]
+
+    def _rh(self, W):
+        cw = self._cw(W); out = []
+        for r in self.rows:
+            n = 1
+            for c, txt in enumerate(r):
+                if txt == '' and c in self.merge_cols:
+                    continue
+                n = max(n, sum(nl(t, cw[c] - 20) for t in str(txt).split('\n')))
+            out.append(max(44, n * LP + 14))
+        return out
+
+    def _hh(self):
+        return 42 + (18 if any('\n' in h for h in self.header) else 0)
+
+    def height(self, W):
+        return self._hh() + sum(self._rh(W))
+
+    def split(self, W, avail):
+        acc = self._hh(); k = 0
+        for h in self._rh(W):
+            if acc + h > avail:
+                break
+            acc += h; k += 1
+        if k < 2 or k == len(self.rows):
+            return None
+        mk = lambda rr: GridTable(self.header, rr, self.col_w, self.merge_cols, self.align, self.bold_cols, self.unit)
+        return mk(self.rows[:k]), mk(self.rows[k:])
+
+    def draw(self, d, s, x0, y, W):
+        cw = self._cw(W); rh = self._rh(W)
+        rows = [list(self.header)] + [list(r) for r in self.rows]
+        merges = []
+        for c in self.merge_cols:
+            start = None
+            for i in range(1, len(rows)):
+                if rows[i][c] == '' and start is not None:
+                    continue
+                if start is not None and i - 1 > start:
+                    merges.append((start, c, i - 1, c))
+                start = i if rows[i][c] != '' else None
+            if start is not None and len(rows) - 1 > start:
+                merges.append((start, c, len(rows) - 1, c))
+        fills = {(0, c): TONE['g2'] for c in range(len(cw))}
+        for i in range(1, len(rows)):
+            for c in self.merge_cols:
+                fills[(i, c)] = TONE['g1']
+        d.grid_table(s, x0, y, cw, [self._hh()] + rh, rows, merge=merges, fills=fills, bold_cols=self.bold_cols, align=self.align, name='다열 표')
+        d.use('다열 표', x0, y, x0 + W, y + self.height(W), f'{len(cw)}열')

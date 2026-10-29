@@ -81,6 +81,7 @@ def make(node):
         return TwinPanel(mk(node['left']), mk(node['right']), tuple(node.get('label_w', (135, 148))))
     if t == 'panel3': return ThreePanel(node['panels'])
     if t == 'table': return DataTable(node['header'], node['rows'])
+    if t == 'gridtable': return GridTable(node['header'], node['rows'], node['col_w'], node.get('merge_cols', (0,)), node.get('align'), node.get('bold_cols'))
     if t == 'result' and node.get('grey'): return GreyResult(node.get('items') or node['text'], node.get('label', '주요성과'))
     if t == 'result': return Result(node.get('items') or node['text'], node.get('label', '핵심성과'))
     if t == 'connector': return Connector()
