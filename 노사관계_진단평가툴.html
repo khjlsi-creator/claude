@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>노사관계 진단 평가툴</title>
+<style>
+:root{
+  --bg:#f5f7fa; --card:#fff; --ink:#1c2733; --sub:#5b6878; --line:#dde3ea;
+  --brand:#0b5fa5; --brand-soft:#e6f0fa; --good:#1b8a5a; --warn:#c77d00; --bad:#c0392b; --bar:#cfd8e3;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10161d; --card:#18212b; --ink:#e7edf3; --sub:#9aa8b8; --line:#2b3745;
+    --brand:#5aa9e6; --brand-soft:#16293b; --good:#4cc38a; --warn:#e5a93d; --bad:#ef7b6e; --bar:#2f3d4c;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10161d; --card:#18212b; --ink:#e7edf3; --sub:#9aa8b8; --line:#2b3745;
+  --brand:#5aa9e6; --brand-soft:#16293b; --good:#4cc38a; --warn:#e5a93d; --bad:#ef7b6e; --bar:#2f3d4c;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 "Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+header{background:var(--brand);color:#fff;padding:20px 16px}
+header h1{margin:0;font-size:20px}
+header p{margin:4px 0 0;font-size:13px;opacity:.9}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px 60px}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0}
+nav button{flex:1;min-width:90px;padding:10px 8px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;cursor:pointer;font:inherit;font-weight:600}
+nav button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:14px}
+.card h2{margin:0 0 4px;font-size:17px}
+.card h3{margin:14px 0 6px;font-size:15px}
+.desc{color:var(--sub);font-size:13px;margin:0 0 10px}
+.easy{background:var(--brand-soft);border-left:4px solid var(--brand);padding:8px 12px;border-radius:4px;font-size:13px;margin:8px 0 12px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+label.f{display:block;font-size:13px;color:var(--sub);font-weight:600}
+select,input[type=text],input[type=number]{width:100%;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit;margin-top:3px}
+.q{padding:10px 0;border-top:1px solid var(--line)}
+.q:first-of-type{border-top:0}
+.q .t{margin-bottom:6px}
+.q .n{color:var(--brand);font-weight:700;margin-right:4px}
+.scale{display:flex;gap:4px;flex-wrap:wrap}
+.scale label{flex:1;min-width:56px;text-align:center;border:1px solid var(--line);border-radius:6px;padding:6px 2px;cursor:pointer;font-size:12px;background:var(--bg)}
+.scale input{display:none}
+.scale label:has(input:checked){background:var(--brand);color:#fff;border-color:var(--brand)}
+.scale label b{display:block;font-size:15px}
+.prog{display:grid;grid-template-columns:1fr;gap:6px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips label{border:1px solid var(--line);border-radius:6px;padding:5px 12px;cursor:pointer;background:var(--bg);font-size:13px}
+.chips input{display:none}
+.chips label:has(input:checked){background:var(--brand);color:#fff;border-color:var(--brand)}
+.chips label.bad:has(input:checked){background:var(--bad);border-color:var(--bad)}
+.btn{display:inline-block;padding:10px 18px;border:0;border-radius:8px;background:var(--brand);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.btn.ghost{background:var(--card);color:var(--brand);border:1px solid var(--brand)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.hero{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.score{font-size:48px;font-weight:800;line-height:1;color:var(--brand)}
+.score small{font-size:18px;color:var(--sub);font-weight:600}
+.grade{display:inline-block;padding:4px 12px;border-radius:20px;font-weight:700;color:#fff}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--sub);font-weight:600;white-space:nowrap}
+td.r,th.r{text-align:right}
+.bar{position:relative;height:14px;background:var(--bar);border-radius:7px;min-width:90px}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:7px;background:var(--brand)}
+.bar u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);opacity:.7}
+.tag{font-size:11px;padding:1px 6px;border-radius:4px;background:var(--bar);color:var(--ink);margin-left:4px;white-space:nowrap}
+.warn{color:var(--warn);font-size:13px}
+.hidden{display:none}
+ul.pri{padding-left:18px;margin:6px 0}
+ul.pri li{margin-bottom:8px}
+.wgrid{display:grid;grid-template-columns:1fr 90px;gap:6px 10px;align-items:center}
+.small{font-size:12px;color:var(--sub)}
+@media print{
+  header,nav,.btns,.noprint{display:none!important}
+  body{background:#fff;color:#000}
+  .card{break-inside:avoid;border-color:#bbb}
+  .view{display:block!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap" style="padding-bottom:0">
+    <h1>노사관계 진단 평가툴</h1>
+    <p>노사발전재단 「일터혁신 실태조사」(2024·2025) 일터혁신지수 ‘노사관계’ 영역(100점) 배점 구조 기반</p>
+  </div>
+</header>
+<div class="wrap">
+  <nav>
+    <button data-v="guide" class="on">① 안내</button>
+    <button data-v="survey">② 설문</button>
+    <button data-v="result">③ 결과</button>
+    <button data-v="weights">④ 가중치</button>
+    <button data-v="saved">⑤ 저장·비교</button>
+  </nav>
+
+  <!-- 안내 -->
+  <section class="view" id="v-guide">
+    <div class="card">
+      <h2>이 툴은 무엇인가요?</h2>
+      <p>설문 30여 문항에 답하면, 노사발전재단이 매년 발표하는 <b>일터혁신지수 중 ‘노사관계’ 영역(100점 만점)</b>과 같은 방식으로 점수를 계산하고, 전국 평균(벤치마크)과 비교해 <b>어디부터 고쳐야 하는지</b>를 알려줍니다.</p>
+      <div class="easy"><b>쉽게 말하면</b> — 학교 성적표처럼 5개 과목(분위기·협력/갈등·정보공유·고충처리·노사협의회)에 정해진 배점이 있고, 설문 답을 점수로 바꿔 합산한 뒤 “다른 회사들 평균은 몇 점인지”와 비교해 보여주는 도구입니다.</div>
+      <h3>사용 순서</h3>
+      <ol>
+        <li><b>② 설문</b>에서 기본정보와 문항에 답합니다. (약 10분)</li>
+        <li><b>③ 결과</b>에서 총점·등급·벤치마크 비교·우선 개선과제를 확인합니다.</li>
+        <li>필요하면 <b>④ 가중치</b>에서 배점 비중을 바꿔 다시 계산할 수 있습니다. (기본값=재단 공식 배점)</li>
+        <li><b>⑤ 저장·비교</b>에서 응답을 저장하고 CSV로 내려받습니다.</li>
+      </ol>
+      <h3>꼭 알아두세요</h3>
+      <ul>
+        <li><b>사업주·담당자 응답</b>과 <b>근로자 응답</b>은 서로 다른 설문(실태조사 vs. 근로자 EOS)이라 <b>합산하지 말고 따로</b> 보세요. 저장 탭에서 응답자 유형별로 평균을 냅니다.</li>
+        <li>5개 하위영역의 <b>배점(20/25/25/15/15)과 문항 구성은 재단 보고서 그대로</b>입니다. 다만 문항 응답을 점수로 바꾸는 세부 계산식(표준화)은 재단이 원자료를 공개하지 않아 <b>이 툴이 따로 정한 방식</b>입니다. 그래서 <b>절대 점수 비교는 “참고용”</b>이며 공식 지수와 동일하지 않습니다. (자세한 계산 방식은 ④ 가중치 탭 하단 참고)</li>
+        <li>2026년 재단 연구(진단·평가지표 개선) 결과가 나오면 문항·배점이 바뀔 수 있습니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 설문 -->
+  <section class="view hidden" id="v-survey">
+    <form id="form" onsubmit="return false"></form>
+    <div class="btns noprint">
+      <button class="btn" id="btnCalc">결과 보기</button>
+      <button class="btn ghost" id="btnReset">응답 초기화</button>
+    </div>
+  </section>
+
+  <!-- 결과 -->
+  <section class="view hidden" id="v-result"></section>
+
+  <!-- 가중치 -->
+  <section class="view hidden" id="v-weights">
+    <div class="card">
+      <h2>하위영역 가중치(배점)</h2>
+      <p class="desc">기본값은 2024년 일터혁신지수 노사관계 영역의 공식 배점입니다. 숫자를 바꾸면 합계가 100이 되도록 자동 환산됩니다.</p>
+      <div class="easy"><b>쉽게 말하면</b> — “우리 기관은 고충처리를 더 중요하게 본다”처럼 중요도를 바꿔 점수를 다시 매길 수 있습니다. 단, 다른 기관과 비교(벤치마크)할 때는 기본값을 쓰세요.</div>
+      <div class="wgrid" id="wgrid"></div>
+      <div class="btns">
+        <button class="btn ghost" id="wDefault">공식 배점으로 되돌리기</button>
+        <button class="btn ghost" id="wEqual">5개 균등(20씩)</button>
+      </div>
+      <p class="small" id="wsum"></p>
+      <p class="small">· 노사관계분위기는 ‘노사관계 전반 인식’과 ‘노조·근로자대표의 혁신 태도’가 반반, 노사협력·갈등은 13:12 비율로 영역 안에서 자동 배분됩니다(공식 구조).</p>
+    </div>
+    <div class="card">
+      <h2>점수 계산 방식과 근거</h2>
+      <table>
+        <tr><th>하위영역(배점)</th><th>설문 문항</th><th>계산</th></tr>
+        <tr><td>① 노사관계분위기(20)</td><td>문16(4문항) 10점 + 문24(5문항) 10점</td><td>5점척도 평균을 (평균−1)÷4로 0~1 환산 × 배점</td></tr>
+        <tr><td>② 노사협력 및 갈등(25)</td><td>문17 협력프로그램 5종(13점) + 문18 갈등 4종(12점)</td><td>프로그램: 미시행 0, 시행 시 0.5+0.5×(활성화−1)÷4 평균.<br>갈등: 미발생 항목 비율(항목당 3점)</td></tr>
+        <tr><td>③ 정보공유와 의사소통(25)</td><td>문21(5) + 문22(4) 총 9문항</td><td>9문항 동일 비중, 5점척도 환산</td></tr>
+        <tr><td>④ 고충처리(15)</td><td>문19(4문항)</td><td>5점척도 환산</td></tr>
+        <tr><td>⑤ 노사협의회(15)</td><td>문23(5문항)</td><td>5점척도 환산. 협의회·노조 모두 없고 30인 미만이면 이 영역을 제외하고 100점으로 재환산</td></tr>
+      </table>
+      <ul class="small">
+        <li>출처: 노사발전재단 「2024년 일터혁신 실태조사」 표 Ⅵ-3~Ⅵ-8 (배점·문항), 부록 설문지 문16~24, 표 Ⅵ-10(규모·업종·노조별 비교); 「2025년 일터혁신 실태조사 연구」 노사관계 장(문항 동일 확인).</li>
+        <li>벤치마크: 노사관계 영역 전체 수혜 66.08점·일반 61.36점(2024). 규모·업종·노조 유무 값은 표 Ⅵ-10.</li>
+        <li><b>갈등 영역 주의</b>: 공식 표준화는 갈등 미발생 사업장이 94%인데도 영역 평균이 0.66으로 낮아, 단순 비율 방식과 달라 이 툴의 갈등 점수는 벤치마크(공식 7.9/12점)보다 높게 나옵니다. 갈등 점수는 비교하지 말고 ‘발생 여부 확인용’으로만 쓰세요.</li>
+        <li>등급(S~D)은 이 툴의 내부 참고 기준이며 노사발전재단 공식 등급이 아닙니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 저장 -->
+  <section class="view hidden" id="v-saved">
+    <div class="card">
+      <h2>저장된 응답</h2>
+      <p class="desc">브라우저에만 저장됩니다(서버 전송 없음). 다른 기기와는 공유되지 않으니 CSV로 내려받아 보관하세요.</p>
+      <div id="savedList"></div>
+      <div class="btns">
+        <button class="btn ghost" id="btnCsv">저장 응답 CSV 내려받기</button>
+        <button class="btn ghost" id="btnClear">전체 삭제</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+/* ===== 데이터: 2024 일터혁신지수 노사관계 영역 (표 Ⅵ-3, Ⅵ-4) ===== */
+const LIKERT=['전혀\n그렇지 않다','그렇지\n않다','보통','그런\n편이다','매우\n그렇다'];
+const SUBS=[
+ {id:'climate',name:'노사관계분위기',w:20},
+ {id:'coop',name:'노사협력 및 갈등',w:25},
+ {id:'info',name:'정보공유와 의사소통',w:25},
+ {id:'griev',name:'고충처리',w:15},
+ {id:'council',name:'노사협의회',w:15}
+];
+/* 7개 파트: 하위영역 안의 구성(공식 배점). share=하위영역 내 비율 */
+const PARTS=[
+ {id:'p_cl1',sub:'climate',name:'노사관계 전반 인식',share:.5,off:10,bm:[7.455/10,7.210/10]},
+ {id:'p_cl2',sub:'climate',name:'노조·근로자대표의 혁신 태도',share:.5,off:10,bm:[7.434/10,6.862/10]},
+ {id:'p_prog',sub:'coop',name:'노사협력 프로그램',share:13/25,off:13,bm:[4.9569/13,3.9143/13]},
+ {id:'p_conf',sub:'coop',name:'노사갈등 발생 여부',share:12/25,off:12,bm:[7.9428/12,6.105/12],caution:true},
+ {id:'p_info',sub:'info',name:'정보공유·의사소통',share:1,off:25,bm:[17.325/25,16.8025/25]},
+ {id:'p_gr',sub:'griev',name:'고충처리 인식',share:1,off:15,bm:[10.608/15,10.4595/15]},
+ {id:'p_co',sub:'council',name:'노사협의회 활용성',share:1,off:15,bm:[10.3545/15,10.005/15]}
+];
+const Q={
+ q16:{no:'문16',title:'우리 회사의 노사관계 전반',items:['노사의 이해관계가 크게 다르지 않아 협조가 잘 이루어진다','노사가 서로 상대방의 일에 대해 반대하지 않는다','노사 모두가 회사를 더욱 일하기 좋은 곳으로 만들려고 노력한다','그간 노사관계가 협력적이었다'],part:'p_cl1'},
+ q24:{no:'문24',title:'일터혁신에 대한 노동조합(없으면 노사협의회 근로자대표)의 태도와 역할',items:['일터혁신과 관련된 인적자원개발(교육훈련 등) 활동을 지지한다','일터혁신과 관련하여 고용안정을 위해 노력한다','일터혁신과 관련된 작업장에서의 직원 참여활동을 지지한다','일터혁신과 관련된 인적자원관리(보상, 평가 등) 활동을 지지한다','일터혁신 전반에 대해 지지한다'],part:'p_cl2',note:'일터혁신 = 노사 공동 이익을 위해 일하는 방식·사람관리 방식을 바꾸는 활동'},
+ q21:{no:'문21',title:'근로자(대표)와의 의사소통',items:['노사 간에는 공식·비공식 의사소통 통로가 다양하게 존재한다','경영진과 근로자의 정기적인 간담회가 잘 이루어진다','필요시 노사대표 간 핫라인이 잘 작동된다','근로자들의 일상적인 문제들이 노사 간 의사소통을 통해 잘 해결되고 있다','개별 직원들이 최고책임자·경영진에게 의견을 말할 기회가 많다'],part:'p_info'},
+ q22:{no:'문22',title:'경영정보 공유 실태',items:['근로자들은 회사의 비전과 목표가 무엇인지 알고 있다','근로자들은 회사의 각종 경영현황을 이해하고 있다','회사는 각종 경영정보를 근로자와 공유하고 있다','근로자는 회사가 제공하는 경영정보를 신뢰한다'],part:'p_info'},
+ q19:{no:'문19',title:'근로자 고충처리',items:['근로자의 고충을 전달할 공식적인 통로를 충분히 제공하고 있다','고충 제기 후 처리과정에서 노사 간 의사소통이 수시로 이루어진다','근로자의 고충을 효과적으로 처리한다','고충처리에 대해 근로자들은 만족하고 있다'],part:'p_gr'},
+ q23:{no:'문23',title:'노사협의회(또는 노사공동위원회) 운영 — 우리 노사협의회는 …',items:['경영 계획과 실적에 대한 정보공유 창구로 활용된다','인사노무제도 개선을 위한 논의 창구로 활용된다','안전보건 및 작업환경 개선을 위한 논의 창구로 활용된다','근로자 복지개선을 위한 협의 창구로 활용된다','작업장 내 생산성 향상을 위한 논의 창구로 활용된다'],part:'p_co'}
+};
+const PROGS=['노사협력선언·노사공동결의대회','노사공동기구·위원회를 통한 문제해결','노사공동교육·워크숍','직원단합대회(체육대회, 등반대회, 야유회 등)','노사공동 사회봉사(일사일촌 등)'];
+const CONFS=['파업(부분파업 포함) 발생','노사문제로 인한 경제적 손실 발생','노사문제로 인한 고소·고발 발생','노사문제로 인한 해고자 발생'];
+const ACT=['전혀 활용되지 않음','활용되지 않는 편','보통','활용되는 편','잘 활용됨'];
+const ADVICE={
+ p_cl1:'노사 신뢰의 기본기입니다. 정기 노사 간담회와 상호 현안 사전 공유 규칙(‘반대 전에 먼저 듣기’)을 만들어 보세요.',
+ p_cl2:'노조·근로자대표가 혁신(교육·고용안정·참여·평가보상)에 참여하도록 사전 설명 자리와 공동 TF를 운영하세요.',
+ p_prog:'노사공동 교육·워크숍, 공동결의대회 중 시행하지 않는 것부터 연 1회씩 시작하고, 시행 중인 것은 형식적 행사가 되지 않게 실질 의제를 넣으세요.',
+ p_conf:'갈등 발생 항목이 있습니다. 원인 분석(분쟁 이력·쟁점)과 재발방지 협의체 가동이 필요합니다.',
+ p_info:'경영현황·비전을 정기 공유(분기 설명회, 사내 게시)하고, 경영진 현장 간담회와 노사대표 핫라인을 정비하세요.',
+ p_gr:'공식 고충 채널(고충처리위원·온라인 창구)을 알리고, 처리기한·결과 피드백 규칙을 만들어 만족도를 높이세요.',
+ p_co:'노사협의회 안건을 경영실적·인사노무·안전보건·복지·생산성 5개 축으로 고르게 올리고, 회의록을 전 직원에게 공개하세요.'
+};
+/* 표 Ⅵ-10 노사관계 영역 벤치마크 [수혜,일반] */
+const BM_TOTAL=[66.08,61.36];
+const BM_SIZE={'50인 미만':[64.26,58.48],'50-100인 미만':[67.17,61.02],'100-300인 미만':[65.91,64.44],'300인 이상':[72.65,68.79]};
+const BM_IND={'제조업':[66.04,60.60],'일반서비스':[65.21,61.26],'공공행정서비스':[70.73,65.84],'금융서비스':[65.89,60.19],'기타서비스':[55.51,69.51]};
+const BM_UNION={'있음':[70.72,63.33],'없음':[65.48,60.95]};
+const BM_CAUTION={'기타서비스':'기타서비스는 표본이 7개뿐이라 참고만 하세요.'};
+
+/* ===== 상태 ===== */
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let A=store.get('nsg_answers',{});
+let W=store.get('nsg_weights',null)||Object.fromEntries(SUBS.map(s=>[s.id,s.w]));
+let lastResult=null;
+
+/* ===== 설문 폼 생성 ===== */
+function scaleHtml(name,val){
+  return '<div class="scale">'+LIKERT.map((t,i)=>`<label><input type="radio" name="${name}" value="${i+1}" ${val==i+1?'checked':''}><b>${i+1}</b>${t.replace('\n','<br>')}</label>`).join('')+'</div>';
+}
+function chipHtml(name,opts,val,cls){
+  return '<div class="chips">'+opts.map(([v,t],i)=>`<label class="${cls&&cls[i]||''}"><input type="radio" name="${name}" value="${v}" ${String(val)===String(v)?'checked':''}>${t}</label>`).join('')+'</div>';
+}
+function buildForm(){
+  let h='';
+  h+=`<div class="card"><h2>A. 기본정보</h2><p class="desc">벤치마크(다른 기관 평균) 비교에 사용됩니다.</p><div class="row">
+   <label class="f">기관/사업장명<input type="text" id="org" value="${A.org||''}" placeholder="예: OO공단"></label>
+   <label class="f">응답자 유형<select id="rtype"><option value="사업주·담당자">사업주·인사노무 담당자</option><option value="근로자">근로자(직원)</option></select></label>
+   <label class="f">업종<select id="ind">${Object.keys(BM_IND).map(k=>`<option>${k}</option>`).join('')}</select></label>
+   <label class="f">규모(상시근로자)<select id="size">${Object.keys(BM_SIZE).map(k=>`<option>${k}</option>`).join('')}</select></label>
+   <label class="f">노동조합<select id="union"><option>있음</option><option>없음</option></select></label>
+   <label class="f">노사협의회 설치<select id="council"><option>설치</option><option>미설치</option></select></label>
+   <label class="f">일터혁신 컨설팅 수혜(최근 3년)<select id="grp"><option value="1">받은 적 없음(일반사업장 기준)</option><option value="0">받은 적 있음(수혜사업장 기준)</option></select></label>
+   <label class="f">문3-2 전반적 노사관계(자기평가)<select id="self"><option value="">선택 안 함</option><option value="1">매우 대립적</option><option value="2">다소 대립적</option><option value="3">보통</option><option value="4">다소 협력적</option><option value="5">매우 협력적</option></select></label>
+  </div></div>`;
+  const likert=(k)=>{const q=Q[k];return `<div class="card"><h2>${q.no}. ${q.title}</h2>${q.note?`<p class="desc">${q.note}</p>`:'<p class="desc">각 문장이 우리 조직과 얼마나 일치하는지 선택하세요.</p>'}`+q.items.map((t,i)=>`<div class="q"><div class="t"><span class="n">${i+1}.</span>${t}</div>${scaleHtml(k+'_'+(i+1),A[k+'_'+(i+1)])}</div>`).join('')+'</div>';};
+  h+=likert('q16');
+  h+=`<div class="card"><h2>문17. 노사협력 프로그램·행사 (최근 3년)</h2><p class="desc">시행했다면 얼마나 실질적으로 활용됐는지도 답하세요.</p>`+PROGS.map((t,i)=>{const k='q17_'+(i+1);return `<div class="q"><div class="t"><span class="n">${i+1}.</span>${t}</div>${chipHtml(k+'_run',[[1,'시행함'],[0,'시행 안 함']],A[k+'_run'])}<div class="prog" style="margin-top:6px" data-act="${k}">${chipHtml(k+'_act',ACT.map((a,j)=>[j+1,a]),A[k+'_act'])}</div></div>`}).join('')+'</div>';
+  h+=`<div class="card"><h2>문18. 노사 간 갈등 (최근 3년)</h2><p class="desc">발생한 것이 있으면 ‘발생함’을 고르세요.</p>`+CONFS.map((t,i)=>{const k='q18_'+(i+1);return `<div class="q"><div class="t"><span class="n">${i+1}.</span>${t}</div>${chipHtml(k,[[1,'발생함'],[0,'발생하지 않음']],A[k],['bad',''])}</div>`}).join('')+'</div>';
+  h+=likert('q19');
+  h+=`<div class="card"><h2>문20. (참고) 지난해 제기된 고충의 해결 정도</h2><p class="desc">점수에는 반영하지 않고 결과 화면에 참고로 표시합니다.</p>${chipHtml('q20',[[1,'30% 미만'],[2,'30~50%'],[3,'50~70%'],[4,'70~90%'],[5,'90% 이상']],A.q20)}</div>`;
+  h+=likert('q21');
+  h+=likert('q22');
+  h+=`<div id="councilBox">${likert('q23')}</div>`;
+  h+=likert('q24');
+  $('#form').innerHTML=h;
+  for(const id of ['rtype','ind','size','union','council','grp','self']) if(A[id]!==undefined) $('#'+id).value=A[id];
+  $('#form').addEventListener('input',onInput);
+  $('#form').addEventListener('change',onInput);
+  syncUI();
+}
+const $=s=>document.querySelector(s);
+function onInput(e){
+  const t=e.target;
+  if(t.type==='radio'){A[t.name]=Number(t.value);}
+  else if(t.id){A[t.id]=t.value;}
+  store.set('nsg_answers',A);
+  syncUI();
+}
+function syncUI(){
+  // 미시행 프로그램은 활성화 질문 숨김
+  document.querySelectorAll('[data-act]').forEach(el=>{el.style.display=(A[el.dataset.act+'_run']===1)?'':'none';});
+  const noC=(A.council==='미설치');
+  $('#councilBox').style.display=noC?'none':'';
+}
+
+/* ===== 채점 ===== */
+const norm=v=>(v-1)/4;
+function mean(a){return a.length?a.reduce((x,y)=>x+y,0)/a.length:null}
+function weightsNormalized(){
+  const tot=SUBS.reduce((s,x)=>s+Number(W[x.id]||0),0)||100;
+  return Object.fromEntries(SUBS.map(s=>[s.id,Number(W[s.id]||0)/tot*100]));
+}
+function score(a,wOverride){
+  const w=wOverride||weightsNormalized();
+  const parts={};
+  const likertPart=(keys)=>{const r=[];let n=0;keys.forEach(k=>Q[k].items.forEach((_,i)=>{n++;const v=a[k+'_'+(i+1)];if(v)r.push(norm(v));}));return {ratio:mean(r),answered:r.length,total:n,items:keys.flatMap(k=>Q[k].items.map((t,i)=>({k:k+'_'+(i+1),text:t,no:Q[k].no,v:a[k+'_'+(i+1)]})))};};
+  parts.p_cl1=likertPart(['q16']);
+  parts.p_cl2=likertPart(['q24']);
+  parts.p_info=likertPart(['q21','q22']);
+  parts.p_gr=likertPart(['q19']);
+  parts.p_co=likertPart(['q23']);
+  // 프로그램
+  {const r=[];PROGS.forEach((t,i)=>{const k='q17_'+(i+1);const run=a[k+'_run'];if(run===0)r.push(0);else if(run===1&&a[k+'_act'])r.push(.5+.5*norm(a[k+'_act']));else if(run===1)r.push(null);});
+   const ok=r.filter(x=>x!==null);parts.p_prog={ratio:mean(ok),answered:ok.length,total:5,items:[]};}
+  // 갈등
+  {const r=[];CONFS.forEach((t,i)=>{const v=a['q18_'+(i+1)];if(v===0)r.push(1);else if(v===1)r.push(0);});
+   parts.p_conf={ratio:mean(r),answered:r.length,total:4,items:[]};}
+  const excludeCouncil=(a.council==='미설치'&&a.size==='50인 미만'&&a.union==='없음');
+  const councilZero=(a.council==='미설치'&&!excludeCouncil);
+  const out=[];let sum=0,maxSum=0,ans=0,tot=0;
+  PARTS.forEach(p=>{
+    const max=w[p.sub]*p.share;
+    const d=parts[p.id];
+    let excluded=false,ratio=d.ratio;
+    if(p.id==='p_co'){
+      if(excludeCouncil){excluded=true;ratio=null;}
+      else if(councilZero){ratio=0;d.answered=d.total;}
+    }
+    if(!excluded){tot+=d.total;ans+=d.answered;}
+    const got=(ratio===null||excluded)?null:ratio*max;
+    if(!excluded){maxSum+=max; sum+=(got||0);}
+    out.push({...p,max,ratio,got,excluded,answered:d.answered,total:d.total,items:d.items,missing:(!excluded&&ratio===null)});
+  });
+  const unanswered=out.filter(o=>o.missing).reduce((s,o)=>s+o.max,0);
+  const denom=maxSum-unanswered;
+  const total=denom>0?sum/denom*100:null; // 미응답 파트 제외, 100점 환산
+  const subs=SUBS.map(s=>{const ps=out.filter(o=>o.sub===s.id);const mx=ps.filter(o=>!o.excluded&&!o.missing).reduce((x,o)=>x+o.max,0);const g=ps.reduce((x,o)=>x+(o.got||0),0);return {id:s.id,name:s.name,w:w[s.id],got:g,max:mx,ratio:mx?g/mx:null,excluded:ps.every(o=>o.excluded)};});
+  return {parts:out,subs,total,answered:ans,totalQ:tot,excludeCouncil,councilZero,self:a.self?Number(a.self):null,q20:a.q20||null};
+}
+function grade(s){
+  if(s>=80)return ['S','매우 우수','#1b8a5a'];
+  if(s>=70)return ['A','우수','#2f9e6f'];
+  if(s>=60)return ['B','보통 이상','#0b5fa5'];
+  if(s>=50)return ['C','개선 필요','#c77d00'];
+  return ['D','집중 개선','#c0392b'];
+}
+function bench(a){
+  const g=Number(a.grp||1);
+  const rows=[['전체 평균',BM_TOTAL[g]]];
+  if(BM_SIZE[a.size])rows.push(['규모('+a.size+')',BM_SIZE[a.size][g]]);
+  if(BM_IND[a.ind])rows.push(['업종('+a.ind+')',BM_IND[a.ind][g]]);
+  if(BM_UNION[a.union])rows.push(['노조 '+a.union,BM_UNION[a.union][g]]);
+  return {rows,g};
+}
+
+/* ===== 결과 렌더 ===== */
+const f1=n=>n===null||n===undefined?'-':n.toFixed(1);
+function radarSvg(res,bmRatio){
+  const parts=res.parts.filter(p=>!p.excluded&&p.ratio!==null);
+  const n=parts.length;if(n<3)return '';
+  const R=100,cx=150,cy=130;
+  const pt=(i,r)=>{const ang=-Math.PI/2+i*2*Math.PI/n;return [cx+Math.cos(ang)*R*r,cy+Math.sin(ang)*R*r];};
+  let s='<svg viewBox="0 0 300 270" width="100%" style="max-width:380px">';
+  [.25,.5,.75,1].forEach(l=>{s+=`<polygon points="${parts.map((_,i)=>pt(i,l).join(',')).join(' ')}" fill="none" stroke="var(--line)"/>`});
+  parts.forEach((p,i)=>{const [x,y]=pt(i,1.18);s+=`<line x1="${cx}" y1="${cy}" x2="${pt(i,1)[0]}" y2="${pt(i,1)[1]}" stroke="var(--line)"/><text x="${x}" y="${y}" font-size="9" text-anchor="middle" fill="var(--sub)">${p.name.length>9?p.name.slice(0,9)+'…':p.name}</text>`});
+  if(bmRatio)s+=`<polygon points="${parts.map((p,i)=>pt(i,bmRatio[p.id]??0).join(',')).join(' ')}" fill="rgba(199,125,0,.15)" stroke="var(--warn)" stroke-dasharray="4 3"/>`;
+  s+=`<polygon points="${parts.map((p,i)=>pt(i,p.ratio).join(',')).join(' ')}" fill="rgba(11,95,165,.25)" stroke="var(--brand)" stroke-width="2"/>`;
+  s+='</svg>';
+  return s;
+}
+function renderResult(){
+  const el=$('#v-result');
+  const res=score(A);lastResult=res;
+  if(res.total===null){el.innerHTML='<div class="card"><h2>결과</h2><p>아직 응답된 문항이 없습니다. ② 설문에서 답변을 입력해 주세요.</p></div>';return;}
+  const [gr,gtxt,gcol]=grade(res.total);
+  const b=bench(A);const g=b.g;
+  const bmRatio=Object.fromEntries(PARTS.map(p=>[p.id,p.bm[g]]));
+  const comp=res.answered/res.totalQ;
+  let h=`<div class="card"><div class="hero"><div><div class="score">${f1(res.total)}<small> / 100점</small></div><div class="small">${A.org||'(기관명 미입력)'} · ${A.rtype||'사업주·담당자'} 응답</div></div>
+   <div><span class="grade" style="background:${gcol}">${gr} · ${gtxt}</span></div></div>`;
+  if(comp<1)h+=`<p class="warn">⚠ 응답 ${res.answered}/${res.totalQ}문항 — 답하지 않은 부분은 제외하고 100점으로 환산했습니다. 모두 답해야 정확합니다.</p>`;
+  if(res.excludeCouncil)h+='<p class="warn">노사협의회·노조가 없고 50인 미만이어서 노사협의회 영역을 제외하고 100점으로 재환산했습니다.</p>';
+  if(res.councilZero)h+='<p class="warn">노사협의회 미설치로 해당 영역(15점)은 0점 처리되었습니다. (30인 이상은 설치 의무)</p>';
+  h+=`<div class="easy"><b>쉽게 읽는 법</b> — 총점은 “우리 조직의 노사관계가 만점의 몇 %인가”입니다. 아래 막대의 검은 선이 같은 조건 다른 기관 평균이니, <b>막대가 선보다 짧은 항목</b>이 우선 개선 대상입니다.</div></div>`;
+  // 벤치마크
+  h+=`<div class="card"><h2>벤치마크 비교 <span class="tag">${g===0?'수혜사업장':'일반사업장'} 기준</span></h2><table><tr><th>비교 대상</th><th class="r">평균</th><th class="r">우리</th><th class="r">차이</th></tr>`;
+  b.rows.forEach(([n,v])=>{const d=res.total-v;h+=`<tr><td>${n}</td><td class="r">${f1(v)}</td><td class="r">${f1(res.total)}</td><td class="r" style="color:${d>=0?'var(--good)':'var(--bad)'}">${d>=0?'+':''}${d.toFixed(1)}</td></tr>`});
+  h+='</table>';
+  if(BM_CAUTION[A.ind])h+=`<p class="small">${BM_CAUTION[A.ind]}</p>`;
+  if(Object.values(weightsNormalized()).some((v,i)=>Math.abs(v-SUBS[i].w)>.01))h+='<p class="warn">⚠ 가중치를 공식 배점에서 바꿨기 때문에 벤치마크와의 직접 비교는 부정확합니다.</p>';
+  h+='<p class="small">출처: 노사발전재단 2024 일터혁신 실태조사, 일터혁신지수 노사관계 영역(표 Ⅵ-8, Ⅵ-10).</p></div>';
+  // 레이더 + 하위영역
+  h+=`<div class="card"><h2>영역별 점수</h2><div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center"><div style="flex:1;min-width:260px">${radarSvg(res,bmRatio)}<div class="small">파란 면=우리, 주황 점선=벤치마크 평균</div></div></div>`;
+  h+='<table><tr><th>영역</th><th class="r">점수</th><th class="r">배점</th><th style="width:38%">달성률 (│=평균)</th></tr>';
+  res.parts.forEach(p=>{
+    if(p.excluded){h+=`<tr><td>${p.name}</td><td colspan="3" class="small">제외됨</td></tr>`;return;}
+    if(p.missing){h+=`<tr><td>${p.name}</td><td colspan="3" class="small">응답 없음</td></tr>`;return;}
+    const pct=p.ratio*100,bp=bmRatio[p.id]*100;
+    h+=`<tr><td>${p.name}${p.caution?'<span class="tag">참고용</span>':''}<div class="small">${res.subs.find(s=>s.id===p.sub).name}</div></td><td class="r"><b>${f1(p.got)}</b></td><td class="r">${f1(p.max)}</td><td><div class="bar"><i style="width:${pct}%;background:${p.ratio*100<bp-5?'var(--bad)':'var(--brand)'}"></i><u style="left:${bp}%"></u></div><span class="small">${pct.toFixed(0)}% (평균 ${bp.toFixed(0)}%)</span></td></tr>`;
+  });
+  h+='</table></div>';
+  // 우선 개선과제
+  const cand=res.parts.filter(p=>!p.excluded&&!p.missing).map(p=>({p,gap:p.max*(1-p.ratio),rel:p.ratio-bmRatio[p.id]})).sort((a,b)=>b.gap-a.gap).slice(0,3);
+  h+='<div class="card"><h2>우선 개선과제 TOP 3</h2><p class="desc">‘잃은 점수’(배점×미달성 비율)가 큰 순서입니다.</p><ul class="pri">';
+  cand.forEach(({p,gap,rel})=>{h+=`<li><b>${p.name}</b> — ${f1(gap)}점 개선 여지${rel<0?` (평균보다 ${Math.abs(rel*100).toFixed(0)}%p 낮음)`:''}<br><span class="small">${ADVICE[p.id]}</span></li>`});
+  h+='</ul>';
+  // 문항별 약점
+  const weak=res.parts.flatMap(p=>p.items.filter(i=>i.v&&i.v<=2).map(i=>({...i,part:p.name})));
+  if(weak.length){h+='<h3>응답이 낮은 문항(1~2점)</h3><table>'+weak.map(i=>`<tr><td>${i.no}-${i.k.split('_')[1]}</td><td>${i.text}</td><td class="r">${i.v}점</td></tr>`).join('')+'</table>';}
+  const conf=CONFS.filter((_,i)=>A['q18_'+(i+1)]===1);
+  if(conf.length)h+=`<p class="warn">갈등 발생: ${conf.join(', ')}</p>`;
+  h+='</div>';
+  // 일관성
+  const notes=[];
+  if(res.self){const exp=res.parts.find(p=>p.id==='p_cl1');if(exp&&exp.ratio!==null){const selfR=norm(res.self);if(Math.abs(selfR-exp.ratio)>.35)notes.push('문3-2 자기평가와 문16 응답 수준이 크게 다릅니다. 응답 일관성을 확인해 보세요.');}}
+  if(res.q20)notes.push(`참고: 지난해 제기된 고충의 해결 정도 = ${['30% 미만','30~50%','50~70%','70~90%','90% 이상'][res.q20-1]} (점수 미반영)`);
+  if(A.rtype==='근로자')notes.push('근로자 응답입니다. 사업주·담당자 응답과 합산하지 말고 따로 비교하세요.');
+  if(notes.length)h+='<div class="card"><h2>참고</h2><ul>'+notes.map(n=>`<li>${n}</li>`).join('')+'</ul></div>';
+  h+=`<div class="btns noprint"><button class="btn" id="btnSave">이 결과 저장</button><button class="btn ghost" onclick="window.print()">인쇄 / PDF 저장</button></div>`;
+  el.innerHTML=h;
+  $('#btnSave').onclick=saveCurrent;
+}
+
+/* ===== 가중치 탭 ===== */
+function renderWeights(){
+  $('#wgrid').innerHTML=SUBS.map(s=>`<div>${s.name} <span class="small">(공식 ${s.w})</span></div><input type="number" min="0" step="1" data-w="${s.id}" value="${W[s.id]}">`).join('');
+  $('#wgrid').querySelectorAll('input').forEach(i=>i.oninput=()=>{W[i.dataset.w]=Number(i.value)||0;store.set('nsg_weights',W);wsum();});
+  wsum();
+}
+function wsum(){const nw=weightsNormalized();const tot=SUBS.reduce((s,x)=>s+Number(W[x.id]||0),0);$('#wsum').textContent=`입력 합계 ${tot} → 100점 환산 후: `+SUBS.map(s=>`${s.name} ${nw[s.id].toFixed(1)}`).join(' / ');}
+$('#wDefault').onclick=()=>{SUBS.forEach(s=>W[s.id]=s.w);store.set('nsg_weights',W);renderWeights();};
+$('#wEqual').onclick=()=>{SUBS.forEach(s=>W[s.id]=20);store.set('nsg_weights',W);renderWeights();};
+
+/* ===== 저장·비교 ===== */
+function saveCurrent(){
+  if(!lastResult||lastResult.total===null)return;
+  const list=store.get('nsg_saved',[]);
+  list.push({at:new Date().toISOString().slice(0,16).replace('T',' '),org:A.org||'(미입력)',rtype:A.rtype||'사업주·담당자',total:lastResult.total,parts:Object.fromEntries(lastResult.parts.map(p=>[p.id,p.got===null?null:p.got])),ind:A.ind,size:A.size,answers:{...A}});
+  store.set('nsg_saved',list);renderSaved();alert('저장했습니다.');
+}
+function renderSaved(){
+  const list=store.get('nsg_saved',[]);
+  if(!list.length){$('#savedList').innerHTML='<p class="small">저장된 응답이 없습니다.</p>';return;}
+  let h='<table><tr><th>저장시각</th><th>기관</th><th>유형</th><th class="r">총점</th><th></th></tr>';
+  list.forEach((r,i)=>{h+=`<tr><td>${r.at}</td><td>${r.org}</td><td>${r.rtype}</td><td class="r"><b>${f1(r.total)}</b></td><td><button class="btn ghost" style="padding:2px 8px" data-del="${i}">삭제</button></td></tr>`});
+  h+='</table>';
+  const types=[...new Set(list.map(r=>r.rtype))];
+  h+='<h3>응답자 유형별 평균</h3><table><tr><th>유형</th><th class="r">응답수</th><th class="r">평균 총점</th></tr>'+types.map(t=>{const x=list.filter(r=>r.rtype===t);return `<tr><td>${t}</td><td class="r">${x.length}</td><td class="r"><b>${f1(mean(x.map(r=>r.total)))}</b></td></tr>`}).join('')+'</table>';
+  if(types.length>1)h+='<p class="small warn">사업주·담당자와 근로자 평균은 서로 다른 조사라 합산하지 않았습니다.</p>';
+  $('#savedList').innerHTML=h;
+  $('#savedList').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{list.splice(Number(b.dataset.del),1);store.set('nsg_saved',list);renderSaved();});
+}
+$('#btnClear').onclick=()=>{if(confirm('저장된 응답을 모두 삭제할까요?')){store.set('nsg_saved',[]);renderSaved();}};
+$('#btnCsv').onclick=()=>{
+  const list=store.get('nsg_saved',[]);if(!list.length)return;
+  const head=['저장시각','기관','응답자유형','업종','규모','총점(100)',...PARTS.map(p=>p.name+'(배점'+p.off+')')];
+  const rows=list.map(r=>[r.at,r.org,r.rtype,r.ind,r.size,r.total.toFixed(2),...PARTS.map(p=>r.parts[p.id]==null?'':r.parts[p.id].toFixed(2))]);
+  const csv='﻿'+[head,...rows].map(r=>r.map(c=>'"'+String(c??'').replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='노사관계진단_결과.csv';a.click();
+};
+
+/* ===== 내비게이션 ===== */
+function show(v){
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('hidden',s.id!=='v-'+v));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+  if(v==='result')renderResult();
+  if(v==='weights')renderWeights();
+  if(v==='saved')renderSaved();
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.v));
+$('#btnCalc').onclick=()=>show('result');
+$('#btnReset').onclick=()=>{if(confirm('입력한 응답을 모두 지울까요?')){A={};store.set('nsg_answers',A);buildForm();}};
+buildForm();
+</script>
+</body>
+</html>
