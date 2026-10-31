@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>정년연장 대응 미래일터 중장기 로드맵(안)</title>
+<meta name="generator" content="public-skill 1.9.0">
+<meta name="author" content="">
+<style>
+@page { size: A4 portrait; margin: 10mm 20mm 10mm 20mm; @bottom-center { content: "- " counter(page) " -"; font-family: "Noto Sans KR"; font-size: 10pt; } }
+@page cover { @bottom-center { content: none; } }
+@page toc { @bottom-center { content: none; } }
+html { background: #f3f5f7; }
+body { margin: 0; font-family: "Noto Sans KR"; font-size: 15pt; line-height: 1.45; letter-spacing: -0.05em; font-stretch: 100%; color: #111; }
+.pr-doc { box-sizing: border-box; width: 210mm; margin: 8mm auto; padding: 10mm 20mm; background: #fff; border: 1px solid #c9d1d9; }
+@media (max-width: 820px) { .pr-doc { width: auto; margin: 0; padding: 12px 16px; border: 0; } }
+@media print { html { background: #fff; } .pr-doc { width: auto; margin: 0; padding: 0; border: 0; } }
+p, h1, h2, h3, h4 { margin: 0; font-weight: 400; }
+.pr-pagebreak { break-before: page; }
+.pr-title-short { font-size: 25pt;font-weight: 700;text-align: center; border-top: 1.5pt solid #1F4E79; border-bottom: 1.5pt solid #1F4E79; background: #E8F1F8; padding: 10pt 0; margin: 0 0 8pt; }
+.pr-chapter { font-size: 18pt;font-weight: 700;text-align: left; border-top: 1.5pt solid #1F4E79; border-bottom: 1.5pt solid #1F4E79; background: #E8F1F8; padding: 4pt 6pt; margin: 14pt 0 8pt; break-after: avoid; }
+.pr-section { font-size: 15pt;font-weight: 700;text-align: left; margin: 10pt 0 0; break-after: avoid; }
+.pr-subsection { font-size: 15pt;font-weight: 700;text-align: left; margin: 6pt 0 0; break-after: avoid; }
+.pr-body { font-size: 15pt;font-weight: 400;text-align: justify; }
+.pr-l1 { font-size: 15pt;font-weight: 400;text-align: justify; padding-left: 22.5pt; text-indent: -22.5pt; margin-top: 4pt; }
+.pr-l2 { font-size: 15pt;font-weight: 400;text-align: justify; padding-left: 30pt; text-indent: -22.5pt; margin-top: 0; }
+.pr-l3 { font-size: 15pt;font-weight: 400;text-align: justify; padding-left: 37.5pt; text-indent: -15pt; margin-top: 0; }
+.pr-note { font-size: 13pt;font-weight: 400;text-align: justify; padding-left: 60pt; text-indent: -22.5pt; margin-top: 0; }
+.pr-star-1 { padding-left: 60pt; text-indent: -22.5pt; }
+.pr-star-2 { padding-left: 52.5pt; text-indent: -22.5pt; }
+.pr-star-3 { padding-left: 45pt; text-indent: -22.5pt; }
+.pr-star-4 { padding-left: 37.5pt; text-indent: -22.5pt; }
+.pr-star-5 { padding-left: 30pt; text-indent: -22.5pt; }
+.pr-star-6 { padding-left: 22.5pt; text-indent: -22.5pt; }
+.pr-caption { font-size: 11pt;font-weight: 700;text-align: justify; margin: 8pt 0 2pt; break-after: avoid; }
+.pr-source { font-size: 10pt;font-weight: 400;text-align: justify; margin: 2pt 0 6pt; }
+.pr-cover { page: cover; break-after: page; text-align: center; padding-top: 130pt; }
+.pr-cover-rule { border-top: 2pt solid #1F4E79; margin: 0 0 30pt; }
+.pr-cover-rule.pr-bottom { margin: 30pt 0 30pt; }
+.pr-cover-title { font-size: 32pt;font-weight: 700;text-align: center; margin: 0; word-break: keep-all; }
+.pr-cover-meta { font-size: 16pt;font-weight: 400;text-align: center; margin: 6pt 0; }
+.pr-toc { page: toc; break-after: page; }
+.pr-toc-title { font-size: 18pt;font-weight: 700;text-align: center; margin: 0 0 14pt; }
+.pr-toc ol { list-style: none; margin: 0; padding: 0; }
+.pr-toc li { display: flex; align-items: baseline; font-size: 15pt; margin: 2pt 0; }
+.pr-toc li a { color: inherit; text-decoration: none; }
+.pr-toc li .pr-dots { flex: 1; border-bottom: 1px dotted #555; margin: 0 4pt; }
+.pr-toc li a::after { content: target-counter(attr(href url), page); }
+table.pr-table { width: 100%; border-collapse: collapse; table-layout: auto; font-size: 11pt; line-height: 1.2; border-top: 0.75pt solid #8EA9C1; border-bottom: 0.75pt solid #8EA9C1; }
+table.pr-table th { font-size: 11pt; font-weight: 700; text-align: center; background: #DDEBF7; border-bottom: 0.75pt solid #8EA9C1; padding: 3pt 4pt; vertical-align: middle; }
+table.pr-table td { border-bottom: 0.5pt solid #8EA9C1; padding: 3pt 4pt; vertical-align: middle; text-align: left; }
+table.pr-table td.pr-num { text-align: right; } table.pr-table td.pr-ctr { text-align: center; }
+table.pr-table thead { display: table-header-group; } table.pr-table tr { break-inside: avoid; }
+table.pr-box { width: 100%; border-collapse: collapse; border: 0.75pt solid #8EA9C1; font-size: 11pt; line-height: 1.2; margin: 4pt 0; break-inside: avoid; }
+table.pr-box td { padding: 6pt 8pt; text-align: left; }
+table.pr-box[data-code="B101"] td { background: #FFFFFF; }
+table.pr-box[data-code="B102"] td { background: #F2F5F8; }
+table.pr-box[data-code="B103"] td { background: #F7F9FB; }
+table.pr-diagram { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 3px; font-size: 11pt; line-height: 1.2; break-inside: avoid; }
+table.pr-diagram td { background: #DDEBF7; text-align: center; vertical-align: middle; padding: 5pt 4pt; font-weight: 700; }
+table.pr-diagram td.pr-d-label { background: #1F4E79; color: #FFFFFF; width: 30mm; }
+table.pr-diagram td.pr-d-arrow { background: transparent; width: 8mm; font-weight: 400; padding: 0; }
+.pr-attach { display: flex; break-before: page; margin: 0 0 12pt; font-size: 15pt; font-weight: 700; }
+.pr-attach-label { width: 28mm; background: #1F4E79; color: #FFFFFF; text-align: center; padding: 6pt 0; }
+.pr-attach-title { flex: 1; border: 0.75pt solid #8EA9C1; text-align: center; padding: 6pt 0; }
+</style>
+<meta name="pr-validated" content="1.9.0:a609429a44fde0f49e867d4c41af3fdaf3680e7cc0415a23eb06e75ede79bfb5">
+</head>
+<body>
+<main class="pr-doc" data-mode="cover">
+<section class="pr-cover"><div class="pr-cover-rule"></div><h1 class="pr-cover-title">정년연장 대응 미래일터 중장기 로드맵(안)</h1><div class="pr-cover-rule pr-bottom"></div><p class="pr-cover-meta">2026. 10. 31.</p><p class="pr-cover-meta">한국원자력환경공단</p><p class="pr-cover-meta">인재경영팀</p></section>
+<nav class="pr-toc"><h2 class="pr-toc-title">목  차</h2><ol><li><a href="#ch1">Ⅰ. 추진배경 및 목적</a><span class="pr-dots"></span></li><li><a href="#ch2">Ⅱ. 대내외 환경분석</a><span class="pr-dots"></span></li><li><a href="#ch3">Ⅲ. 크로스 SWOT 분석</a><span class="pr-dots"></span></li><li><a href="#ch4">Ⅳ. 전략체계도</a><span class="pr-dots"></span></li><li><a href="#ch5">Ⅴ. 추진과제 및 세부추진과제</a><span class="pr-dots"></span></li><li><a href="#ch6">Ⅵ. 향후 일정</a><span class="pr-dots"></span></li></ol></nav>
+<h2 class="pr-chapter" id="ch1">Ⅰ. 추진배경 및 목적</h2>
+<h3 class="pr-section">1. 추진배경</h3>
+<p class="pr-l1">□ (정책환경) 법정 정년 60세를 65세로 단계 상향하는 입법 논의가 2026년 하반기 가시화</p>
+<p class="pr-l2">○ 여당 특위는 2029년 61세에서 시작해 2년마다 1세씩 상향하여 2037년 65세에 도달하는 초안을 마련(2026.6. 보도, 확정 전)</p>
+<p class="pr-l3">- 2026.10. 여당이 연내 입법 추진 의지를 재확인하였으나 시행 시기·임금체계 개편 방식은 노사 이견으로 미확정</p>
+<p class="pr-l2">○ 대통령과 양대 노총이 연내 결과 도출에 공감한 것으로 보도(2026.9., 확정 전)</p>
+<p class="pr-l3">- 정년연장 논의의 초점이 연장 여부에서 시기·방식·청년고용·임금체계 연계로 이동</p>
+<p class="pr-l1">□ (공단 여건) 임금피크제 2년 운영 구조는 법정 정년 상향 시 구조 재설계가 불가피</p>
+<p class="pr-l2">○ 일반직은 임금피크 2년간 보수 80% 지급, 1일 6시간 근무로 운영(공무직 제외)</p>
+<p class="pr-l3">- 정년이 61세 이상으로 상향되면 임금피크 진입 시점과 보수 구조 전반의 재검토 필요</p>
+<p class="pr-l2">○ 직무·인사·보수는 상호 연계되어 어느 한 분야만 선행 조정할 경우 이중감액·형평성 문제 발생 우려</p>
+<p class="pr-note pr-star-1">* 근거 : 한국일보(2026.6.11.), 파이낸셜뉴스(2026.10.27.), 정년연장 뉴스 브리핑(2026.9.8.), 공단 임피 운영현황(2026.10.31.) ※ 보도 기준, 확인 전</p>
+<h3 class="pr-section">2. 정부·국회 논의 동향 및 사실관계 확인</h3>
+<p class="pr-l1">□ (확인 결과) &#x27;1976년생까지 정년 65세&#x27; 취지의 최종안은 공개 자료에서 확인 불가</p>
+<p class="pr-l2">○ 민주당 최종안 확정·발표 보도 미확인, 출생연도별 적용표는 정부·국회 공식 자료에서 확인되지 않은 상태(2026.8.29. 기준)</p>
+<p class="pr-l3">- &#x27;68년생 1년, 76년생 5년 연장&#x27; 취지의 내용은 소문 수준으로 보도되어 확정 사실로 활용 곤란</p>
+<p class="pr-l2">○ 시행 시나리오에 따라 1976년생의 정년연령이 64세 또는 65세로 달라지므로 단일 값으로 고정하여 계획 수립 곤란</p>
+<p class="pr-l3">- 표 1은 정년 도래연도(만 60세 도달연도) 기준 적용을 가정한 자체 산정 결과이며 확정 전 참고용</p>
+<p class="pr-caption">표 1. 출생연도별 정년연령 시나리오 비교</p>
+<table class="pr-table" data-code="T102"><thead><tr><th>〈구분〉</th><th>〈A안〉</th><th>〈B안〉</th><th>〈비고〉</th></tr></thead><tbody><tr><td class="pr-ctr">1969년생</td><td class="pr-ctr">61세</td><td class="pr-ctr">61세</td><td>정년 도래 2029년</td></tr><tr><td class="pr-ctr">1971년생</td><td class="pr-ctr">62세</td><td class="pr-ctr">62세</td><td>정년 도래 2031년</td></tr><tr><td class="pr-ctr">1973년생</td><td class="pr-ctr">63세</td><td class="pr-ctr">63세</td><td>정년 도래 2033년</td></tr><tr><td class="pr-ctr">1975년생</td><td class="pr-ctr">64세</td><td class="pr-ctr">64세</td><td>정년 도래 2035년</td></tr><tr><td class="pr-ctr">1976년생</td><td class="pr-ctr">64세</td><td class="pr-ctr">65세</td><td>시나리오에 따라 상이</td></tr><tr><td class="pr-ctr">1977년생</td><td class="pr-ctr">65세</td><td class="pr-ctr">65세</td><td>정년 도래 2037년</td></tr></tbody></table>
+<p class="pr-source">출처: 자체 산정(보도된 초안 기준 가정), 2026.10.31. 기준</p>
+<p class="pr-l1">□ 표 1과 같이 A안(2029년 시작·2037년 65세 도달)는 1977년생부터, B안(2028년 시작·2036년 65세 도달)는 1976년생부터 65세 정년 적용</p>
+<p class="pr-body">⇒ 출생연도별 확정표가 나올 때까지 복수 시나리오를 전제로 인력·보수 영향을 분석하는 접근 필요</p>
+<p class="pr-note pr-star-1">* 근거 : 파이낸셜뉴스(2026.10.27.), 한국일보(2026.6.11.), 주간경향(2026.8.29.) ※ 보도 기준, 법령 원문 확인 전</p>
+<h3 class="pr-section">3. 추진목적</h3>
+<p class="pr-l1">□ (목적) 2029년 정년연장 도입을 목표로 직무·인사·보수 전 분야의 중장기 준비체계 마련</p>
+<p class="pr-l2">○ 2026년은 노사 공동 미래일터 위원회와 실무 TF를 구성하고 역량강화와 로드맵 수립에 집중</p>
+<p class="pr-l2">○ 2027~2028년 대안 설계와 시범운영을 거쳐 2029년 조건 충족 범위부터 도입</p>
+<p class="pr-l3">- 정년연령·보수 등 세부 수치는 법령 확정과 노사 협의 이후 결정하는 것을 전제로 이번 단계에서 미확정</p>
+<p class="pr-note pr-star-1">* 근거 : 정년연장 미래일터 추진 로드맵(안) v12(2026.9.24.)</p>
+<h2 class="pr-chapter" id="ch2">Ⅱ. 대내외 환경분석</h2>
+<h3 class="pr-section">1. 대외 환경분석</h3>
+<p class="pr-l1">□ (정책) 법정 정년 상향 방식과 시기의 불확실성 지속</p>
+<p class="pr-l2">○ 법정 정년 직접 연장과 정년 후 계속고용 방식이 병존하여 제도 방향 미확정</p>
+<p class="pr-l3">- 「고용상 연령차별금지 및 고령자고용촉진에 관한 법률」 제19조에 따른 법정 정년(60세 이상) 개정 여부가 핵심 변수 ※ 조문 원문 확인 전</p>
+<p class="pr-l2">○ 시행시기 2028~2029년 시작, 2036~2041년 65세 도달 등 복수 안이 보도되어 계획 기준 설정 곤란</p>
+<p class="pr-l1">□ (노사환경) 정년연장이 산업별 교섭의제로 확산되는 추세</p>
+<p class="pr-l2">○ 금융노조 총파업 요구, 완성차 노사 합의 등 정년연장이 핵심 교섭의제로 부상(2026.9. 보도)</p>
+<p class="pr-l3">- 연금 수급연령과의 연계, 임금피크제 확대 여부가 주요 쟁점</p>
+<p class="pr-l1">□ (청년고용) 정년연장에 따른 신규채용 여력 감소 우려</p>
+<p class="pr-l2">○ 정부와 주요 기업 모두 청년채용 감소를 핵심 쟁점으로 인식(2026.9.3. 보도)</p>
+<p class="pr-l3">- 공공기관은 총인건비·정원 관리와 맞물려 세대 간 형평성 관리 필요</p>
+<p class="pr-l1">□ 시사점 : 정책 확정 전에는 단일안 고정이 곤란하여 복수 시나리오 대응과 청년고용 병행 설계 필요</p>
+<p class="pr-note pr-star-1">* 근거 : 정년연장 뉴스 브리핑(2026.9.8.), 한국일보(2026.6.11.), 파이낸셜뉴스(2026.10.27.) ※ 보도 기준, 확인 전</p>
+<h3 class="pr-section">2. 대내 환경분석</h3>
+<p class="pr-l1">□ (조직·노조 구성) 복수노조 체제에서 일반직과 공무직의 이해관계 상이</p>
+<p class="pr-l2">○ 구성원은 일반직과 공무직으로 구분되고 제2노조는 공무직 중심으로 구성</p>
+<p class="pr-l3">- 노조별 요구와 참여 방식을 고려한 노사 공동 추진체계 설계 필요(복수노조 참여방식은 법령 확인 후 결정)</p>
+<p class="pr-l1">□ (임금피크제) 일반직 대상 2년 운영, 공무직 제외 구조</p>
+<p class="pr-l2">○ 임금피크 2년간 각 보수 80% 지급, 1일 6시간 근무</p>
+<p class="pr-l3">- 8시간 대비 근무시간 75%에 보수 80%가 적용되어 시간당 환산 약 107% 수준(기준보수·8시간 가정, 자체 환산)</p>
+<p class="pr-l2">○ 공무직은 임금피크제 적용 대상이 아니어서 정년연장 시 별도 보수·직무체계 설계 필요</p>
+<p class="pr-l1">□ (인력·직무) 방사선·폐기물·안전 분야 고숙련 경험 의존도가 높고 경험전수체계 미흡</p>
+<p class="pr-l2">○ 연령·직급·직무별 퇴직 전망과 정원·총인건비 영향은 미집계로 2027년 기초분석 대상</p>
+<p class="pr-l1">□ 시사점 : 일반직(임피 구조 재설계)과 공무직(신규 설계)을 구분한 이원 접근과 노조별 소통 강화 필요</p>
+<p class="pr-note pr-star-1">* 근거 : 공단 임피 운영현황(2026.10.31., 규정 원문 대조 전), 정년연장 로드맵(안) v12(2026.9.24.)</p>
+<h2 class="pr-chapter" id="ch3">Ⅲ. 크로스 SWOT 분석</h2>
+<h3 class="pr-section">1. 영역별 SWOT</h3>
+<p class="pr-l1">□ 직무·인사·보수 영역별 내부 요인과 외부 요인을 동일 기준으로 구분</p>
+<p class="pr-caption">표 2. 직무·인사·보수 영역별 SWOT</p>
+<table class="pr-table" data-code="T301"><thead><tr><th>〈구분〉</th><th>〈강점(S)〉</th><th>〈약점(W)〉</th><th>〈기회(O)〉</th><th>〈위협(T)〉</th></tr></thead><tbody><tr><td class="pr-ctr">직무</td><td>방사선·폐기물·안전 분야 고숙련 전문성 보유</td><td>고경력자 적합직무·경력전환 경로 미흡</td><td>안전·규제 분야 업무 연속성 중요성 증대</td><td>정년연장 방식·시기 불확실성 지속</td></tr><tr><td class="pr-ctr">인사</td><td>임금피크 2년 운영경험과 인력자료 축적</td><td>경험전수와 시간·배치 연계체계 미흡</td><td>계속고용 논의 확산에 따른 선제 설계 여건</td><td>청년채용 여력 감소 및 세대갈등 우려</td></tr><tr><td class="pr-ctr">보수</td><td>직무급·성과연봉 등 기존 제도 기반</td><td>직무가치·역할·성과 구분 기준 미흡, 공무직 임피 부재</td><td>공공부문 직무 중심 보수 강화 기조</td><td>총인건비 제약과 복수노조 수용성</td></tr></tbody></table>
+<p class="pr-source">출처: 자체 분석, 2026.10.31. 기준</p>
+<p class="pr-l1">□ 표 2의 12개 요인을 조합하여 영역별 대응방향 도출</p>
+<p class="pr-note pr-star-1">* 근거 : 자체 분석(2026.10.31.), 공단 임피 운영현황 및 로드맵(안) v12 기준</p>
+<h3 class="pr-section">2. 조합전략</h3>
+<p class="pr-l1">□ (SO) 고숙련 전문성을 활용한 경험전수·지식자산화 체계 구축</p>
+<p class="pr-l2">○ 방사선·폐기물·안전 분야 판단경험을 공식 업무로 편성하여 기관 지식자산으로 전환</p>
+<p class="pr-l1">□ (WO) 선제 설계 여건을 활용한 적합직무·경력경로 체계 마련</p>
+<p class="pr-l2">○ 고경력자 적합직무 발굴과 일반·전문가 경력경로 설계를 2027년 중점 추진</p>
+<p class="pr-l1">□ (ST) 기존 자료·제도를 활용한 시나리오별 영향 분석과 위험관리</p>
+<p class="pr-l2">○ 인력·정원·총인건비·신규채용 영향을 복수 시나리오로 선제 분석</p>
+<p class="pr-l1">□ (WT) 시간·직무·보수 연계 설계로 이중감액과 수용성 저하 방지</p>
+<p class="pr-l2">○ 임피 80%·6시간을 미래 상수로 고정하지 않고 직무별 시간범위를 먼저 확정한 뒤 보수 설계</p>
+<p class="pr-l3">- 공무직은 별도 트랙으로 신규 설계하여 일반직과의 형평성 확보</p>
+<p class="pr-note pr-star-1">* 근거 : 공단 임피 운영현황(2026.10.31., 규정 원문 대조 전)</p>
+<p class="pr-body">⇒ 직무 → 인사 → 보수 순으로 선후관계를 두고 노사 공동검토를 병행하는 추진 필요</p>
+<div class="pr-pagebreak"></div>
+<h2 class="pr-chapter" id="ch4">Ⅳ. 전략체계도</h2>
+<h3 class="pr-section">1. 전략체계</h3>
+<p class="pr-l1">□ 그림 1과 같이 미션-비전-목표-추진과제-세부추진과제-향후일정 순으로 연계</p>
+<p class="pr-caption">그림 1. 정년연장 대응 미래일터 전략체계도</p>
+<table class="pr-diagram" data-code="D101" data-layout="layers"><tr><td class="pr-d-label">미션</td><td colspan="9">고숙련 인력의 경험을 기관 역량으로 잇는 지속가능한 인력운영</td></tr><tr><td class="pr-d-label">비전</td><td colspan="9">2029 정년연장 대응 미래일터 체계 도입</td></tr><tr><td class="pr-d-label">목표</td><td>직무 재구성</td><td>경력·인력운영 재설계</td><td colspan="7">평가·보수체계 고도화</td></tr><tr><td class="pr-d-label">전략</td><td>인력·직무체계 재구성</td><td>경력·인력운영 재설계</td><td colspan="7">평가·보수체계 고도화</td></tr><tr><td class="pr-d-label">과제</td><td>1-1 인력구조 전망</td><td>1-2 적합직무 발굴</td><td>1-3 직무가치·역할등급</td><td>2-1 경력경로</td><td>2-2 시간·인력운영</td><td>2-3 경험전수</td><td>3-1 성과평가·심사</td><td>3-2 보수체계</td><td>3-3 직무급 고도화</td></tr><tr><td class="pr-d-label">일정</td><td>2026 기반조성</td><td>2027~2028 설계·시범</td><td colspan="7">2029 조건부 도입</td></tr></table>
+<p class="pr-source">출처: 자체 작성</p>
+<p class="pr-l1">□ 선후관계 : 전략 1(직무) 결과가 전략 2(인사)의 입력이 되고 전략 2 결과가 전략 3(보수)의 입력이 되는 순차 구조</p>
+<p class="pr-l2">○ 기반과제 : 노사 공동 미래일터 위원회·실무 TF 구성과 역량강화를 전 과제의 공통 기반으로 운영</p>
+<p class="pr-l2">○ 원칙 : 정년연령·연장기간·보수산식 등 세부 수치는 법령·노사협의 확정 전 미고정</p>
+<h2 class="pr-chapter" id="ch5">Ⅴ. 추진과제 및 세부추진과제</h2>
+<h3 class="pr-section">1. 전략 1 : 미래 인력구조에 대응한 인력·직무체계 재구성</h3>
+<p class="pr-l1">□ (1-1) 중장기 인력구조 전망 및 인력운영 기반 마련</p>
+<p class="pr-l2">○ 연령·직급·직무별 현원과 5년 퇴직·임금피크 진입 전망 분석</p>
+<p class="pr-l2">○ 정년연장 시나리오별 정원·총인건비·신규채용 영향 비교</p>
+<p class="pr-l1">□ (1-2) 정년연장 연계 적합직무 발굴 및 직무 재구성</p>
+<p class="pr-l2">○ 직무기술서·직무평가 자료를 바탕으로 현업 수요와 과업 조사</p>
+<p class="pr-l2">○ 적합직무·전문직무 후보 선정 및 직무 재구성 대안 마련</p>
+<p class="pr-l1">□ (1-3) 전문직무 가치평가 및 역할등급체계 마련</p>
+<p class="pr-l2">○ 직무가치·역할수준·연간 성과를 구분하는 평가요소와 등급 구조 설계</p>
+<h3 class="pr-section">2. 전략 2 : 숙련과 경험을 활용하는 경력·인력운영 재설계</h3>
+<p class="pr-l1">□ (2-1) 일반·전문가 경력경로 및 전환체계 마련</p>
+<p class="pr-l2">○ 진입·전환·재진입 기준과 공무직 적용 방안 검토</p>
+<p class="pr-l1">□ (2-2) 직무·근로시간 연계형 인력운영체계 마련</p>
+<p class="pr-l2">○ 직무별 업무량·연속성에 따른 근로시간 유형과 배치대안(중앙형·현업형·혼합형) 비교</p>
+<p class="pr-l3">- 현행 1일 6시간은 비교값으로만 활용하고 미래 표준으로 고정하지 않음</p>
+<p class="pr-l1">□ (2-3) 숙련경험 전수 및 기관 지식자산화</p>
+<p class="pr-l2">○ 전수대상·시간·방법·결과물을 포함한 공식 전수 업무 편성</p>
+<h3 class="pr-section">3. 전략 3 : 직무가치와 기여를 반영한 평가·보상체계 고도화</h3>
+<p class="pr-l1">□ (3-1) 성과평가 및 전문가 역할등급 심사체계 마련</p>
+<p class="pr-l2">○ 연간 성과평가와 역할등급 심사를 분리하고 소속·평가주체 책임관계 정합성 확보</p>
+<p class="pr-l1">□ (3-2) 직무·근로시간·역할을 반영한 보수체계 마련</p>
+<p class="pr-l2">○ 기준보수 범위 확인 후 시간비례와 감액의 중복 적용(이중감액) 방지 구조 설계</p>
+<p class="pr-l3">- 개인 보수변화와 총인건비·채용영향 사전 산정, 공무직 보수체계 별도 검토</p>
+<p class="pr-l1">□ (3-3) 기존 직무급의 단계적 고도화</p>
+<p class="pr-l2">○ 현행 정합·선택적 확대·전사 확대 3개 대안 비교 후 조건 충족 범위부터 적용</p>
+<p class="pr-note pr-star-1">* 근거 : 정년연장 미래일터 추진 로드맵(안) v12(2026.9.24.)</p>
+<h3 class="pr-section">4. 추진기반 : 위원회·TF 구성 및 역량강화(2026)</h3>
+<p class="pr-l1">□ (추진체계) 노사 공동 미래일터 위원회 → 실무 TF → 직무·인사·보수 3개 분과 구성</p>
+<p class="pr-l2">○ 일반직·공무직·복수노조 참여방식은 법령 확인 및 노사 협의로 결정</p>
+<p class="pr-l1">□ (역량강화) 위원회·TF 구성원 대상 공동학습 실시</p>
+<p class="pr-l2">○ 정년연장 법제 동향, 선도기관 사례, 직무분석·직무평가·보수설계 방법론 학습</p>
+<p class="pr-l3">- 학습 결과를 2027년 연구범위와 9대 과제 설계에 반영</p>
+<p class="pr-note pr-star-1">* 근거 : 정년연장 미래일터 추진 로드맵(안) v12(2026.9.24.), 2026년 추진 구상</p>
+<p class="pr-body">⇒ 직무 → 인사 → 보수 순차 설계로 2029년 도입 판단 근거 확보 필요</p>
+<h2 class="pr-chapter" id="ch6">Ⅵ. 향후 일정</h2>
+<h3 class="pr-section">1. 단계별 추진일정</h3>
+<p class="pr-caption">표 3. 단계별 추진일정</p>
+<table class="pr-table" data-code="T202"><thead><tr><th>〈단계〉</th><th>〈주요내용〉</th><th>〈기간〉</th></tr></thead><tbody><tr><td>1. 추진체계 구성</td><td>노사 공동 위원회·실무 TF·3개 분과 구성</td><td>2026.11.</td></tr><tr><td>2. 역량강화</td><td>공동학습, 법제 동향·사례 학습, 연구범위 도출</td><td>2026.11.~12.</td></tr><tr><td>3. 로드맵 수립</td><td>3대 전략·9대 과제 및 중장기 로드맵 확정</td><td>2026.12.</td></tr><tr><td>4. 대안 설계</td><td>인력·직무·경력·시간·전수·평가·보수 복수대안 설계</td><td class="pr-ctr">2027년</td></tr><tr><td>5. 협의·시범</td><td>노사 공동검토·협의 후 합의범위 시범운영</td><td class="pr-ctr">2028년</td></tr><tr><td>6. 조건부 도입</td><td>법령·노사합의·재원 등 도입조건 확인 후 적용</td><td class="pr-ctr">2029년</td></tr></tbody></table>
+<p class="pr-source">출처: 자체 작성, 일정은 위원회 협의 및 법령 확정에 따라 조정</p>
+<p class="pr-l1">□ 표 3의 단계 전환은 이전 단계의 산출물과 확인기준 충족을 전제로 추진</p>
+<h3 class="pr-section">2. 도입 판단 및 유의사항</h3>
+<p class="pr-l1">□ (도입조건) 2029년 도입은 필수조건 충족 범위에 한정</p>
+<p class="pr-l2">○ 법령·정부지침, 노사협의·합의 및 법정절차, 직무·운영, 정원·재원, 사규·시스템 5개 조건 확인</p>
+<p class="pr-l1">□ (유의사항) 본 로드맵은 계획안으로 정년연령·보수·근로시간은 후속 협의사항</p>
+<p class="pr-l2">○ 근로조건 변경이 수반되는 경우 단체협약·취업규칙 대조 및 법정 동의절차 별도 확인</p>
+<p class="pr-note">※ 보도 기반 정책 정보는 법령 확정 시 즉시 갱신</p>
+<p class="pr-note pr-star-1">* 근거 : 정년연장 미래일터 추진 로드맵(안) v12(2026.9.24.) 도입조건 5개 항목</p>
+</main>
+</body>
+</html>
