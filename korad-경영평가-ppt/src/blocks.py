@@ -150,6 +150,7 @@ class Note(Block):
 
 # ---- 사다리 표 ---------------------------------------------------------
 FORK_TRI = 30
+BOX_GAP = 26   # 박스 → 단계 띠 사이 ▶ 자리
 
 
 def band_h(b, wc):
@@ -172,6 +173,12 @@ def band_h(b, wc):
         pw = b.get('photo_w', 197)
         body = items_h(b['items'][0], wc - pw - 10)
         return (HEAD + 2 if b.get('heads') else 0) + max(body, b.get('min', 100))
+    if k == 'boxsteps':
+        # 왼쪽 박스 + ▶ + 단계 화살표 띠(박스 → 화살표)
+        bw = b.get('box_w', 220) + BOX_GAP
+        n = len(b['labels']); e = edges_of(0, wc - bw, n, b.get('w'))
+        body = max(items_h(it, e[i + 1] - e[i] - 4) for i, it in enumerate(b['items']))
+        return HEAD + 4 + max(body, b.get('min', 56))
     if k == 'fork':
         # 위 단계 띠에서 내려오는 ▼ + 머리 칸 2개(사이에 ▶) + 불릿 글 + (선택) 맺음 배너
         n = len(b['items']); e = edges_of(0, wc, n, b.get('w'))
@@ -209,6 +216,15 @@ def draw_band(d, s, xc, xr, y, b):
             d.head_row(s, y, y + HEAD, [(e[0], e[1], b['heads'][0])]); yy = y + HEAD + 2
         _cols(d, s, yy, y + h, e, b['items'], True)
         d.photo(s, xr - pw, y + 1, xr, y + h - 1, b.get('photo', '사진'))
+    elif k == 'boxsteps':
+        bw = b.get('box_w', 220)
+        xs = xc + bw + BOX_GAP
+        n = len(b['labels']); e = [xs + v for v in edges_of(0, xr - xs, n, b.get('w'))]
+        d.use('박스 화살표 띠', xc, y, xr, y + h, f'{n}단계')
+        d.shp(s, xc, y, xc + bw, y + h - 2, b['box'], TONE['g2'], name='박스')
+        d.tri_arrow(s, xc + bw + BOX_GAP / 2, y + h / 2, 22, 20, down=False)
+        d.step_strip(s, y, y + HEAD, e, b['labels'])
+        _cols(d, s, y + HEAD + 4, y + h, e, b['items'], True)
     elif k == 'fork':
         n = len(b['items']); e = [xc + v for v in edges_of(0, wc, n, b.get('w'))]
         d.use('분기 화살표 칸', xc, y, xr, y + h, f'{n}칸')
