@@ -6,7 +6,7 @@ _c = lambda items, heads=None, mn=80, b=True: dict(k='cols', items=items, **({'h
 _b = lambda t: dict(k='banner', text=t)
 _s = lambda labels, items, mn=90: dict(k='steps', labels=labels, items=items, min=mn)
 def row(label, *bands): return dict(label=label, bands=list(bands))
-TITLE = '직원 수용성 확보로 냉난방 민원 대폭 감소, 온실가스 감축 목표 달성'
+TITLE = '직원 수용성 확보로 하절기 조합원 민원 제로, 온실가스 감축 목표 달성'
 HEAD = 'AI 분석으로 냉난방 확대 기준을 세우고 에너지 사용을 시각화해 직원의 공감을 얻음'
 nodes = [
  dict(t='topic', n=1, title=TITLE, chip='✔ 신규'),
@@ -32,10 +32,7 @@ nodes = [
    row('후속\n노력\n(월성)', _s(['① 한계 확인', '② 정부 컨설팅 활용', '③ 사업자 선정'],
                        [['신규 분석센터 항온항습기의 연중 가동으로 에너지 절감에 한계 확인'], ['정부 컨설팅을 통해 내년도 주차장 태양광 설치 사업자 선정 추진'], ['11월 내년도 주차장 태양광 설치 사업자로 선정']], 80)),
  ]),
- dict(t='result', label='추진성과', items=['냉난방에 대한 노동조합 민원 대폭 감소(전년 대비 00%↓)',
-                                         '온실가스 감축 목표(17.4%) 달성 — 감축률 00%(’26.8월 검침 기준 전망 22.06%, 목표 대비 +4.66%p)',
-                                         '6.16~말 하절기 편입(냉난방 확대)에도 월 관리기준선 아래 유지, 1~8월 사용량 전년 대비 −4.37%',
-                                         '인버터 전체 타이머 설치로 약 31,698kWh 추가 발전, 기준연도 대비 2.8% 에너지 절감']),
+ dict(t='result', label='추진성과', items=['간절기 이후 하절기 냉난방 관련 조합원 민원 제로', '온실가스 감축 목표 달성']),
  dict(t='newpage'),
  dict(t='sub', num='참고', box='', text='냉난방 확대 기준(본사 사옥 냉난방기 가동 기준 개선안, ’26.6.15)'),
  dict(t='gridtable', header=['구 분', '기 존 · 추 이', '변 경 · 의 미'], col_w=[20, 38, 42], merge_cols=(), align=['c', 'l', 'l'], bold_cols=(0,), rows=[
