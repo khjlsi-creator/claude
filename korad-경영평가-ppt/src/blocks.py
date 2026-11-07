@@ -221,7 +221,16 @@ def draw_band(d, s, xc, xr, y, b):
         xs = xc + bw + BOX_GAP
         n = len(b['labels']); e = [xs + v for v in edges_of(0, xr - xs, n, b.get('w'))]
         d.use('박스 화살표 띠', xc, y, xr, y + h, f'{n}단계')
-        d.shp(s, xc, y, xc + bw, y + h - 2, b['box'], TONE['g2'], name='박스')
+        if b.get('tag'):
+            # 단어 하나는 조그만 글상자(진한 칸)에 넣고, 설명은 그 아래에 둔다
+            d.shp(s, xc, y, xc + bw, y + h - 2, None, TONE['g2'], name='박스')
+            tw, th = b.get('tag_w', 84), 30
+            d.shp(s, xc + (bw - tw) / 2, y + 8, xc + (bw + tw) / 2, y + 8 + th, b['tag'], TONE['g4'], shape=MSO_SHAPE.ROUNDED_RECTANGLE,
+                  rad=6, name='글상자', mg=(0.3, 0, 0.3, 0))
+            d.t(s, xc, y + 8 + th + 2, xc + bw, y + h - 4, [dict(t=ln, sz=SZ_D, b=True, color=C['navy'], align='c') for ln in str(b['box']).split('\n')],
+                anchor='m', mg=(0.8, 0.2, 0.8, 0.2), name='박스 설명', tag='박스')
+        else:
+            d.shp(s, xc, y, xc + bw, y + h - 2, b['box'], TONE['g2'], name='박스')
         d.tri_arrow(s, xc + bw + BOX_GAP / 2, y + h / 2, 22, 20, down=False)
         d.step_strip(s, y, y + HEAD, e, b['labels'])
         _cols(d, s, y + HEAD + 4, y + h, e, b['items'], True)

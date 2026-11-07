@@ -5,7 +5,7 @@ from compose import compose
 _c = lambda items, heads=None, mn=80, b=True: dict(k='cols', items=items, **({'heads': heads} if heads else {}), min=mn, bullet=b)
 _b = lambda t: dict(k='banner', text=t)
 _s = lambda labels, items, mn=90: dict(k='steps', labels=labels, items=items, min=mn)
-_bs = lambda box, labels, items, mn=90, bw=220: dict(k='boxsteps', box=box, labels=labels, items=items, min=mn, box_w=bw)
+_bs = lambda tag, box, labels, items, mn=90, bw=250: dict(k='boxsteps', tag=tag, box=box, labels=labels, items=items, min=mn, box_w=bw)
 def row(label, *bands): return dict(label=label, bands=list(bands))
 TITLE = '직원 수용성 확보로 하절기 조합원 민원 제로, 온실가스 감축 목표 달성'
 HEAD = 'AI 분석으로 냉난방 확대 기준을 세우고 에너지 사용을 시각화해 직원의 공감을 얻음'
@@ -28,12 +28,12 @@ nodes = [
    row('개선 ②\n에너지\n시각화', _b('웹 대시보드 ‘전기사용량 정밀 진단’(AI 활용) — 전년 대비 실적 공지에서 각종 지표 시각화 공지로 전환'),
        dict(k='photo', items=[['건물별 월별 부하와 관리기준선 등 각종 측정지표 개발(9종, 2쪽 참고)', '시각화 자료로 직원에게 공지 → 절감 필요성에 공감, 수용성 확보', '담당자: 지표로 집중 관리할 시설·시기를 파악(인사이트)']], photo='대시보드 화면(웹)', min=100)),
    row('모니터링\n후속\n조 치', _b('웹 대시보드 개발·운영을 통한 모니터링 후속조치'),
-       _bs('본사\n타이머 설치로\n중단없는 태양광 운영',
+       _bs('본사', '타이머 설치로\n중단없는 태양광 운영',
            ['① 타이머 테스트', '② 전체 인버터 설치', '③ 중단없는 운영'],
            [['지난 4월 인버터 타이머 테스트를 확대'], ['타이머 추가 구매로 모든 인버터에 설치 완료'], ['중단없는 태양광 운영으로 에너지 효율 향상']], 90),
-       _bs('월성\n본사 주도\n정부 컨설팅으로\n사업자 선정',
+       _bs('월성', '본사 주도\n정부 컨설팅으로\n사업자 선정',
            ['① 한계 확인', '② 본사 정부 컨설팅 추진', '③ 사업자 선정'],
-           [['모니터링으로 월성 신규 분석센터 항온항습기의 연중 가동에 따른 에너지 절감 한계 확인'], ['본사가 정부 컨설팅을 통해 월성의 내년도 주차장 태양광 설치 사업자 선정 추진'], ['11월 월성 내년도 주차장 태양광 설치 사업자로 선정']], 120)),
+           [['모니터링으로 월성 신규 분석센터 항온항습기의 연중 가동에 따른 에너지 절감 한계 확인'], ['본사가 정부 컨설팅을 통해 월성의 내년도 주차장 태양광 설치 사업자 선정 추진'], ['11월 월성 내년도 주차장 태양광 설치 사업자로 선정']], 150)),
  ]),
  dict(t='result', label='추진성과', items=['간절기 이후 하절기 냉난방 관련 조합원 민원 0건 달성(전년 00건)', '온실가스 감축률 00% 달성(목표 17.4%)']),
  dict(t='newpage'),
