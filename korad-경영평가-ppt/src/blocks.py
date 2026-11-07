@@ -149,6 +149,9 @@ class Note(Block):
 
 
 # ---- 사다리 표 ---------------------------------------------------------
+FORK_TRI = 30
+
+
 def band_h(b, wc):
     k = b['k']
     if k == 'text':
@@ -169,6 +172,11 @@ def band_h(b, wc):
         pw = b.get('photo_w', 197)
         body = items_h(b['items'][0], wc - pw - 10)
         return (HEAD + 2 if b.get('heads') else 0) + max(body, b.get('min', 100))
+    if k == 'fork':
+        # 위 단계 띠에서 내려오는 ▼ + 머리 칸 2개(사이에 ▶) + 불릿 글 + (선택) 맺음 배너
+        n = len(b['items']); e = edges_of(0, wc, n, b.get('w'))
+        body = max(items_h(it, e[i + 1] - e[i] - 4) for i, it in enumerate(b['items']))
+        return FORK_TRI + HEAD + 2 + max(body, b.get('min', 56)) + (42 if b.get('foot') else 0)
     raise ValueError(k)
 
 
@@ -201,6 +209,18 @@ def draw_band(d, s, xc, xr, y, b):
             d.head_row(s, y, y + HEAD, [(e[0], e[1], b['heads'][0])]); yy = y + HEAD + 2
         _cols(d, s, yy, y + h, e, b['items'], True)
         d.photo(s, xr - pw, y + 1, xr, y + h - 1, b.get('photo', '사진'))
+    elif k == 'fork':
+        n = len(b['items']); e = [xc + v for v in edges_of(0, wc, n, b.get('w'))]
+        d.use('분기 화살표 칸', xc, y, xr, y + h, f'{n}칸')
+        d.tri_arrow(s, (xc + xr) / 2, y + FORK_TRI / 2, 64, FORK_TRI - 6, down=True)
+        y1 = y + FORK_TRI
+        d.head_row(s, y1, y1 + HEAD, [(e[i], e[i + 1], t) for i, t in enumerate(b['heads'])])
+        for i in range(1, n):
+            d.tri_arrow(s, e[i] - 1, y1 + HEAD / 2, 22, 20, down=False)
+        foot_h = 42 if b.get('foot') else 0
+        _cols(d, s, y1 + HEAD + 2, y + h - foot_h, e, b['items'], b.get('bullet', True))
+        if b.get('foot'):
+            d.shp(s, xc, y + h - 38, xr, y + h - 2, b['foot'], TONE['g2'], name='분기 맺음 배너')
     return h
 
 
