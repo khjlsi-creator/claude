@@ -34,7 +34,7 @@ def validate(records):
     if not isinstance(records, list):
         raise ValueError('최상위는 레코드 배열이어야 한다')
 
-    errors, holds, notes, seen = [], [], [], {}
+    errors, holds, notes, seen, pairs = [], [], [], {}, {}
     for i, r in enumerate(records):
         if not isinstance(r, dict):
             errors.append(f'{i}: 레코드가 객체가 아님')
@@ -42,8 +42,10 @@ def validate(records):
 
         missing = [k for k in KEY_FIELDS if _blank(r.get(k))]
         if missing:
-            errors.append(f'{i}: 식별키 누락 {missing}')
+            holds.append(f'{i}: 식별키 미확정 {missing} → MISSING_FIELD_HOLD')
         key = None if missing else tuple(str(r[k]).strip() for k in KEY_FIELDS)
+        for code in r.get('hold') or []:
+            holds.append(f'{i}: {code}')
 
         status = r.get('status', '확보')
         if status not in STATUSES:
@@ -78,6 +80,17 @@ def validate(records):
                     errors.append(f'{i}: 증감률 불일치 (표기 {stated}, 재계산 {calc:.1f})')
             except (InvalidOperation, ValueError):
                 errors.append(f'{i}: change_percent가 숫자가 아님')
+
+        pair = (str(r.get('institution')), str(r.get('baseline_year')),
+                str(r.get('comparison_year')), str(r.get('unit')), a, b)
+        label = (str(r.get('program')), str(r.get('population')))
+        if pair in pairs and label not in pairs[pair]:
+            j = pairs[pair][0]
+            holds.append(f'{i}: {j}번과 값쌍이 같고 지표명이 다름 → LABEL_CONFLICT_HOLD 후보')
+        pairs.setdefault(pair, [])
+        if not pairs[pair]:
+            pairs[pair].append(i)
+        pairs[pair].append(label)
 
         if key is None:
             continue

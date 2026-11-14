@@ -45,9 +45,24 @@ class ValidateTest(unittest.TestCase):
     def test_percentage_mismatch(self):
         self.assertEqual(len(validate([rec(change_percent=40)])['errors']), 1)
 
-    def test_null_key_field_is_error(self):
+    def test_null_key_field_is_hold_not_error(self):
         out = validate([rec(population=None)])
-        self.assertIn('population', out['errors'][0])
+        self.assertEqual(out['errors'], [])
+        self.assertIn('population', out['holds'][0])
+
+    def test_same_pair_different_label_is_label_conflict(self):
+        out = validate([rec(program='육아시간', population='남성', baseline=87, actual=115, change_percent=None),
+                        rec(program='육아휴직', population='남성', baseline=87, actual=115, change_percent=None)])
+        self.assertEqual(out['errors'], [])
+        self.assertTrue(any('LABEL_CONFLICT_HOLD' in h for h in out['holds']))
+
+    def test_same_pair_same_label_is_not_conflict(self):
+        out = validate([rec(), rec()])
+        self.assertEqual(out['holds'], [])
+
+    def test_record_hold_codes_are_reported(self):
+        out = validate([rec(hold=['SOURCE_TABLE_HEADER_HOLD'])])
+        self.assertIn('SOURCE_TABLE_HEADER_HOLD', out['holds'][0])
 
     def test_zero_baseline_is_note(self):
         out = validate([rec(baseline=0, actual=12, change_percent=None)])
@@ -88,7 +103,8 @@ class CliTest(unittest.TestCase):
         p = self.run_cli(SAMPLE)
         self.assertEqual(p.returncode, 0, p.stderr)
         out = json.loads(p.stdout)
-        self.assertEqual((out['unique_keys'], len(out['holds'])), (3, 1))
+        self.assertEqual(out['unique_keys'], 4)
+        self.assertEqual(len(out['holds']), 4)
 
     def test_error_exits_one(self):
         path = os.path.join(os.path.dirname(__file__), '_bad.json')

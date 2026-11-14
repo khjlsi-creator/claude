@@ -28,6 +28,20 @@
 - `SOURCE_TABLE_HEADER_HOLD`: 표제·셀 위치 미확인
 - `LABEL_CONFLICT_HOLD`: 페이지 간 지표명 표기 충돌
 - `SOURCE_DUPLICATE_REFERENCE_HOLD`: 같은 관측치의 중복 인용 여부 미확정
-- `SOURCE_DERIVATIVE_CONTAMINATION_HOLD`: 원문과 파생시안 혼입 의심
-- `MISSING_FIELD_HOLD`: 입력 계약 항목 누락(미확보)
+- `SOURCE_DERIVATIVE_CONTAMINATION_HOLD`: 원문과 파생시안 혼입 의심. 레이아웃 견본 글(다른 기관 문장·수치)이 섞인 경우 포함
+- `MISSING_FIELD_HOLD`: 입력 계약 항목 누락(미확보). 대상범위·연도·정의가 원문에 없는 경우 포함
 - `CAUSAL_HOLD`: 비교집단·시간순서·외생요인 통제 근거 없음
+
+같은 값쌍이 페이지마다 다른 이름으로 나오면 `LABEL_CONFLICT_HOLD`, 같은 이름·같은 값이 여러 쪽에 나오는데 한 관측치인지 불확실하면 `SOURCE_DUPLICATE_REFERENCE_HOLD`를 쓴다. 둘을 한 항목에 함께 붙이지 않는다.
+
+## 지면 용어 (아티팩트)
+| 용어 | 뜻 |
+|---|---|
+| 의미단락 | 번호 띠·소제목에서 시작해 추진성과 띠로 끝나는 지면 한 덩어리. 레이아웃 하나에 대응 |
+| 번호 띠(NumBar) | 숫자 네모 + 제목 띠. 새 서사의 시작 |
+| 평가내용 띠(EvalBand) | "평가내용 N" 라벨 + 평가 문장 |
+| 레일(Ladder의 왼쪽 칸) | 서사 단계 라벨(4자 이내). 블루 → 틸 → 딥블루 순 |
+| 추진성과 띠(Result) | 단락을 닫는 그린 계열 띠. 관측 수치만 싣는다 |
+| 보충 레이아웃 | 추진성과 없이 남는 꼬리 대목용 레이아웃 |
+| BP | Best Practice 표시. 근거가 카드에 있을 때만 |
+| Source Slide | 16:9 장표에서 복제할 원본 장표 번호 |

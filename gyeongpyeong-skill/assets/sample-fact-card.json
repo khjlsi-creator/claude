@@ -1,7 +1,17 @@
-[
-  {"institution": "한전KPS", "report_year": 2025, "baseline_year": 2024, "comparison_year": 2025, "program": "육아휴직", "population": "전체", "unit": "명", "baseline": 127, "actual": 172, "change_percent": 35.4, "status": "확보", "source": "P94", "verified": false},
-  {"institution": "한전KPS", "report_year": 2025, "baseline_year": 2024, "comparison_year": 2025, "program": "육아휴직", "population": "전체", "unit": "명", "baseline": 127, "actual": 172, "change_percent": 35.4, "status": "확보", "source": "P102", "verified": false},
-  {"institution": "한전KPS", "report_year": 2025, "baseline_year": 2024, "comparison_year": 2025, "program": "육아시간제", "population": "전체", "unit": "명", "baseline": 196, "actual": 289, "change_percent": 47.4, "status": "확보", "source": "P94", "verified": false},
-  {"institution": "한전KPS", "report_year": 2025, "baseline_year": 2024, "comparison_year": 2025, "program": "배우자 출산휴가", "population": "전체", "unit": "명", "baseline": 156, "actual": 205, "change_percent": 31.4, "status": "확보", "source": "P94", "verified": false},
-  {"institution": "한전KPS", "report_year": 2025, "baseline_year": 2024, "comparison_year": 2025, "program": "육아휴직", "population": "전체", "unit": "%", "baseline": null, "actual": null, "status": "미확보", "source": "이용률 분모 미제시", "verified": false}
-]
+{
+  "card_version": "v0-잠정 2026-11-14",
+  "verified": false,
+  "records": [
+    {"institution": "한전KPS", "report_year": 2025, "baseline_year": 2024, "comparison_year": 2025, "program": "육아휴직", "population": "전체", "unit": "명", "baseline": 127, "actual": 172, "change_percent": 35.4, "status": "확보", "label_as_printed": "육아휴직 전체 사용자", "source": "P94"},
+    {"institution": "한전KPS", "report_year": 2025, "baseline_year": 2024, "comparison_year": 2025, "program": "육아휴직", "population": "전체", "unit": "명", "baseline": 127, "actual": 172, "change_percent": 35.4, "status": "확보", "label_as_printed": "육아휴직 전체 사용자", "source": "P102"},
+    {"institution": "한전KPS", "report_year": 2025, "baseline_year": 2024, "comparison_year": 2025, "program": "육아시간", "population": "남성", "unit": "명", "baseline": 87, "actual": 115, "status": "확보", "label_as_printed": "남성 육아시간 사용자수 증가", "source": "P94 그래프", "hold": ["SOURCE_TABLE_HEADER_HOLD"]},
+    {"institution": "한전KPS", "report_year": 2025, "baseline_year": 2024, "comparison_year": 2025, "program": "육아휴직", "population": "남성", "unit": "명", "baseline": 87, "actual": 115, "status": "확보", "label_as_printed": "남성 육아휴직", "source": "P102"},
+    {"institution": "한전KPS", "report_year": 2025, "baseline_year": 2024, "comparison_year": 2025, "program": "육아시간제", "population": "전체", "unit": "명", "baseline": 196, "actual": 289, "change_percent": 47.4, "status": "확보", "label_as_printed": "육아시간제 전체 사용자", "source": "P94"},
+    {"institution": "한전KPS", "report_year": 2025, "baseline_year": 2024, "comparison_year": 2025, "program": "배우자 출산휴가", "population": null, "unit": "명", "baseline": 156, "actual": 205, "change_percent": 31.4, "status": "확보", "label_as_printed": "배우자 출산휴가 사용자", "source": "P94"},
+    {"institution": "한전KPS", "report_year": 2025, "baseline_year": 2024, "comparison_year": 2025, "program": "육아휴직", "population": "전체", "unit": "%", "baseline": null, "actual": null, "status": "미확보", "label_as_printed": null, "source": "이용률 분모 미제시"}
+  ],
+  "activities": [
+    {"text": "육아지원 제도개선 활동", "year": 2025, "source": "사용자 진술(원문 쪽 미확인)", "hold": ["MISSING_FIELD_HOLD"]}
+  ],
+  "external_factors": []
+}

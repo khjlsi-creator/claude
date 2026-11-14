@@ -1,0 +1,18 @@
+{
+  "artifact": "경영평가",
+  "paragraphs": [
+    {
+      "layout": "L05",
+      "reason": "형식 예시용 번호. 실제로는 아티팩트 layout-index에서 구조에 맞는 번호를 고른다",
+      "supplement": false,
+      "slots": [
+        {"area": 1, "block": "NumBar", "kind": "title", "text": "일·가정 양립 지원제도 운영", "claim_ids": []},
+        {"area": 2, "block": "Ladder", "kind": "rail", "text": "추진\n실적", "claim_ids": []},
+        {"area": 3, "block": "Ladder", "kind": "body", "columns": 1, "text": "• 육아휴직 전체 사용자 127 → 172명('24 → '25)\n• 육아시간제 전체 사용자 196 → 289명", "claim_ids": ["c1", "c2"]},
+        {"area": 4, "block": "Note", "kind": "note", "text": "* 대상자 대비 이용률은 분모 미제시로 미산정", "claim_ids": []},
+        {"area": 5, "block": "Result", "kind": "result", "text": "• 육아휴직 사용자 127 → 172명(35.4%↑)\n• 배우자 출산휴가 사용자 156 → 205명", "claim_ids": ["c1", "c3"]}
+      ]
+    }
+  ],
+  "claims": {"c1": "CONDITIONAL", "c2": "CONDITIONAL", "c3": "CONDITIONAL"}
+}
