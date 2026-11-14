@@ -1,25 +1,118 @@
 #!/usr/bin/env python3
-"""JSON fact-card arithmetic/duplicate checks; NOT source truth verification."""
-import json,sys
-from decimal import Decimal,InvalidOperation
+"""JSON 사실카드의 산술·식별키·중복 보조검사. 원문 사실성 판정기는 아니다.
+
+사용: python3 validate_metrics.py fact-card.json
+형식: references/fact-card-schema.md
+종료코드: errors가 있으면 1, 없으면 0, 입력을 읽지 못하면 2.
+"""
+import json
+import sys
+from decimal import Decimal, InvalidOperation
+
+KEY_FIELDS = ('institution', 'report_year', 'baseline_year', 'comparison_year',
+              'program', 'population', 'unit')
+TOLERANCE = Decimal('0.11')
+STATUSES = ('확보', '미확보', '비해당')
+
+
+def _blank(v):
+    return v is None or (isinstance(v, str) and not v.strip())
+
+
+def _num(v):
+    if _blank(v) or isinstance(v, bool):
+        raise InvalidOperation
+    d = Decimal(str(v))
+    if not d.is_finite():
+        raise InvalidOperation
+    return d
+
 
 def validate(records):
-    errors=[]; seen={}
-    for i,r in enumerate(records):
-        key=tuple(str(r.get(k,'')) for k in ('institution','report_year','baseline_year','comparison_year','program','population','unit'))
-        if any(not x for x in key): errors.append(f'{i}: incomplete metric identity')
+    if isinstance(records, dict) and isinstance(records.get('records'), list):
+        records = records['records']
+    if not isinstance(records, list):
+        raise ValueError('최상위는 레코드 배열이어야 한다')
+
+    errors, holds, notes, seen = [], [], [], {}
+    for i, r in enumerate(records):
+        if not isinstance(r, dict):
+            errors.append(f'{i}: 레코드가 객체가 아님')
+            continue
+
+        missing = [k for k in KEY_FIELDS if _blank(r.get(k))]
+        if missing:
+            errors.append(f'{i}: 식별키 누락 {missing}')
+        key = None if missing else tuple(str(r[k]).strip() for k in KEY_FIELDS)
+
+        status = r.get('status', '확보')
+        if status not in STATUSES:
+            errors.append(f'{i}: status는 {"/".join(STATUSES)} 중 하나여야 함')
+            continue
+        if status == '비해당':
+            notes.append(f'{i}: 비해당')
+            continue
+        if status == '미확보':
+            holds.append(f'{i}: 미확보 → MISSING_FIELD_HOLD')
+            continue
+
+        raw = (r.get('baseline'), r.get('actual'))
+        if any(_blank(v) for v in raw):
+            holds.append(f'{i}: 값이 비어 있음 → MISSING_FIELD_HOLD (0과 다름)')
+            continue
         try:
-            a=Decimal(str(r['baseline']));b=Decimal(str(r['actual']))
-            if a==0: errors.append(f'{i}: zero baseline, percent change undefined')
-            elif 'change_percent' in r and abs((b-a)/a*100-Decimal(str(r['change_percent'])))>Decimal('0.11'):
-                errors.append(f'{i}: percentage mismatch')
-        except (KeyError,InvalidOperation): errors.append(f'{i}: invalid numeric field')
+            a, b = _num(raw[0]), _num(raw[1])
+        except (InvalidOperation, ValueError):
+            errors.append(f'{i}: baseline/actual이 숫자가 아님')
+            continue
+
+        if a == 0:
+            notes.append(f'{i}: 원값 0, 증가율 산출 불가(신설 제도 가능)')
+            if not _blank(r.get('change_percent')):
+                errors.append(f'{i}: 원값이 0인데 change_percent가 기재됨')
+        elif not _blank(r.get('change_percent')):
+            try:
+                stated = _num(r['change_percent'])
+                calc = (b - a) / a * 100
+                if abs(calc - stated) > TOLERANCE:
+                    errors.append(f'{i}: 증감률 불일치 (표기 {stated}, 재계산 {calc:.1f})')
+            except (InvalidOperation, ValueError):
+                errors.append(f'{i}: change_percent가 숫자가 아님')
+
+        if key is None:
+            continue
         if key in seen:
-            if (r.get('baseline'),r.get('actual')) != (seen[key].get('baseline'),seen[key].get('actual')):
-                errors.append(f'{i}: conflicting values for duplicate metric key')
-            else: errors.append(f'{i}: duplicate provenance; count only once')
-        else: seen[key]=r
-    return {'metric_rows':len(records),'unique_keys':len(seen),'issues':errors,'note':'Arithmetic and identity only; source authenticity and semantics require human review.'}
-if __name__=='__main__':
-    data=json.load(open(sys.argv[1],encoding='utf-8'))
-    print(json.dumps(validate(data),ensure_ascii=False,indent=2))
+            j, pa, pb = seen[key]
+            if (a, b) != (pa, pb):
+                errors.append(f'{i}: {j}번과 같은 지표키인데 값이 다름')
+            else:
+                notes.append(f'{i}: {j}번과 중복 인용, 1회만 집계')
+        else:
+            seen[key] = (i, a, b)
+
+    return {
+        'metric_rows': len(records),
+        'unique_keys': len(seen),
+        'errors': errors,
+        'holds': holds,
+        'notes': notes,
+        'scope': '산술·식별키 검사만 수행. 원문 사실성과 의미는 사람이 확인한다.',
+    }
+
+
+def main(argv):
+    if len(argv) != 2:
+        print('사용: validate_metrics.py fact-card.json', file=sys.stderr)
+        return 2
+    try:
+        with open(argv[1], encoding='utf-8') as f:
+            result = validate(json.load(f))
+    except (OSError, ValueError) as e:
+        print(f'입력 오류: {e}', file=sys.stderr)
+        return 2
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 1 if result['errors'] else 0
+
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv))
