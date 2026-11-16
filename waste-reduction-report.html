@@ -4,138 +4,142 @@
 <title>사무실 폐기물 감축 (친환경·탄소중립)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 <style>
-:root{--navy-ink:#000359;--navy-band:#002060;--blue-bright:#008eff;--blue-deep-panel:#0051bc;--blue-cyan:#30c2ff;--green-400:#00be83;--mint:#29ffbd;--tint-blue-100:#deeeff;--tint-blue-200:#bde0ff;--tint-panel-50:#eff9ff;--tint-mint-50:#e6fcf9;--slate-700:#3b4951;--slate-500:#5d7280}
+:root{--navy-ink:#000359;--navy-band:#002060;--blue-bright:#008eff;--blue-deep-panel:#0051bc;--blue-panel:#0080ea;--blue-panel-light:#0990ff;--teal-panel:#00b0b4;--teal-light:#00bec2;--teal-500:#00a4a8;--teal-600:#008c6b;--green-400:#00be83;--tint-blue-100:#deeeff;--tint-blue-200:#bde0ff;--tint-mint-50:#e6fcf9;--slate-700:#3b4951;--slate-500:#5d7280}
 *{box-sizing:border-box}
 html,body{margin:0;background:#e9edf3}
 body{font-family:Pretendard,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;color:var(--navy-ink);letter-spacing:-0.04em;padding:16px 0}
 .wrap{overflow-x:auto}
-.page{width:210mm;min-height:297mm;margin:0 auto;background:#fff;position:relative;box-shadow:0 1px 6px rgba(0,0,0,.15)}
-.body{position:absolute;left:19.4mm;top:21.3mm;width:171.8mm}
+.page{width:210mm;height:297mm;margin:0 auto;background:#fff;position:relative;box-shadow:0 1px 6px rgba(0,0,0,.15)}
+/* 레이아웃 원점: 본문 왼쪽 끝(17.5mm), 본문 시작(21.3mm) · 본문 폭 175mm */
+.L{position:absolute;left:17.5mm;top:21.3mm;width:175mm;height:112mm}
+.a{position:absolute;margin:0}
 p{margin:0}
-.p{padding-left:0.9em;text-indent:-0.9em}
+.fx{display:flex;align-items:center}
+.cc{display:flex;flex-direction:column;justify-content:center}
+.c{justify-content:center;text-align:center}
 .b{font-weight:700}
+.f10{font-size:10pt;line-height:1.38}
+.p{padding-left:0.9em;text-indent:-0.9em}
 /* 소제목 */
-.sub{display:flex;align-items:center;gap:2mm;font-size:12pt;font-weight:700;height:7.7mm;white-space:nowrap}
-.hl{background:linear-gradient(transparent 60%,var(--mint) 60%,var(--mint) 90%,transparent 90%)}
-.chip{background:var(--blue-deep-panel);color:#fff;font-size:8.5pt;line-height:1.6;padding:0 1.6mm}
-/* 3칸 */
-.row3{display:grid;grid-template-columns:minmax(0,1fr) 5mm minmax(0,1fr) 5mm minmax(0,1.08fr);margin-top:1.2mm}
-.box{border:0.75pt solid var(--blue-bright);padding:1.2mm 1.6mm 1.4mm;font-size:10pt;line-height:1.4;word-break:keep-all}
-.box .t{font-weight:700;margin-bottom:0.8mm;white-space:nowrap}
-.tg{display:inline-block;background:#fff;border:0.75pt solid var(--blue-bright);font-weight:700;padding:0 1.2mm;margin-right:1.2mm;text-indent:0;line-height:1.35}
-.lead{border:1.5pt solid var(--blue-bright);padding:0}
-.lead .hdd{background:var(--blue-deep-panel);color:#fff;font-weight:700;text-align:center;height:6.2mm;line-height:6.2mm;margin:0.5mm 0.5mm 0}
-.lead .in{padding:1mm 1.6mm 1.4mm}
-.join{display:flex;align-items:center;justify-content:center}
-.plus{width:4mm;height:4mm;background:var(--blue-bright);color:#fff;font-size:9pt;font-weight:700;display:flex;align-items:center;justify-content:center}
-.tri{width:2.6mm;height:5.6mm;background:var(--blue-bright);clip-path:polygon(0 0,100% 50%,0 100%)}
-/* 깔때기 */
-.fn{margin:1.3mm auto 0;width:118mm;height:6.4mm;background:var(--tint-blue-200);clip-path:polygon(0 0,100% 0,94% 100%,6% 100%);display:flex;align-items:center;justify-content:center;font-size:10pt;font-weight:700;white-space:nowrap}
-/* 구분 × 3단 + 추진성과 기둥 */
-.grid{display:grid;grid-template-columns:15mm 1fr 45mm;column-gap:1.6mm;margin-top:2.2mm}
-.hd{background:var(--tint-blue-100);font-size:10pt;font-weight:700;text-align:center;height:6.2mm;line-height:6.2mm}
-.left{display:grid;grid-template-rows:6.2mm repeat(3,auto);row-gap:1.4mm}
-.lab{border:0.75pt solid var(--blue-bright);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:10pt;font-weight:700;line-height:1.3}
-.lab small{font-size:10pt;font-weight:400}
-.mid{display:grid;grid-template-rows:6.2mm repeat(3,auto);row-gap:1.4mm}
-.cells{display:grid;grid-template-columns:repeat(3,1fr);column-gap:1.4mm}
-.cell{font-size:10pt;line-height:1.4;word-break:keep-all}
-.cell .h{display:block;background:var(--tint-blue-100);font-weight:700;padding:0 1.2mm;line-height:6mm;white-space:nowrap}
-.cell .bd{padding:0.6mm 0.4mm 0 0.6mm}
-.res{border:1.5pt solid var(--green-400);background:var(--tint-mint-50);display:flex;flex-direction:column}
-.rlab{background:var(--navy-band);color:#fff;font-weight:700;font-size:11pt;text-align:center;height:6.2mm;line-height:6.2mm;margin:0.5mm}
-.rin{padding:1mm 1.6mm 1.6mm;font-size:10pt;line-height:1.42;word-break:keep-all}
-.rin .gap{height:0.8mm}
-.fx{margin:auto 1.2mm 1.2mm;border:0.75pt solid var(--green-400);background:#fff}
-.fxh{background:var(--teal-600,#008c6b);color:#fff;font-size:10pt;font-weight:700;text-align:center;line-height:5.6mm}
-.fxt{padding:0.8mm 1.2mm 1mm;font-size:10pt;line-height:1.4;font-weight:700;text-align:center;word-break:keep-all}
+.sub{font-size:12pt;font-weight:700;gap:1.6mm;white-space:nowrap}
+.sq{background:var(--navy-band);color:#fff;font-size:10.5pt;padding:0 1.2mm;line-height:1.35}
+.chip{background:var(--blue-deep-panel);color:#fff;font-size:8.5pt;line-height:1.6;padding:0 1.4mm;font-weight:700}
+/* 사다리 */
+.lh{border-top:0.75pt solid var(--blue-bright);font-size:10pt;font-weight:700;justify-content:center}
+.lh.dp{border-top:1.2pt solid var(--blue-deep-panel)}
+.lb{border:0.75pt solid var(--tint-blue-200);padding:0 1.6mm;gap:0.8mm;word-break:keep-all}
+.lb.dp{border:1.2pt solid var(--blue-deep-panel)}
+.tri{background:var(--tint-blue-200);clip-path:polygon(0 0,100% 50%,0 100%)}
+.trib{background:var(--blue-bright);clip-path:polygon(0 0,100% 50%,0 100%)}
+.dn{background:var(--slate-500);clip-path:polygon(0 0,100% 0,50% 100%)}
+.cap{border-bottom:1.2pt solid var(--slate-500);font-size:10pt;font-weight:700;justify-content:center;white-space:nowrap}
+/* 표 */
+.tbl{border-top:1pt solid var(--navy-ink);border-bottom:1pt solid var(--navy-ink)}
+.th1{background:var(--tint-blue-100);font-size:10pt;font-weight:700;justify-content:center}
+.th2{background:var(--tint-blue-200);font-size:10pt;font-weight:700;justify-content:center}
+.rail{color:#fff;font-size:10pt;font-weight:700;text-align:center;line-height:1.25;justify-content:center;align-items:center}
+.rb{background-color:var(--blue-panel);background-image:repeating-linear-gradient(45deg,var(--blue-panel-light) 0 1px,transparent 1px 4px)}
+.rt{background-color:var(--teal-panel);background-image:repeating-linear-gradient(45deg,var(--teal-light) 0 1px,transparent 1px 4px)}
+.rr{background-color:var(--teal-600);background-image:repeating-linear-gradient(45deg,var(--teal-500) 0 1px,transparent 1px 4px)}
+.gb{background:var(--tint-blue-100);font-size:10pt;font-weight:700;justify-content:center;text-align:center;line-height:1.25}
+.hr{height:0.6pt;background:var(--tint-blue-200)}
+.hr2{height:0.8pt;background:var(--slate-500)}
+.ef{color:var(--teal-600);font-weight:400}
+/* 추진성과 열 */
+.res{background:var(--tint-mint-50);border:1.5pt solid var(--green-400)}
+.rlab{background:var(--navy-band);color:#fff;font-size:11pt;font-weight:700;justify-content:center}
+.big{color:var(--teal-600);font-weight:700;justify-content:flex-end;line-height:1}
+.gl{height:0.75pt;background:var(--green-400)}
+.tg{display:inline-block;background:var(--teal-600);color:#fff;font-weight:700;padding:0 1.2mm;margin-right:1.4mm;line-height:1.45}
+/* 환류 */
+.sh{background:var(--tint-blue-200);font-size:10pt;font-weight:700;padding:0 1.6mm}
+.sb{border:0.75pt solid var(--tint-blue-200);border-top:none;padding:0 1.6mm;word-break:keep-all;white-space:nowrap;line-height:1.22}
+.s3 .sh{background:var(--blue-deep-panel);color:#fff}
+.s3 .sb{border-color:var(--blue-deep-panel)}
+.note{font-size:10pt;color:var(--slate-700);white-space:nowrap}
 .u{background:linear-gradient(transparent 62%,var(--tint-blue-200) 62%)}
-.ph{color:var(--blue-deep-panel);font-weight:700}
-/* 강조 띠 */
-.band{margin-top:2mm;background:var(--tint-panel-50);display:flex;align-items:center;gap:1.6mm;height:7.4mm;padding:0 1.6mm;font-size:10pt;font-weight:700;white-space:nowrap}
-.tgd{display:inline-block;background:var(--blue-deep-panel);color:#fff;font-weight:700;padding:0 1.4mm;line-height:1.5}
-.fb{margin-top:2.2mm;display:grid;grid-template-columns:15mm 1fr;column-gap:1.6mm;min-height:7.4mm}
-.fbl{display:flex;align-items:center;justify-content:center;color:#fff;font-size:10pt;font-weight:700;background-color:#008c6b;background-image:repeating-linear-gradient(45deg,#00a4a8 0 1px,transparent 1px 4px)}
-.fbl small{font-size:10pt;font-weight:400}
-.fbl{flex-direction:column;line-height:1.3}
-.flow{display:grid;grid-template-columns:repeat(3,1fr);column-gap:0}
-.sp{display:flex;flex-direction:column;justify-content:center;padding:1.2mm 6mm 1.2mm 5mm;font-size:10pt;line-height:1.38;word-break:keep-all;clip-path:polygon(0 0,calc(100% - 4mm) 0,100% 50%,calc(100% - 4mm) 100%,0 100%,4mm 50%)}
-.sp b{display:block}
-.s1{background:var(--tint-blue-100);clip-path:polygon(0 0,calc(100% - 4mm) 0,100% 50%,calc(100% - 4mm) 100%,0 100%);padding-left:2mm}
-.s2{background:var(--tint-blue-200);margin-left:-2.4mm}
-.s3{background:var(--blue-cyan);margin-left:-2.4mm}
-.fbt{display:flex;align-items:center;border-top:0.75pt solid var(--tint-blue-200);border-bottom:0.75pt solid var(--tint-blue-200);padding:0 1.6mm;font-size:10pt;font-weight:700;white-space:nowrap}
-.note{font-size:10pt;color:var(--slate-700);margin-top:1.2mm;line-height:1.4;padding-left:0.9em;text-indent:-0.9em}
 .guide{position:absolute;left:0;right:0;border-top:1px dashed #c4ccd8;font-size:7pt;color:#9aa6b5;text-align:right;padding-right:4mm}
 @media print{html,body{background:#fff;padding:0}.page{box-shadow:none}.guide{display:none}}
 </style></head><body>
-<div class="wrap"><div class="page">
-<div class="body">
+<div class="wrap"><div class="page"><div class="L">
 
-  <div class="sub"><span class="hl">가. 쓰레기통 비움 기준 개선으로 사무실 폐기물 감축</span><span class="chip">자체발굴</span><span class="chip">개선</span></div>
+<!-- 4 · 소제목 가 -->
+<div class="a fx sub" style="left:0;top:0;width:175mm;height:5.4mm"><span class="sq">가</span>쓰레기통 비움 기준 개선으로 사무실 폐기물 감축<span class="chip">자체발굴</span><span class="chip">개선</span></div>
 
-  <!-- 대외환경 + 문제인식 ▶ 개선방향 -->
-  <div class="row3">
-    <div class="box">
-      <p class="t"><span class="tg">대외환경</span>에너지 위기·탈플라스틱</p>
-      <p class="p">○ 러·우 전쟁發 에너지(석유) 수급 위기</p>
-      <p class="p">○ <span class="u">석유 원료</span> 비닐봉투 폐지로 감축 요구 확대</p>
-    </div>
-    <div class="join"><div class="plus">+</div></div>
-    <div class="box">
-      <p class="t"><span class="tg">문제인식</span>개인통 매일 비움 관행</p>
-      <p class="p">○ 좌석별 매일 수거로 <span class="u">봉투 과다 사용</span></p>
-      <p class="p">○ 물기 쓰레기 악취 우려로 매일 비움 고착</p>
-    </div>
-    <div class="join"><div class="tri"></div></div>
-    <div class="box lead">
-      <div class="hdd" style="letter-spacing:-0.06em">추진방향 : 배출원 단계적 감축</div>
-      <div class="in">
-        <p class="p">○ 임직원 공감대 형성 후 기준 단계적 변경</p>
-        <p class="p">○ 배출 → 수거 → 발생원 순 감축</p>
-      </div>
-    </div>
-  </div>
+<!-- 5~9 · 대외환경 ▶ 문제인식 ▶ 추진방향 -->
+<div class="a fx lh" style="left:0;top:7.5mm;width:41.7mm;height:5.2mm">대외환경</div>
+<div class="a cc lb f10" style="left:0;top:13.6mm;width:41.7mm;height:22.1mm">
+  <p class="p">• 러·우 전쟁發 에너지(석유) 수급 위기</p>
+  <p class="p">• 석유 원료 비닐봉투 폐지</p>
+</div>
+<div class="a tri" style="left:42.7mm;top:21.5mm;width:3.1mm;height:6.3mm"></div>
+<div class="a fx lh" style="left:46.9mm;top:7.5mm;width:54.1mm;height:5.2mm">문제인식</div>
+<div class="a cc lb f10" style="left:46.9mm;top:13.6mm;width:54.1mm;height:22.1mm">
+  <p class="p">• 개인 쓰레기통 매일 수거로 <span class="u">봉투 과다 사용</span></p>
+  <p class="p">• 물기 쓰레기 악취 우려로 매일 비움 고착</p>
+</div>
+<div class="a tri" style="left:102.1mm;top:21.5mm;width:3.1mm;height:6.3mm"></div>
+<div class="a fx lh dp" style="left:106.3mm;top:7.5mm;width:68.7mm;height:5.2mm">추진방향 : 배출원 단계적 감축</div>
+<div class="a cc lb dp f10" style="left:106.3mm;top:13.6mm;width:68.7mm;height:22.1mm">
+  <p>① 캠페인으로 임직원 공감대 우선 형성</p>
+  <p>② 공감 후 수거기준 단계적 변경</p>
+  <p>③ 배출 → 수거 → 발생원 순 감축</p>
+</div>
 
-  <div class="fn">“덜 버리고 → 덜 비우고 → 덜 만든다” 3단계 감축으로 사무실 폐기물 최소화</div>
+<!-- 10 · 괄호 캡션 -->
+<div class="a fx cap" style="left:25.3mm;top:36.0mm;width:124.4mm;height:5.8mm">“덜 버리고 → 덜 비운다” 배출·수거 2단계 사무실 폐기물 감축</div>
+<div class="a dn" style="left:85.7mm;top:42.0mm;width:3.5mm;height:1.8mm"></div>
 
-  <!-- 구분 × 3단 + 추진성과 기둥 -->
-  <div class="grid">
-    <div class="left">
-      <div class="hd">구분</div>
-      <div class="lab">배출<small>(임직원)</small></div>
-      <div class="lab">수거<small>(환경미화)</small></div>
-    </div>
-    <div class="mid">
-      <div class="hd">추진내용</div>
-      <div class="cells">
-        <div class="cell"><span class="h">① 캠페인 시행</span><div class="bd"><p class="p">○ 봉투 절감 취지 전 직원 공유</p></div></div>
-        <div class="cell"><span class="h">② 실천수칙 안내</span><div class="bd"><p class="p">○ 개인통 자제·분리배출 생활화</p></div></div>
-        <div class="cell"><span class="h">③ 저항감 해소</span><div class="bd"><p class="p">○ 물기 제거로 <span class="u">악취 우려 해소</span></p></div></div>
-      </div>
-      <div class="cells">
-        <div class="cell"><span class="h">① 수거기준 변경</span><div class="bd"><p class="p">○ <span class="u">1/2 이상 찬 통만</span> 비움(매일 → 필요 시)</p></div></div>
-        <div class="cell"><span class="h">② 업무 조정</span><div class="bd"><p class="p">○ 모은 중량 쓰레기 시설 담당 별도 수거</p></div></div>
-        <div class="cell"><span class="h">③ 현장 의견 청취</span><div class="bd"><p class="p">○ 미화 담당 체감·개선 의견 수렴</p></div></div>
-      </div>
-    </div>
-    <div class="res">
-      <div class="rlab">추진성과</div>
-      <div class="rin">
-        <p class="p">○ 종량제봉투 <span class="u b">○○% ⬇</span><br>(<span class="ph">○○</span>매<sup>’25</sup> → <span class="ph">○○</span>매<sup>’26</sup>)</p>
-        <p class="p">○ 임직원 저항 없이 정착</p>
-        <p class="p">○ 수거 횟수·중량물 감소, 미화 손목 부담 완화</p>
-      </div>
-      <div class="fx"><div class="fxh">현장 체감</div><div class="fxt">미화 담당 “업무 편해져”</div></div>
-    </div>
-  </div>
+<!-- 11~16 · 표 -->
+<div class="a tbl" style="left:0;top:44.6mm;width:89.7mm;height:43.3mm"></div>
+<div class="a fx th1" style="left:0;top:44.9mm;width:27.4mm;height:5.9mm">구 분</div>
+<div class="a fx th2" style="left:27.6mm;top:44.9mm;width:62.1mm;height:5.9mm">추진 내용 및 효과</div>
 
-  <div class="fb"><div class="fbl">환 류<br><small>(발생원)</small></div><div class="flow">
-    <div class="sp s1"><b>① 현장 제안</b><span>미화 담당 제안, 핸드타월<br><span class="u">연 약 450만원</span> 사용 확인</span></div>
-    <div class="sp s2"><b>② 대안 검토</b><span>고성능·UV<br>핸드드라이어로 전환 결정</span></div>
-    <div class="sp s3"><b>③ 예산 확보</b><span>’26년 말~’27년 초<br>설치 예산 반영</span></div>
-  </div></div>
-  <p class="note">* ○○ 수치는 종량제봉투 구매·사용 대장 실적으로 기입(’25년 동기 대비)</p>
+<div class="a cc rail rb" style="left:0;top:50.8mm;width:7.3mm;height:18.4mm"><span>배</span><span>출</span></div>
+<div class="a cc rail rt" style="left:0;top:69.4mm;width:7.3mm;height:18.3mm"><span>수</span><span>거</span></div>
+<div class="a cc gb" style="left:7.3mm;top:50.8mm;width:20.1mm;height:9.1mm">캠페인</div>
+<div class="a cc gb" style="left:7.3mm;top:60.1mm;width:20.1mm;height:9.1mm">저항감<br>해소</div>
+<div class="a cc gb" style="left:7.3mm;top:69.4mm;width:20.1mm;height:9.1mm">수거기준<br>변경</div>
+<div class="a cc gb" style="left:7.3mm;top:78.7mm;width:20.1mm;height:9.0mm">업무 조정</div>
+<div class="a hr2" style="left:0;top:69.2mm;width:89.7mm"></div>
+<div class="a hr" style="left:7.3mm;top:59.9mm;width:82.4mm"></div>
+<div class="a hr" style="left:7.3mm;top:78.6mm;width:82.4mm"></div>
+
+<div class="a cc f10" style="left:28.8mm;top:50.8mm;width:60.6mm;height:9.1mm;line-height:1.3"><b>• 봉투 절감 취지 전 직원 공유</b><span class="ef">&nbsp;&nbsp;→ 감축 필요성 공감대 형성</span></div>
+<div class="a cc f10" style="left:28.8mm;top:60.1mm;width:60.6mm;height:9.1mm;line-height:1.3"><b>• 물기 제거·개인통 자제 수칙</b><span class="ef">&nbsp;&nbsp;→ 악취 우려 해소, 새 기준 수용</span></div>
+<div class="a cc f10" style="left:28.8mm;top:69.4mm;width:60.6mm;height:9.1mm;line-height:1.3"><b>• 1/2 이상 찬 통만 비움(매일 → 필요 시)</b><span class="ef">&nbsp;&nbsp;→ 수거 횟수·봉투 사용 감소</span></div>
+<div class="a cc f10" style="left:28.8mm;top:78.7mm;width:60.6mm;height:9.0mm;line-height:1.3"><b>• 중량 쓰레기 시설 담당 별도 수거</b><span class="ef">&nbsp;&nbsp;→ 미화 담당 손목 부담 완화</span></div>
+
+<!-- 17 · 큰 ▶ -->
+<div class="a tri" style="left:90.0mm;top:47.0mm;width:4.9mm;height:38.6mm"></div>
+
+<!-- 18~21 · 추진성과 열 -->
+<div class="a res" style="left:95.8mm;top:44.6mm;width:79.2mm;height:43.3mm"></div>
+<div class="a fx rlab" style="left:95.8mm;top:44.6mm;width:79.2mm;height:6.3mm">추진성과</div>
+<div class="a cc c b" style="left:98.6mm;top:52.0mm;width:73.6mm;height:11.2mm;font-size:11pt;line-height:1.3"><span>임직원 저항 없이 새 수거기준 정착</span><span>사무실 폐기물 배출 감축</span></div>
+<div class="a gl" style="left:102.8mm;top:64.0mm;width:65.2mm"></div>
+<div class="a fx big" style="left:98.6mm;top:65.2mm;width:30mm;height:13.2mm"><span style="font-size:24pt;letter-spacing:-0.1em">○○</span><span style="font-size:15pt;margin-left:0.8mm">%↓</span></div>
+<div class="a cc f10" style="left:131.4mm;top:65.2mm;width:42mm;height:13.2mm;line-height:1.3"><span>종량제봉투 사용량</span><span class="b">○○매<sup>’25</sup> → ○○매<sup>’26</sup></span></div>
+<div class="a fx f10" style="left:98.6mm;top:80.8mm;width:73.6mm;height:5.4mm;justify-content:center;white-space:nowrap"><span class="tg">현장 체감</span>미화 담당 <b>&nbsp;“쓰레기 줄고 업무 편해져”</b></div>
+
+<!-- 환류 · 발생원 감축(현장 제안) -->
+<div class="a cc rail rr" style="left:0;top:91.4mm;width:16mm;height:17.0mm">환 류<span style="font-weight:400;font-size:9pt">(발생원)</span></div>
+<div class="a s1" style="left:18.2mm;top:91.4mm;width:47.4mm;height:17.0mm">
+  <div class="fx sh" style="height:5.4mm">① 현장 제안</div>
+  <div class="cc sb f10" style="height:11.6mm"><span>미화 담당 제안, 핸드타월<br><b>연 약 450만원</b> 사용 확인</span></div>
+</div>
+<div class="a trib" style="left:66.3mm;top:96.7mm;width:2.6mm;height:6.3mm"></div>
+<div class="a s2" style="left:69.6mm;top:91.4mm;width:51.5mm;height:17.0mm">
+  <div class="fx sh" style="height:5.4mm">② 대안 검토</div>
+  <div class="cc sb f10" style="height:11.6mm">고성능·UV 핸드드라이어로<br>전환 결정</div>
+</div>
+<div class="a trib" style="left:121.8mm;top:96.7mm;width:2.6mm;height:6.3mm"></div>
+<div class="a s3" style="left:125.1mm;top:91.4mm;width:49.9mm;height:17.0mm">
+  <div class="fx sh" style="height:5.4mm">③ 예산 확보</div>
+  <div class="cc sb f10" style="height:11.6mm">’26년 말~’27년 초<br>설치 예산 반영</div>
+</div>
+
+<p class="a note" style="left:0;top:110.2mm">* ○○ 수치는 종량제봉투 구매·사용 대장 실적으로 기입(’25년 동기 대비)</p>
 </div>
 <div class="guide" style="top:calc(21.3mm + 129.9mm)">1/2쪽 기준선</div>
 </div></div>
