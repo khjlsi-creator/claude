@@ -29,6 +29,11 @@ const items=await p.evaluate((mode)=>{
     const m=bi.match(/linear-gradient\((?:180deg,\s*)?rgba\([^)]*,\s*0\)\s*([\d.]+)%,\s*(rgb\([^)]*\))/);
     if(m){hl={p:+m[1],c:rgb(m[2])}} else {const c=cols.map(rgb).filter(Boolean);if(c.length&&!fill)fill=bi.startsWith('repeating')?c[c.length-1]:c[0];}}
   const disp=cs.display;
+  const cp=cs.clipPath;
+  if(cp&&cp.startsWith('polygon')&&fill){const q=rel(r);const ev=(t,dim)=>{t=t.trim();let m=t.match(/^calc\(([\d.]+)%\s*([-+])\s*([\d.]+)px\)$/);if(m)return dim*m[1]/100+(m[2]==='-'?-1:1)*m[3];if(t.endsWith('%'))return dim*parseFloat(t)/100;return parseFloat(t)};
+    const body=cp.slice(cp.indexOf('(')+1,cp.lastIndexOf(')'));const pts=[];let depth=0,cur='',parts=[];for(const ch of body){if(ch==='(')depth++;if(ch===')')depth--;if(ch===','&&depth===0){parts.push(cur);cur=''}else cur+=ch}parts.push(cur);
+    for(const pt of parts){const tk=[];let d2=0,c2='';for(const ch of pt.trim()){if(ch==='(')d2++;if(ch===')')d2--;if(ch===' '&&d2===0){if(c2)tk.push(c2);c2=''}else c2+=ch}if(c2)tk.push(c2);pts.push([ev(tk[0],q.w),ev(tk[1],q.h)])}
+    out.push({k:'poly',...q,pts,fill});fill=null;}
   if(hl){if(disp==='inline'){for(const cr of e.getClientRects()){const q=rel(cr);out.push({k:'rect',x:q.x,y:q.y+q.h*hl.p/100,w:q.w,h:q.h*(1-hl.p/100),fill:hl.c})}}
    else{const q=rel(r);const tw=Math.min(q.w,(()=>{const rg=document.createRange();rg.selectNodeContents(e);return rg.getBoundingClientRect().width})());out.push({k:'rect',x:q.x,y:q.y+q.h*hl.p/100,w:tw,h:q.h*(1-hl.p/100),fill:hl.c})}}
   const bw=['Top','Right','Bottom','Left'].map(s=>parseFloat(cs['border'+s+'Width'])||0);const bc=['Top','Right','Bottom','Left'].map(s=>rgb(cs['border'+s+'Color']));
