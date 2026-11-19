@@ -5,7 +5,7 @@ lines=s.split('\n'); keep=[]; skip=False
 for l in lines:
     m=re.search(r'position:absolute;left:[\d.]+px;top:([\d.]+)px',l)
     if m: skip=float(m.group(1))>=240
-    elif not l.startswith('<') and skip: continue
+    elif not l.startswith("<") and skip and not l.startswith(("class","renderVals","return","}")): continue
     if m and skip: continue
     keep.append(l)
 s='\n'.join(keep)
