@@ -21,6 +21,8 @@ const items=await p.evaluate((mode)=>{
   if(e.tagName.toLowerCase()==='svg'){const vb=e.viewBox.baseVal;const sx=r.width/(vb&&vb.width||r.width),sy=r.height/(vb&&vb.height||r.height);
     e.querySelectorAll('polygon').forEach(pg=>{const c=rgb(getComputedStyle(pg).fill);if(!c)return;const pts=pg.getAttribute('points').trim().split(/\s+/).map(t=>t.split(',').map(Number)).map(([a,b2])=>[a*sx,b2*sy]);
      out.push({k:'poly',...rel(r),pts,fill:c});});return}
+  const ariaL=e.getAttribute('aria-label')||'';const lm=ariaL.match(/^(\d)단계$/);
+  if(lm&&/50%/.test(cs.borderRadius)){out.push({k:'moon',...rel(r),level:+lm[1],c:rgb(cs.borderTopColor),lw:parseFloat(cs.borderTopWidth)||1});return}
   // background
   let fill=rgb(cs.backgroundColor);const bi=cs.backgroundImage;let hl=null;
   if(bi&&bi!=='none'){const cols=[...bi.matchAll(/rgba?\([^)]*\)/g)].map(m=>m[0]);
@@ -31,7 +33,7 @@ const items=await p.evaluate((mode)=>{
    else{const q=rel(r);const tw=Math.min(q.w,(()=>{const rg=document.createRange();rg.selectNodeContents(e);return rg.getBoundingClientRect().width})());out.push({k:'rect',x:q.x,y:q.y+q.h*hl.p/100,w:tw,h:q.h*(1-hl.p/100),fill:hl.c})}}
   const bw=['Top','Right','Bottom','Left'].map(s=>parseFloat(cs['border'+s+'Width'])||0);const bc=['Top','Right','Bottom','Left'].map(s=>rgb(cs['border'+s+'Color']));
   const uni=bw.every(v=>v===bw[0])&&bc.every(v=>v===bc[0])&&bw[0]>0&&bc[0]&&cs.borderTopStyle!=='none';
-  if((fill&&disp!=='inline')||uni){const q=rel(r);out.push({k:'rect',...q,fill:disp!=='inline'?fill:null,line:uni?bc[0]:null,lw:uni?bw[0]:0})}
+  if((fill&&disp!=='inline')||uni){const q=rel(r);const rad=Math.max(parseFloat(cs.borderTopLeftRadius)||0,parseFloat(cs.borderBottomLeftRadius)||0);out.push({k:'rect',...q,fill:disp!=='inline'?fill:null,line:uni?bc[0]:null,lw:uni?bw[0]:0,ratio:rad?Math.min(50,Math.round(rad/Math.min(q.w,q.h)*100)):0})}
   else if(fill&&disp==='inline'){for(const cr of e.getClientRects()){out.push({k:'rect',...rel(cr),fill})}}
   if(!uni){const q=rel(r);[[0,q.x,q.y,q.w,bw[0]],[1,q.x+q.w-bw[1],q.y,bw[1],q.h],[2,q.x,q.y+q.h-bw[2],q.w,bw[2]],[3,q.x,q.y,bw[3],q.h]].forEach(([i,x,y,w,h])=>{if(bw[i]>0&&bc[i]&&cs['border'+['Top','Right','Bottom','Left'][i]+'Style']!=='none')out.push({k:'rect',x,y,w,h,fill:bc[i]})})}
   // text

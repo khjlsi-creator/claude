@@ -41,7 +41,7 @@ class Doc:
             r=s.attrs('ellipse')+' intervalDirty="0" hasArcPr="0" arcType="NORMAL">'+s.head(w,h,sh.get('line'),sh.get('lw',0),sh.get('fill'))
             r+=f'<hc:center x="{w//2}" y="{h//2}"/><hc:ax1 x="{w}" y="{h//2}"/><hc:ax2 x="{w//2}" y="{h}"/><hc:start1 x="{w}" y="{h//2}"/><hc:end1 x="{w}" y="{h//2}"/><hc:start2 x="{w}" y="{h//2}"/><hc:end2 x="{w}" y="{h//2}"/>'
             return r+s.tail(x,y,w,h)+'<hp:shapeComment>타원입니다.</hp:shapeComment></hp:ellipse>'
-        r=s.attrs('rect')+' ratio="0">'+s.head(w,h,sh.get('line'),sh.get('lw',0),sh.get('fill'))
+        r=s.attrs('rect')+f' ratio="{int(sh.get("ratio",0))}">'+s.head(w,h,sh.get('line'),sh.get('lw',0),sh.get('fill'))
         if sh.get('paras'):
             ps=[]
             for p in sh['paras']:
@@ -117,8 +117,20 @@ def from_extract(js, s_mm, ox, oy):
         x,y,w,h=ox*MM+U(it['x']),oy*MM+U(it['y']),U(it['w']),U(it['h'])
         if it['k']=='poly':
             out.append(dict(geom='poly',x=x,y=y,w=w,h=h,fill=it['fill'],pts=[(U(a),U(b)) for a,b in it['pts']])); continue
+        if it['k']=='moon':
+            import math
+            pct={5:1.0,4:0.75,3:0.5,2:0.25,1:0.0}[it['level']]
+            out.append(dict(geom='ellipse',x=x,y=y,w=w,h=h,fill='FFFFFF' if pct<1 else it['c'],line=None,lw=0))
+            if 0<pct<1:
+                cx,cy,r=w/2,h/2,min(w,h)/2; pts=[(cx,cy)]
+                n=max(2,int(pct*36))
+                for i in range(n+1):
+                    a=-math.pi/2+2*math.pi*pct*i/n; pts.append((cx+r*math.cos(a),cy+r*math.sin(a)))
+                out.append(dict(geom='poly',x=x,y=y,w=w,h=h,fill=it['c'],pts=pts))
+            out.append(dict(geom='ellipse',x=x,y=y,w=w,h=h,fill=None,line=it['c'],lw=U(it['lw'])))
+            continue
         if it['k']=='rect':
-            out.append(dict(geom='rect',x=x,y=y,w=w,h=h,fill=it.get('fill'),line=it.get('line'),lw=U(it.get('lw',0)))); continue
+            out.append(dict(geom='rect',x=x,y=y,w=w,h=h,fill=it.get('fill'),line=it.get('line'),lw=U(it.get('lw',0)),ratio=it.get('ratio',0))); continue
         paras=[]
         for pa in it['paras']:
             runs=[dict(t=r['t'],sz=r['sz']*pt_per_px*100,b=r['b'],c=r['c'],sp=max(-30,min(30,round(100*r.get('ls',0)/r['sz'])))) for r in pa]
